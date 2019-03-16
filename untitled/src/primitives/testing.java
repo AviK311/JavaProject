@@ -16,6 +16,9 @@ public class testing {
         Vector v2=new Vector(p2);
         System.out.println(v1.dotProduct(v2));
         System.out.println(v1.crossProduct(v2));
+        System.out.println(v1.length());
+        v1.normalize();
+        System.out.println(v1);
 
     }
 }

@@ -52,9 +52,9 @@ public class Vector {
     }
 
     public void scale(double scalingFacor){
-        this.head.x.scale(scalingFacor);
-        this.head.x.scale(scalingFacor);
-        this.head.x.scale(scalingFacor);
+        this.head.x=this.head.x.scale(scalingFacor);
+        this.head.y=this.head.y.scale(scalingFacor);
+        this.head.z=this.head.z.scale(scalingFacor);
     }
 
     public double length(){
