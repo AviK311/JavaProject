@@ -6,11 +6,6 @@ public class Sphere extends RadialGeometry {
         this.center = center;
     }
 
-    public Sphere(RadialGeometry other, Point3D center) {
-        super(other);
-        this.center = center;
-    }
-
     public Point3D getCenter() {
         return center;
     }
