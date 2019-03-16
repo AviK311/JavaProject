@@ -40,9 +40,13 @@ public class Point3D extends Point2D {
         this.z.subtract(other.z);
     }
     public double distance(Point3D other){
+        return Math.sqrt(distanceSquared(other));
+    }
+    public double distanceSquared(Point3D other){
         double _x=getX().subtract(other.x).get();
         double _y=getY().subtract(other.y).get();
         double _z=getZ().subtract(other.z).get();
-        return Math.sqrt(Math.pow(_x,2)+Math.pow(_y,2)+Math.pow(_z,2));
+        return _x*_x + _y*_y + _z*_z;
     }
+
 }
