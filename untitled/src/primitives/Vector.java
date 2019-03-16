@@ -66,8 +66,7 @@ public class Vector {
 
     public Vector crossProduct (Vector vector){
         Coordinate i= new Coordinate(head.y.get()*vector.head.z.get()-head.z.get()*vector.head.y.get());
-        Coordinate j= new Coordinate(head.y.get()*vector.head.z.get()-head.z.get()*vector.head.x.get());
-        j.scale(-1);
+        Coordinate j= new Coordinate(-(head.x.get()*vector.head.z.get()-head.z.get()*vector.head.x.get()));
         Coordinate k= new Coordinate(head.x.get()*vector.head.y.get()-head.y.get()*vector.head.x.get());
         return new Vector(new Point3D(i,j,k));
     }
