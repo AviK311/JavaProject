@@ -6,10 +6,6 @@ public class RadialGeometry {
     public RadialGeometry(float radius) {
         this.radius = radius;
     }
-    public RadialGeometry(RadialGeometry other) {
-        this.radius = other.radius;
-    }
-
     public float getRadius() {
         return radius;
     }

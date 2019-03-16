@@ -14,7 +14,7 @@ public class Triangle {
         this.p2 = p2;
         this.p3 = p3;
     }
-    
+
       public Point3D getP1() {
         return p1;
     }
