@@ -1,5 +1,23 @@
 package geometries;
-
+import primitives.Point3D;
 public class Sphere extends RadialGeometry {
-    int r;
+    public Sphere(float radius, Point3D center) {
+        super(radius);
+        this.center = center;
+    }
+
+    public Sphere(RadialGeometry other, Point3D center) {
+        super(other);
+        this.center = center;
+    }
+
+    public Point3D getCenter() {
+        return center;
+    }
+
+    public void setCenter(Point3D center) {
+        this.center = center;
+    }
+
+    private Point3D center;
 }

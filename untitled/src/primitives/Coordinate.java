@@ -1,5 +1,4 @@
 package primitives;
-
 import static primitives.Util.*;
 
 public final class Coordinate {
