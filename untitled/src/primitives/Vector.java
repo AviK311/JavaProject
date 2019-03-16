@@ -6,7 +6,7 @@ public class Vector {
     Point3D head;
 
     public Vector(Point3D head) {
-        this.head = head;
+        this.head = new Point3D(head);
     }
     public Vector(Vector other) {
         this.head = other.head;
@@ -41,14 +41,14 @@ public class Vector {
     }
     public void add(Vector vector) {
 
-        this.head.x.add(vector.getHead().getX());
-        this.head.y.add(vector.getHead().getY());
-        this.head.z.add(vector.getHead().getZ());
+        this.head.x=this.head.x.add(vector.getHead().getX());
+        this.head.y=this.head.y.add(vector.getHead().getY());
+        this.head.z=this.head.z.add(vector.getHead().getZ());
     }
     public void subtract (Vector vector ){
-        this.head.x.subtract(vector.getHead().getX());
-        this.head.y.subtract(vector.getHead().getY());
-        this.head.z.subtract(vector.getHead().getZ());
+        this.head.x=this.head.x.subtract(vector.getHead().getX());
+        this.head.y=this.head.y.subtract(vector.getHead().getY());
+        this.head.z=this.head.z.subtract(vector.getHead().getZ());
     }
 
     public void scale(double scalingFacor){

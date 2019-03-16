@@ -19,6 +19,16 @@ public class testing {
         System.out.println(v1.length());
         v1.normalize();
         System.out.println(v1);
+        System.out.println(v1.length());
+        v1=new Vector(p1);
+        v1.subtract(v2);
+        v1.scale(2);
+        System.out.println(v1);
+        v2.add(v2);
+        System.out.println(v2);
+        v2=new Vector(p2);
+        System.out.println(v2);
+
 
     }
 }

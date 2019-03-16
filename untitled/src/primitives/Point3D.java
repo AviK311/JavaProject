@@ -8,9 +8,9 @@ public class Point3D extends Point2D {
         this.z = z;
     }
 
-    public Point3D(Point2D other, Coordinate z) {
+    public Point3D(Point3D other) {
         super(other);
-        this.z = z;
+        this.z = other.z;
     }
 
     public Coordinate getZ() {
