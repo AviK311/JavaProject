@@ -26,13 +26,4 @@ public class Triangle {
     public Point3D getP3() {
         return p3;
     }
-
-    @Override
-    public String toString() {
-        return "Triangle{" +
-                "p1=" + p1 +
-                ", p2=" + p2 +
-                ", p3=" + p3 +
-                '}';
-    }
 }

@@ -24,10 +24,15 @@ public class testing {
         v1.subtract(v2);
         v1.scale(2);
         System.out.println(v1);
+        System.out.println(p1.distance(p2));
+        System.out.println(p1.distanceSquared(p2));
         v2.add(v2);
         System.out.println(v2);
         v2=new Vector(p2);
         System.out.println(v2);
+        System.out.println(p1.add(p2));
+        System.out.println(p1.subtract(p2));
+
 
 
     }

@@ -40,15 +40,10 @@ public class Vector {
                 '}';
     }
     public void add(Vector vector) {
-
-        this.head.x=this.head.x.add(vector.getHead().getX());
-        this.head.y=this.head.y.add(vector.getHead().getY());
-        this.head.z=this.head.z.add(vector.getHead().getZ());
+        head = head.add(vector.head);
     }
     public void subtract (Vector vector ){
-        this.head.x=this.head.x.subtract(vector.getHead().getX());
-        this.head.y=this.head.y.subtract(vector.getHead().getY());
-        this.head.z=this.head.z.subtract(vector.getHead().getZ());
+        head = head.subtract(vector.head);
     }
 
     public void scale(double scalingFacor){
@@ -58,7 +53,7 @@ public class Vector {
     }
 
     public double length(){
-        return Math.sqrt(Math.pow(head.x.get(),2)+Math.pow(head.y.get(),2)+Math.pow(head.z.get(),2));
+        return Math.sqrt(head.x.get()*head.x.get()+head.y.get()*head.y.get()+head.z.get()*head.z.get());
     }
     public void normalize(){
         scale(1/length());
