@@ -30,7 +30,7 @@ public class testing {
         System.out.println(v2);
         v2=new Vector(p2);
         System.out.println(v2);
-        System.out.println(p1.add(p2));
+        System.out.println(p1.add(v2));
         System.out.println(p1.subtract(p2));
 
 

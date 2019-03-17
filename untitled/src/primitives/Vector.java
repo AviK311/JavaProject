@@ -40,10 +40,10 @@ public class Vector {
                 '}';
     }
     public void add(Vector vector) {
-        head = head.add(vector.head);
+        head = head.add(vector);
     }
     public void subtract (Vector vector ){
-        head = head.subtract(vector.head);
+        head = head.subtract(vector.head).head;
     }
 
     public void scale(double scalingFacor){

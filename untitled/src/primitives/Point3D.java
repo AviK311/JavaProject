@@ -30,12 +30,12 @@ public class Point3D extends Point2D {
                 '}';
     }
 
-    public Point3D add(Point3D other) {
-        return new Point3D(x.add(other.x),y.add(other.y),z.add(other.z));
+    public Point3D add(Vector other) {
+        return new Point3D(x.add(other.head.x),y.add(other.head.y),z.add(other.head.z));
     }
 
-    public Point3D subtract(Point3D other) {
-        return new Point3D(x.subtract(other.x),y.subtract(other.y),z.subtract(other.z));
+    public Vector subtract(Point3D other) {
+        return new Vector(new Point3D(x.subtract(other.x),y.subtract(other.y),z.subtract(other.z)));
     }
     public double distance(Point3D other){
         return Math.sqrt(distanceSquared(other));
