@@ -9,6 +9,11 @@ public class Ray {
         this.head = head;
     }
 
+    public Ray(Ray other) {
+        this.direction = other.direction;
+        this.head = other.head;
+    }
+
     public Vector getDirection() {
         return direction;
     }
