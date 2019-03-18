@@ -8,9 +8,9 @@ public class Point3D extends Point2D {
         this.z = z;
     }
 
-    public Point3D(Point2D other, Coordinate z) {
+    public Point3D(Point3D other) {
         super(other);
-        this.z = z;
+        this.z = other.z;
     }
 
     public Coordinate getZ() {
@@ -30,14 +30,12 @@ public class Point3D extends Point2D {
                 '}';
     }
 
-    public void add(Point3D other) {
-        super.add(other);          //to check
-        this.z.add(other.z);
+    public Point3D add(Vector other) {
+        return new Point3D(x.add(other.head.x),y.add(other.head.y),z.add(other.head.z));
     }
 
-    public void subtract(Point3D other) {
-        super.subtract(other);      //to check
-        this.z.subtract(other.z);
+    public Vector subtract(Point3D other) {
+        return new Vector(new Point3D(x.subtract(other.x),y.subtract(other.y),z.subtract(other.z)));
     }
     public double distance(Point3D other){
         return Math.sqrt(distanceSquared(other));

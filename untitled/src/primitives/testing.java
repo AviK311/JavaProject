@@ -14,8 +14,30 @@ public class testing {
         Point3D p2 = new Point3D(c4,c5,c6);
         Vector v1=new Vector(p1);
         Vector v2=new Vector(p2);
+        Ray r1 = new Ray(v1.scale(0.5),p2);
+
         System.out.println(v1.dotProduct(v2));
         System.out.println(v1.crossProduct(v2));
+        System.out.println(v1.length());
+        System.out.println(v1.normalize());
+        System.out.println(v1);
+        System.out.println(v1.dotProduct(v2));
+        System.out.println(r1);
+        System.out.println(r1.getDirection().crossProduct(v1));
+
+        System.out.println(v1.normalize().length());
+        System.out.println(v1.subtract(v2));
+        System.out.println(v1.scale(-2));
+        System.out.println(p1.distance(p2));
+        System.out.println(p1.distanceSquared(p2));
+        System.out.println(v2.add(v2));
+        System.out.println(v2);
+        v2=new Vector(p1);
+        System.out.println(v2);
+        System.out.println(p1.add(v2));
+        System.out.println(p1.subtract(p2));
+
+
 
     }
 }
