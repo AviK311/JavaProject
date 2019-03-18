@@ -39,24 +39,25 @@ public class Vector {
                 "head=" + head +
                 '}';
     }
-    public void add(Vector vector) {
-        head = head.add(vector);
+    public Vector add(Vector vector) {
+        return new Vector(head.add(vector));
     }
-    public void subtract (Vector vector ){
-        head = head.subtract(vector.head).head;
+    public Vector subtract (Vector vector ){
+        return new Vector(head.subtract(vector.head).head);
     }
 
-    public void scale(double scalingFacor){
-        this.head.x=this.head.x.scale(scalingFacor);
-        this.head.y=this.head.y.scale(scalingFacor);
-        this.head.z=this.head.z.scale(scalingFacor);
+    public Vector scale(double scalingFacor){
+        Coordinate x_ = this.head.x.scale(scalingFacor);
+        Coordinate y_ = this.head.y.scale(scalingFacor);
+        Coordinate z_ = this.head.z.scale(scalingFacor);
+        return new Vector(new Point3D(x_,y_,z_));
     }
 
     public double length(){
         return Math.sqrt(head.x.get()*head.x.get()+head.y.get()*head.y.get()+head.z.get()*head.z.get());
     }
-    public void normalize(){
-        scale(1/length());
+    public Vector normalize(){
+        return new Vector(scale(1/length()));
     }
 
     public Vector crossProduct (Vector vector){
