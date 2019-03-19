@@ -13,6 +13,14 @@ public class VectorTest {
 
     @Test
     public void add() {
+        Coordinate c=new Coordinate(1);
+        Coordinate c2=new Coordinate(2);
+        Point3D p=new Point3D(c,c,c);
+        Point3D p2=new Point3D(c2,c2,c2);
+        Vector v=new Vector(p);
+        Vector v2=new Vector(p2);
+        Vector result=v.add(v);
+        assertEquals("good",v2,result);
     }
 
     @Test
