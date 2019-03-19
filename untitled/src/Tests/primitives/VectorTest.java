@@ -13,18 +13,29 @@ public class VectorTest {
 
     @Test
     public void add() {
-        Coordinate c=new Coordinate(1);
+        Coordinate c1=new Coordinate(1);
         Coordinate c2=new Coordinate(2);
-        Point3D p=new Point3D(c,c,c);
+        Point3D p1=new Point3D(c1,c1,c1);
         Point3D p2=new Point3D(c2,c2,c2);
-        Vector v=new Vector(p);
+        Vector v1=new Vector(p1);
         Vector v2=new Vector(p2);
-        Vector result=v.add(v);
+        Vector result=v1.add(v1);
         assertEquals("good",v2,result);
     }
 
     @Test
     public void subtract() {
+        Coordinate c1=new Coordinate(1);
+        Coordinate c2=new Coordinate(2);
+        Coordinate c0=new Coordinate(0);
+        Point3D p1=new Point3D(c0,c1,c2);
+        Point3D p2=new Point3D(c1,c2,c2);
+        Point3D p3=new Point3D(c1,c1,c0);
+        Vector v1=new Vector(p1);
+        Vector v2=new Vector(p2);
+        Vector v3=new Vector(p3);
+        Vector result=v2.subtract(v1);
+        assertEquals("good",v3,result);
     }
 
     @Test
