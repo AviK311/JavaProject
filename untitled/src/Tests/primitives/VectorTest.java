@@ -67,9 +67,17 @@ public class VectorTest {
 
     @Test
     public void crossProduct() {
+        Coordinate c_1 = new Coordinate(-1);
+        Coordinate c_2 = new Coordinate(-2);
+        Vector v = new Vector(new Point3D(c_2,c2,c_1));
+        Vector result = v1.crossProduct(v2);
+        assertEquals("fail",v,result);
     }
 
     @Test
     public void dotProduct() {
+        double d=6;
+        double result = v2.dotProduct(v1);
+        assertEquals("fail",d,result,0.01);
     }
 }
