@@ -38,14 +38,31 @@ public class VectorTest {
 
     @Test
     public void scale() {
+        Coordinate c_2 = new Coordinate(-2);
+        Coordinate c_4 = new Coordinate(-4);
+        Point3D p = new Point3D(c0,c_2,c_4);
+        Vector v = new Vector(p);
+        Vector result = v1.scale(-2);
+        assertEquals("fail",v,result);
     }
 
     @Test
     public void length() {
+        double d=3.;
+        double result = v2.length();
+        assertEquals("fail",d,result,0.01);
     }
 
     @Test
     public void normalize() {
+        Coordinate c1_3 = new Coordinate(1.0/3);
+        Coordinate c2_3 = new Coordinate(2.0/3);
+        Vector v = new Vector(new Point3D(c1_3,c2_3,c2_3));
+        Vector result = v2.normalize();
+        Coordinate c=new Coordinate(0.001);
+        //Vector delta =new Vector(new Point3D(c,c,c));
+        assertEquals("fail",v,result);
+
     }
 
     @Test

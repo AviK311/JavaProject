@@ -1,5 +1,6 @@
 package geometries;
 
+import java.awt.Color;
 import primitives.*;
 
 public abstract class Geometry {
