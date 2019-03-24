@@ -10,8 +10,8 @@ public class Ray {
     }
 
     public Ray(Ray other) {
-        this.direction = other.direction;
-        this.head = other.head;
+        this.direction = other.getDirection();
+        this.head = other.getHead();
     }
 
     public Vector getDirection() {

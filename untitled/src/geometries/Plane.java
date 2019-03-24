@@ -3,7 +3,7 @@ package geometries;
 import primitives.Point3D;
 import primitives.Vector;
 
-public class Plane {
+public class Plane extends Geometry {
     Point3D p1;
     Vector normal;
 
@@ -17,6 +17,11 @@ public class Plane {
     }
 
     public Vector getNormal() {
+        return normal;
+    }
+
+    @Override
+    public Vector getNormal(Point3D p) {
         return normal;
     }
 }

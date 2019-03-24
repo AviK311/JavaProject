@@ -1,6 +1,9 @@
 package geometries;
 
-public class RadialGeometry {
+import primitives.Point3D;
+import primitives.Vector;
+
+public class RadialGeometry extends Geometry{
     float radius;
 
     public RadialGeometry(float radius) {
@@ -12,5 +15,10 @@ public class RadialGeometry {
 
     public void setRadius(float radius) {
         this.radius = radius;
+    }
+
+    @Override
+    public Vector getNormal(Point3D p) {
+        return null;
     }
 }
