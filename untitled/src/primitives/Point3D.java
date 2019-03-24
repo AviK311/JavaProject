@@ -1,7 +1,7 @@
 package primitives;
 
 public class Point3D extends Point2D {
-    Coordinate z;
+    private Coordinate z;
 
     public Point3D(Coordinate x, Coordinate y, Coordinate z) {
         super(x, y);
@@ -31,7 +31,7 @@ public class Point3D extends Point2D {
     }
 
     public Point3D add(Vector other) {
-        return new Point3D(x.add(other.head.x),y.add(other.head.y),z.add(other.head.z));
+        return new Point3D(x.add(other.getHead().x),y.add(other.getHead().y),z.add(other.getHead().z));
     }
 
     public Vector subtract(Point3D other) {

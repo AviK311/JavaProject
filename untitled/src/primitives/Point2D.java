@@ -3,8 +3,8 @@ package primitives;
 import java.util.Objects;
 
 public class Point2D {
-    Coordinate x;
-    Coordinate y;
+    protected Coordinate x;
+    protected Coordinate y;
 
     public Point2D(Coordinate x, Coordinate y) {
         this.x = x;
@@ -52,12 +52,5 @@ public class Point2D {
                 ", y=" + y +
                 '}';
     }
-   // public void add(Point2D other){
-        //this.x.add(other.x);
-        //this.y.add(other.y);
-    //}
-   // public void subtract(Point2D other){
-        //this.x.subtract(other.x);
-        //this.y.subtract(other.y);
-   // }
+
 }
