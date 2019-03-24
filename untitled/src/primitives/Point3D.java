@@ -31,19 +31,19 @@ public class Point3D extends Point2D {
     }
 
     public Point3D add(Vector other) {
-        return new Point3D(x.add(other.getHead().x),y.add(other.getHead().y),z.add(other.getHead().z));
+        return new Point3D(x.add(other.getHead().getX()),y.add(other.getHead().getY()),z.add(other.getHead().getY()));
     }
 
     public Vector subtract(Point3D other) {
-        return new Vector(new Point3D(x.subtract(other.x),y.subtract(other.y),z.subtract(other.z)));
+        return new Vector(new Point3D(x.subtract(other.getX()),y.subtract(other.getY()),z.subtract(other.getZ())));
     }
     public double distance(Point3D other){
         return Math.sqrt(distanceSquared(other));
     }
     public double distanceSquared(Point3D other){
-        double _x=getX().subtract(other.x).get();
-        double _y=getY().subtract(other.y).get();
-        double _z=getZ().subtract(other.z).get();
+        double _x=getX().subtract(other.getX()).get();
+        double _y=getY().subtract(other.getY()).get();
+        double _z=getZ().subtract(other.getZ()).get();
         return _x*_x + _y*_y + _z*_z;
     }
 
