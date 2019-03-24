@@ -9,7 +9,7 @@ public class Plane extends Geometry {
 
     public Plane(Point3D p1, Vector normal) {
         this.p1 = p1;
-        this.normal = normal;
+        this.normal = normal.normalize();
     }
 
     public Point3D getP1() {
