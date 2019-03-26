@@ -2,6 +2,7 @@ package elements;
 
 import primitives.Coordinate;
 import primitives.Point3D;
+import primitives.Ray;
 import primitives.Vector;
 
 import java.util.Objects;
@@ -87,5 +88,11 @@ public class camera {
                 ", vRight=" + vRight +
                 ", vTo=" + vTo +
                 '}';
+    }
+    public Ray constructRayThrowAPixel(int Nx,int Ny,double i,double j,double screenDist,double screenWidth,double screenHeight	){
+        Point3D pc= p0.add(vTo.scale(screenDist));
+        double Rx=screenWidth/Nx;
+        double Ry=screenHeight/Ny;
+        return new Ray(vRight,p0);
     }
 }
