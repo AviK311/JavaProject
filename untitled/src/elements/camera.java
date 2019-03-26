@@ -93,6 +93,9 @@ public class camera {
         Point3D pc= p0.add(vTo.scale(screenDist));
         double Rx=screenWidth/Nx;
         double Ry=screenHeight/Ny;
-        return new Ray(vRight,p0);
+        double A = (i-Nx/2)*Rx+Rx/2;
+        double B = (i-Ny/2)*Ry+Ry/2;
+        Point3D p = pc.add(vRight.scale(A).subtract(vUp.scale(B)));
+        return new Ray(new Vector(p),p0);
     }
 }
