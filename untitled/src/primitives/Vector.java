@@ -34,8 +34,8 @@ public class Vector {
 
     @Override
     public String toString() {
-        return "Vector{" +
-                "head=" + head +
+        return "V{" +
+                "h=" + head +
                 '}';
     }
     public Vector add(Vector vector) {

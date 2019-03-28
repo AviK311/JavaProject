@@ -10,6 +10,10 @@ public class Point2D {
         this.x = x;
         this.y = y;
     }
+    public Point2D(double x, double y) {
+        this.x = new Coordinate(x);
+        this.y = new Coordinate(y);
+    }
     public Point2D(Point2D other) {
         this.x = other.x;
         this.y = other.y;
@@ -47,7 +51,7 @@ public class Point2D {
 
     @Override
     public String toString() {
-        return "Point2D{" +
+        return "P2D{" +
                 "x=" + x +
                 ", y=" + y +
                 '}';
