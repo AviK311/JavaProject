@@ -8,10 +8,10 @@ import primitives.Vector;
 import java.util.Objects;
 
 public class camera {
-    Point3D p0;
-    Vector vUp;
-    Vector vRight;
-    Vector vTo;
+    private Point3D p0;
+    private Vector vUp;
+    private Vector vRight;
+    private  Vector vTo;
     public camera() {
         this.p0 = new Point3D(new Coordinate(0),new Coordinate(0),new Coordinate(0));
         vUp = new Vector(new Point3D(new Coordinate(0),new Coordinate(1),new Coordinate(0)));
@@ -20,16 +20,16 @@ public class camera {
     }
 
     public camera(Point3D p0, Vector vup, Vector vright, Vector vtoward) {
-        p0 = p0;
-        vUp = vup;
-        vRight = vright;
-        vTo = vtoward;
+        this.p0 = p0;
+        this.vUp = vup;
+        this.vRight = vright;
+        this.vTo = vtoward;
     }
     public camera(camera other) {
-        p0 = other.getP0();
-        vUp = other.getvUp();
-        vRight = other.getvRight();
-        vTo = other.getvTo();
+        this.p0 = other.getP0();
+        this.vUp = other.getvUp();
+        this.vRight = other.getvRight();
+        this.vTo = other.getvTo();
     }
 
     public Point3D getP0() {
@@ -93,8 +93,8 @@ public class camera {
         Point3D pc= p0.add(vTo.scale(screenDist));
         double Rx=screenWidth/Nx;
         double Ry=screenHeight/Ny;
-        double A = (i-Nx/2)*Rx+Rx/2;
-        double B = (i-Ny/2)*Ry+Ry/2;
+        double A = (i-(double)Nx/2)*Rx+Rx/2;
+        double B = (j-(double)Ny/2)*Ry+Ry/2;
         Point3D p = pc.add(vRight.scale(A).subtract(vUp.scale(B)));
         return new Ray(new Vector(p),p0);
     }

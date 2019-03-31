@@ -40,9 +40,9 @@ public class Ray {
 
     @Override
     public String toString() {
-        return "Ray{" +
-                "head=" + head +
-                ", direction=" + direction +
+        return "R{" +
+                "h=" + head +
+                ", dir=" + direction +
                 '}';
     }
 }
