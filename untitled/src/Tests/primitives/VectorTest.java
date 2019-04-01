@@ -59,10 +59,7 @@ public class VectorTest {
         Coordinate c2_3 = new Coordinate(2.0/3);
         Vector v = new Vector(new Point3D(c1_3,c2_3,c2_3));
         Vector result = v2.normalize();
-        Coordinate c=new Coordinate(0.001);
-        //Vector delta =new Vector(new Point3D(c,c,c));
         assertEquals("fail",v,result);
-
     }
 
     @Test

@@ -56,7 +56,7 @@ public class Vector {
         return Math.sqrt(head.getX().get()*head.getX().get()+head.getY().get()*head.getY().get()+head.getZ().get()*head.getZ().get());
     }
     public Vector normalize(){
-        return new Vector(scale(1/length()));
+        return new Vector(scale(1.0/length()));
     }
 
     public Vector crossProduct (Vector vector){

@@ -48,7 +48,7 @@ public class Point3D extends Point2D {
 
     
     public Point3D add(Vector other) {
-        return new Point3D(x.add(other.getHead().getX()),y.add(other.getHead().getY()),z.add(other.getHead().getY()));
+        return new Point3D(x.add(other.getHead().getX()),y.add(other.getHead().getY()),z.add(other.getHead().getZ()));
     }
 
     public Vector subtract(Point3D other) {
