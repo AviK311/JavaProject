@@ -6,7 +6,7 @@ import primitives.Vector;
 
 import java.util.ArrayList;
 
-public class Plane extends Geometry implements Intersectable {
+public class Plane extends Geometry {
     Point3D p1;
     Vector normal;
 
