@@ -25,7 +25,6 @@ public class cameraTest {
             fail("The ray head is " + ray.getHead() +"\nand the camera point is " + camera.getP0());
         assertEquals(new Vector(new Point3D(-4.5, 4.5, -10)).normalize(), ray.getDirection());
     }
-
     @Test
     public void constructRayThrowAPixel2() {
         // TODO: 3/28/2019 Add a test for constructRayThrowAPixel

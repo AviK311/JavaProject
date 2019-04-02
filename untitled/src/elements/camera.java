@@ -19,10 +19,11 @@ public class camera {
         vRight =  vTo.crossProduct(vUp);//(1,0,0)
     }
 
-    public camera(Point3D p0, Vector vup, Vector vright, Vector vtoward) {
+    public camera(Point3D p0, Vector vup, Vector vtoward) {
         this.p0 = p0;
         this.vUp = vup;
-        this.vRight = vright;
+        vRight =  vTo.crossProduct(vUp);//(1,0,0)
+        //this.vRight = vright;
         this.vTo = vtoward;
     }
     public camera(camera other) {
