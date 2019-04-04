@@ -12,13 +12,18 @@ public class RadialGeometry extends Geometry{
     public RadialGeometry(float radius) {
         this.radius = radius;
     }
+
+    /**
+     *
+     * @return radius
+     */
     public float getRadius() {
         return radius;
     }
 
-    public void setRadius(float radius) {
-        this.radius = radius;
-    }
+//    public void setRadius(float radius) {
+//        this.radius = radius;
+//    }
 
     @Override
     public Vector getNormal(Point3D p) {

@@ -26,6 +26,11 @@ public class Sphere extends RadialGeometry {
         return v.normalize();
     }
 
+    /**
+     *
+     * @param ray
+     * @return
+     */
     @Override
     public ArrayList<Point3D> FindIntersections(Ray ray) {
         ArrayList<Point3D> intersectionPoints = new ArrayList<>();

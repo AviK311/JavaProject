@@ -54,6 +54,11 @@ public class Plane extends Geometry {
         return normal;
     }
 
+    /**
+     *
+     * @param ray
+     * @return return a list of intersection points to this plane
+     */
     @Override
     public ArrayList<Point3D> FindIntersections(Ray ray) {
         ArrayList<Point3D> intersectionPoints = new ArrayList<>();
