@@ -14,6 +14,12 @@ public class Plane extends Geometry {
         this.p1 = p1;
         this.normal = normal.normalize();
     }
+    public Plane(Point3D p1, Point3D p2, Point3D p3){
+        Vector v1 = p1.subtract(p2);
+        Vector v2 = p1.subtract(p3);
+        this.p1 = p1;
+        this.normal = v1.crossProduct(v2);
+    }
 
     public Point3D getP1() {
         return p1;
