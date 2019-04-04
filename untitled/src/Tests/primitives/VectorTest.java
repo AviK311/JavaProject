@@ -36,6 +36,9 @@ public class VectorTest {
         assertEquals("good",v3,result);
     }
 
+    /**
+     * scale test
+     */
     @Test
     public void scale() {
         Coordinate c_2 = new Coordinate(-2);
@@ -46,6 +49,9 @@ public class VectorTest {
         assertEquals("fail",v,result);
     }
 
+    /**
+     * length test
+     */
     @Test
     public void length() {
         double d=3.;

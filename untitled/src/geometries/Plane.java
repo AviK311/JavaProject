@@ -10,21 +10,41 @@ public class Plane extends Geometry {
     Point3D p1;
     Vector normal;
 
+    /**
+     * ctor with point and vector params
+     * @param p1
+     * @param normal
+     */
     public Plane(Point3D p1, Vector normal) {
         this.p1 = p1;
         this.normal = normal.normalize();
     }
+
+    /**
+     * ctor with point params
+     * @param p1
+     * @param p2
+     * @param p3
+     */
     public Plane(Point3D p1, Point3D p2, Point3D p3){
         Vector v1 = p1.subtract(p2);
         Vector v2 = p1.subtract(p3);
         this.p1 = p1;
-        this.normal = v1.crossProduct(v2);
+        this.normal = v1.crossProduct(v2).normalize();
     }
 
+    /**
+     *
+     * @return point3d pl
+     */
     public Point3D getP1() {
         return p1;
     }
 
+    /**
+     *
+     * @return normal vector
+     */
     public Vector getNormal() {
         return normal;
     }
@@ -36,10 +56,10 @@ public class Plane extends Geometry {
 
     @Override
     public ArrayList<Point3D> FindIntersections(Ray ray) {
-        ArrayList<Point3D> intersectionPoints = new ArrayList<Point3D>();
-        Vector v1=ray.getHead().subtract(p1); // P0 - Q0
-        double d= normal.dotProduct(ray.getDirection()); // N * V
-        if (d!=0) {
+        ArrayList<Point3D> intersectionPoints = new ArrayList<>();
+        Vector v1 = ray.getHead().subtract(p1); // P0 - Q0
+        double d = normal.dotProduct(ray.getDirection()); // N * V
+        if (d!=0) {//checking whether the normal and the ray direction are vertical
             double t = -normal.dotProduct(v1)/d; // -N * (P0 - QO) / (N * V)
             if (t>0){
                 Point3D p = ray.getHead().add(ray.getDirection().scale(t));

@@ -12,6 +12,10 @@ public class Sphere extends RadialGeometry {
         this.center = center;
     }
 
+    /**
+     *
+     * @return center
+     */
     public Point3D getCenter() {
         return center;
     }
@@ -24,8 +28,16 @@ public class Sphere extends RadialGeometry {
 
     @Override
     public ArrayList<Point3D> FindIntersections(Ray ray) {
-        //double t=1;
-        //Point3D p = ray.getHead().add(ray.getDirection().scale(t));
-        return null;
+        ArrayList<Point3D> intersectionPoints = new ArrayList<>();
+        Vector u = center.subtract(ray.getHead());
+        double uLength = u.length();
+        double tM = u.dotProduct(ray.getDirection());
+        double d = Math.sqrt(uLength*uLength - tM*tM);
+        double tN = Math.sqrt(radius*radius - d*d);
+        if (tM + tN > 0) intersectionPoints.add(ray.getHead().add(ray.getDirection().scale(tM + tN)));
+        if (tM - tN > 0) intersectionPoints.add(ray.getHead().add(ray.getDirection().scale(tM - tN)));
+        if (intersectionPoints.isEmpty())
+            return null;
+        return intersectionPoints;
     }
 }
