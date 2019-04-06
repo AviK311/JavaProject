@@ -66,7 +66,7 @@ public class Plane extends Geometry {
         double d = normal.dotProduct(ray.getDirection()); // N * V
         if (d!=0) {//checking whether the normal and the ray direction are vertical
             double t = -normal.dotProduct(v1)/d; // -N * (P0 - QO) / (N * V)
-            if (t>0){
+            if (t!=0){
                 Point3D p = ray.getHead().add(ray.getDirection().scale(t));
                 intersectionPoints.add(p);
                 return intersectionPoints;
