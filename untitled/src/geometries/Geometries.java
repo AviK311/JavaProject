@@ -6,8 +6,13 @@ import primitives.Ray;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Geometies implements IIntersectible{
+public class Geometries implements IIntersectible{
     List<IIntersectible> geometriesList;
+
+    public Geometries() {
+        this.geometriesList = new ArrayList<>();
+    }
+
     @Override
     public ArrayList<Point3D> FindIntersections(Ray myRay) {
         if (geometriesList==null) return null;

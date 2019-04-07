@@ -13,6 +13,16 @@ public class Vector {
     }
 
     /**
+     * ctor with double params
+     * @param x
+     * @param y
+     * @param z
+     */
+    public Vector(double x, double y, double z) {
+        this(new Point3D(x,y,z));
+    }
+
+    /**
      * copy ctor
      * @param other to copy
      */
@@ -126,4 +136,25 @@ public class Vector {
         double _z=head.getZ().get()*vector.getHead().getZ().get();
         return _x+_y+_z;
     }
+
+    /**
+     * gives transformation of a vector using a matrix
+     * @param matrix an array of 3 vectors
+     * @param vec vector to transform
+     * @return transformed vector
+     */
+    public static Vector getTransformed(Vector [] matrix, Vector vec){
+        Point3D head = vec.head, v1 = matrix[0].head, v2 = matrix[1].head, v3 =matrix[2].head;
+        double a = head.x._coord*v1.x._coord +
+                head.y._coord*v1.y._coord +
+                head.z._coord *v1.z._coord;
+        double b = head.x._coord*v2.x._coord +
+                head.y._coord*v2.y._coord +
+                head.z._coord *v2.z._coord;;
+        double c = head.x._coord*v3.x._coord +
+                head.y._coord*v3.y._coord +
+                head.z._coord *v3.z._coord;;
+        return new Vector(a,b,c);
+    }
+
 }
