@@ -13,9 +13,9 @@ public class camera {
     private Vector vRight;
     private  Vector vTo;
     public camera() {
-        this.p0 = new Point3D(new Coordinate(0),new Coordinate(0),new Coordinate(0));
-        vUp = new Vector(new Point3D(new Coordinate(0),new Coordinate(1),new Coordinate(0)));
-        vTo = new Vector(new Point3D(new Coordinate(0),new Coordinate(0),new Coordinate(-1)));
+        this.p0 = Point3D.originPoint;
+        vUp = new Vector(0,1,0);
+        vTo = new Vector(0,0,-1);
         vRight =  vTo.crossProduct(vUp);//(1,0,0)
     }
 
@@ -37,33 +37,33 @@ public class camera {
         return p0;
     }
 
-    public void setP0(Point3D p0) {
-        this.p0 = p0;
-    }
+//    public void setP0(Point3D p0) {
+//        this.p0 = p0;
+//    }
 
     public Vector getvUp() {
         return vUp;
     }
 
-    public void setvUp(Vector vUp) {
-        this.vUp = vUp;
-    }
+//    public void setvUp(Vector vUp) {
+//        this.vUp = vUp;
+//    }
 
     public Vector getvRight() {
         return vRight;
     }
 
-    public void setvRight(Vector vRight) {
-        this.vRight = vRight;
-    }
+//    public void setvRight(Vector vRight) {
+//        this.vRight = vRight;
+//    }
 
     public Vector getvTo() {
         return vTo;
     }
 
-    public void setvTo(Vector vTo) {
-        this.vTo = vTo;
-    }
+//    public void setvTo(Vector vTo) {
+//        this.vTo = vTo;
+//    }
 
     @Override
     public boolean equals(Object o) {
@@ -90,7 +90,19 @@ public class camera {
                 ", vTo=" + vTo +
                 '}';
     }
-    public Ray constructRayThrowAPixel(int Nx,int Ny,double i,double j,double screenDist,double screenWidth,double screenHeight	){
+
+    /**
+     * Constructs a ray for future use of getting intersection points
+     * @param Nx number of width pixels
+     * @param Ny number of height pixels
+     * @param i width index
+     * @param j height index
+     * @param screenDist distance from camera to screen
+     * @param screenWidth screen width
+     * @param screenHeight screen height
+     * @return a ray whose direction is going through the center of the chosen pixel
+     */
+    public Ray constructRayThroughAPixel(int Nx, int Ny, double i, double j, double screenDist, double screenWidth, double screenHeight	){
         Point3D pc = p0.add(vTo.scale(screenDist));
         double Rx=screenWidth/Nx;
         double Ry=screenHeight/Ny;

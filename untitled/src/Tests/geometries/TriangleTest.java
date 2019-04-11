@@ -3,7 +3,10 @@ package geometries;
 import org.junit.Test;
 import primitives.Coordinate;
 import primitives.Point3D;
+import primitives.Ray;
 import primitives.Vector;
+
+import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
@@ -18,4 +21,6 @@ public class TriangleTest {
         Triangle tri = new Triangle(p1, p2, p3);
         assertEquals(new Vector(new Point3D(zero, zero, one)),tri.getNormal(p1));
     }
+
+
 }
