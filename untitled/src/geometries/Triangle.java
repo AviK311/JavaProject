@@ -1,5 +1,6 @@
 package geometries;
 
+import primitives.Coordinate;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
@@ -60,7 +61,10 @@ public class Triangle extends Plane{
         boolean sign1 = v0.dotProduct(N1) > 0;
         boolean sign2 = v0.dotProduct(N2) > 0;
         boolean sign3 = v0.dotProduct(N3) > 0;
-        if (sign1==sign2==sign3)
+//        double a= v0.dotProduct(N3);
+//        Point3D p1 = new Point3D(new Coordinate(a),new Coordinate(0),new Coordinate(0));
+//        intersectionPoints.set(0,p1);
+        if (sign1==sign2&&sign1==sign3)
             return intersectionPoints;
         return null;
     }
