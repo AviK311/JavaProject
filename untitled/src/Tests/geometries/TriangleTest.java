@@ -37,4 +37,20 @@ public class TriangleTest {
         assertEquals("fail",a,result);
 
     }
+    @Test
+    public void findIntersections2() {
+        Point3D p0 = new Point3D(0,0,0);
+        Point3D p1 = new Point3D(0,100,-200);
+        Point3D p2 = new Point3D(100,-100,-200);
+        Point3D p3 = new Point3D(-200,-200,-200);
+        Triangle triangle=new Triangle(p1,p2,p3);
+        Vector v1 = new Vector(1.0/3,1.0/3,1.0/3);
+        Ray r =new Ray(v1,p0);
+        ArrayList<Point3D> result = triangle.FindIntersections(r);
+        ArrayList<Point3D> a=new ArrayList<Point3D>();
+        Point3D p4 =new Point3D(-200,-200,-200);
+        a.add(p4);
+        assertEquals("fail",a,result);
+
+    }
 }
