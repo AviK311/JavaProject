@@ -1,25 +1,26 @@
 package Scene;
+import geometries.GeometryList;
 import geometries.Geometry;
+import geometries.IIntersectible;
 import javafx.scene.AmbientLight;
 import javafx.scene.Camera;
 
 import java.awt.*;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Scene {
     String sceneName;
     Color background;
     AmbientLight ambientLight;
-    List<Geometry> geometries;
+    GeometryList geometries;
     Camera camera;
     double screenDistance;
 
-    public Scene(String sceneName, Color background, AmbientLight ambientLight, List<Geometry> geometries, Camera camera, double screenDistance) {
+    public Scene(String sceneName, Color background, AmbientLight ambientLight, Camera camera, double screenDistance) {
         this.sceneName = sceneName;
         this.background = background;
         this.ambientLight = ambientLight;
-        this.geometries = geometries;
+        this.geometries = new GeometryList();
         this.camera = camera;
         this.screenDistance = screenDistance;
     }
@@ -37,17 +38,17 @@ public class Scene {
         return sceneName;
     }
 
-    public void setSceneName(String sceneName) {
-        this.sceneName = sceneName;
-    }
+//    public void setSceneName(String sceneName) {
+//        this.sceneName = sceneName;
+//    }
 
     public Color getBackground() {
         return background;
     }
 
-    public void setBackground(Color background) {
-        this.background = background;
-    }
+//    public void setBackground(Color background) {
+//        this.background = background;
+//    }
 
     public AmbientLight getAmbientLight() {
         return ambientLight;
@@ -57,29 +58,29 @@ public class Scene {
         this.ambientLight = ambientLight;
     }
 
-    public List<Geometry> getGeometries() {
+    public GeometryList getGeometries() {
         return geometries;
     }
 
-    public void setGeometries(List<Geometry> geometries) {
-        this.geometries = geometries;
-    }
+//    public void setGeometries(List<Geometry> geometries) {
+//        this.geometries = geometries;
+//    }
 
     public Camera getCamera() {
         return camera;
     }
 
-    public void setCamera(Camera camera) {
-        this.camera = camera;
-    }
+//    public void setCamera(Camera camera) {
+//        this.camera = camera;
+//    }
 
     public double getScreenDistance() {
         return screenDistance;
     }
 
-    public void setScreenDistance(double screenDistance) {
-        this.screenDistance = screenDistance;
-    }
+//    public void setScreenDistance(double screenDistance) {
+//        this.screenDistance = screenDistance;
+//    }
 
     @Override
     public boolean equals(Object o) {
@@ -102,16 +103,19 @@ public class Scene {
     @Override
     public String toString() {
         return "Scene{" +
-                "sceneName='" + sceneName + '\'' +
+                "Name='" + sceneName + '\'' +
                 ", background=" + background +
-                ", ambientLight=" + ambientLight +
-                ", geometries=" + geometries +
+                ", ambLight=" + ambientLight +
+                ", geoList=" + geometries +
                 ", camera=" + camera +
-                ", screenDistance=" + screenDistance +
+                ", scrnDist=" + screenDistance +
                 '}';
     }
 
     public void addGeometry(Geometry geometry){
         geometries.add(geometry);
+    }
+    public Iterator<IIntersectible> getGeoIterator(){
+        return geometries.getIterator();
     }
 }

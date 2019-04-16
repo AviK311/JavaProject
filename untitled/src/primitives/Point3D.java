@@ -3,7 +3,7 @@ package primitives;
 import java.util.Objects;
 
 public class Point3D extends Point2D {
-    private Coordinate z;
+    protected Coordinate z;
     public static final Point3D originPoint = new Point3D(0,0,0);
 
     /**
