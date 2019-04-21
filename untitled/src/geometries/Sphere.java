@@ -41,6 +41,8 @@ public class Sphere extends RadialGeometry {
         double tN = Math.sqrt(radius*radius - d*d);
         if (tM + tN > 0) intersectionPoints.add(ray.getHead().add(ray.getDirection().scale(tM + tN)));
         if (tM - tN > 0) intersectionPoints.add(ray.getHead().add(ray.getDirection().scale(tM - tN)));
+        if (tM + tN == tM-tN && tM-tN != 0)//0nly one point
+            intersectionPoints.remove(0);
         if (intersectionPoints.isEmpty())
             return null;
         return intersectionPoints;

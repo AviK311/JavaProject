@@ -36,4 +36,26 @@ public class SphereTest {
         a.add(p2);
         assertEquals("fail",a,result);
     }
+    @Test
+    public void findIntersections2() {
+        Point3D p0 = new Point3D(0,0,0);
+        Sphere sphere = new Sphere(100,new Point3D(0,-100,-400));
+        Vector v1 = new Vector(0,0,-1);
+        Ray r =new Ray(v1,p0);
+        ArrayList<Point3D> result = sphere.FindIntersections(r);
+        ArrayList<Point3D> a=new ArrayList<Point3D>();
+        Point3D p1 =new Point3D(0,0,-400);
+        a.add(p1);
+        assertEquals("fail",a,result);
+    }
+
+    @Test
+    public void findIntersections3() {
+        Point3D p0 = new Point3D(0,0,0);
+        Sphere sphere = new Sphere(80,new Point3D(0,-100,-400));
+        Vector v1 = new Vector(0,0,-1);
+        Ray r =new Ray(v1,p0);
+        ArrayList<Point3D> result = sphere.FindIntersections(r);
+        assertEquals("fail",null,result);
+    }
 }
