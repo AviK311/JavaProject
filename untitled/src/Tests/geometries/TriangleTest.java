@@ -21,7 +21,7 @@ public class TriangleTest {
         Triangle tri = new Triangle(p1, p2, p3);
         assertEquals(new Vector(new Point3D(zero, zero, one)),tri.getNormal(p1));
     }
-    @Test
+    @Test   // The example from Chapter 6
     public void findIntersections() {
         Point3D p0 = new Point3D(0,0,0);
         Point3D p1 = new Point3D(0,100,-200);
@@ -59,9 +59,9 @@ public class TriangleTest {
         Point3D p0 = new Point3D(0,0,0);
         Point3D p1 = new Point3D(0,100,-200);
         Point3D p2 = new Point3D(100,-100,-200);
-        Point3D p3 = new Point3D(-200,-200,-200);
+        Point3D p3 = new Point3D(-204,-203,-200);
         Triangle triangle=new Triangle(p1,p2,p3);
-        Vector v1 = new Vector(1.0/3,1.0/3,1.0/3);
+        Vector v1 = new Vector(1,1,1);
         Ray r =new Ray(v1,p0);
         ArrayList<Point3D> result = triangle.FindIntersections(r);
         ArrayList<Point3D> a=new ArrayList<Point3D>();

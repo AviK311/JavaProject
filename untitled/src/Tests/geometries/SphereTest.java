@@ -22,7 +22,7 @@ public class SphereTest {
 
     }
 
-    @Test   // The example in Chapter 6
+    @Test   // The example from Chapter 6
     public void findIntersections() {
         Point3D p0 = new Point3D(0,0,0);
         Sphere sphere = new Sphere(200,new Point3D(0,0,-400));
