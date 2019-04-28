@@ -17,7 +17,7 @@ public class PlaneTest {
     public void getNormal() {
         Vector vec = new Vector(1,2,3);
         Plane plane = new Plane(null ,vec );
-        assertTrue(vec.equals(plane.getNormal()) && vec.equals(plane.getNormal(null)));
+        assertTrue(vec.normalize().equals(plane.getNormal()) && vec.normalize().equals(plane.getNormal(null)));
     }
 
     @Test
