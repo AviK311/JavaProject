@@ -112,6 +112,7 @@ public class Scene {
                 '}';
     }
 
+
     public void addGeometry(Geometry geometry){
         geometries.add(geometry);
     }
