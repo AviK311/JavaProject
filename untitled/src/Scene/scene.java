@@ -1,8 +1,8 @@
 package Scene;
+import elements.AmbientLight;
 import geometries.GeometryList;
 import geometries.Geometry;
 import geometries.IIntersectible;
-import javafx.scene.AmbientLight;
 import javafx.scene.Camera;
 
 import java.awt.*;

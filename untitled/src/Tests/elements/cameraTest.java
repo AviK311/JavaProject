@@ -16,7 +16,7 @@ public class cameraTest {
         Ray ray = camera.constructRayThroughAPixel(3, 3,2, 2, 100, 150, 150);
         if (!ray.getHead().equals(camera.getP0()))
             fail("The ray head is " + ray.getHead() +"\nand the camera point is " + camera.getP0());
-        assertEquals(new Vector(new Point3D(0, 0, -1)).normalize(), ray.getDirection());
+        assertEquals(new Vector(0,0,-1).normalize(), ray.getDirection());
     }
 
 
@@ -26,7 +26,7 @@ public class cameraTest {
         Ray ray = camera.constructRayThroughAPixel(3, 3,3, 3, 100, 150, 150);
         if (!ray.getHead().equals(camera.getP0()))
             fail("The ray head is " + ray.getHead() +"\nand the camera point is " + camera.getP0());
-        assertEquals(new Vector(new Point3D(50, -50, -100)).normalize(),ray.getDirection());
+        assertEquals(new Vector(50, -50, -100).normalize(),ray.getDirection());
     }
 
     //@Test
@@ -36,9 +36,9 @@ public class cameraTest {
         final int HEIGHT = 3;
 
 
-        Point3D p = new Point3D(new Coordinate(0.0), new Coordinate(0.0), new Coordinate(0.0));
-        Point3D p1 = new Point3D(new Coordinate(0.0), new Coordinate(1.0), new Coordinate(0.0));
-        Point3D p2 = new Point3D(new Coordinate(0.0), new Coordinate(0.0), new Coordinate(-1.0));
+        Point3D p = Point3D.originPoint;
+        Point3D p1 = new Point3D(0,1,0);
+        Point3D p2 = new Point3D(0,0,-1);
 
 
         Vector v1 = new Vector(p1);
