@@ -4,7 +4,6 @@ import org.junit.Test;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
-import primitives.Coordinate;
 
 import static org.junit.Assert.*;
 
@@ -36,7 +35,7 @@ public class cameraTest {
         final int HEIGHT = 3;
 
 
-        Point3D p = Point3D.originPoint;
+        Point3D p = Point3D.ORIGIN_POINT;
         Point3D p1 = new Point3D(0,1,0);
         Point3D p2 = new Point3D(0,0,-1);
 

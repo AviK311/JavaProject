@@ -27,7 +27,7 @@ public class TriangleTest {
      */
     @Test
     public void findIntersections() {
-        Point3D p0 = Point3D.originPoint;
+        Point3D p0 = Point3D.ORIGIN_POINT;
         Point3D p1 = new Point3D(0,100,-200);
         Point3D p2 = new Point3D(100,-100,-200);
         Point3D p3 = new Point3D(-100,-100,-200);
@@ -43,7 +43,7 @@ public class TriangleTest {
     }
     @Test
     public void findIntersections2() {
-        Point3D p0 =Point3D.originPoint;
+        Point3D p0 =Point3D.ORIGIN_POINT;
         Point3D p1 = new Point3D(0,100,-200);
         Point3D p2 = new Point3D(100,-100,-200);
         Point3D p3 = new Point3D(-200,-200,-200);

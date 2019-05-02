@@ -45,7 +45,7 @@ public class SphereTest {
      */
     @Test
     public void findIntersections2() {
-        Point3D p0 = Point3D.originPoint;
+        Point3D p0 = Point3D.ORIGIN_POINT;
         Sphere sphere = new Sphere(100,new Point3D(0,-100,-400));
         Vector v1 = new Vector(0,0,-1);
         Ray r =new Ray(v1,p0);
@@ -61,7 +61,7 @@ public class SphereTest {
      */
     @Test
     public void findIntersections3() {
-        Point3D p0 = Point3D.originPoint;
+        Point3D p0 = Point3D.ORIGIN_POINT;
         Sphere sphere = new Sphere(80,new Point3D(0,-100,-400));
         Vector v1 = new Vector(0,0,-1);
         Ray r =new Ray(v1,p0);

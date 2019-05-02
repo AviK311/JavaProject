@@ -2,7 +2,11 @@ package renderer;
 
 
 import Scene.scene;
+import primitives.Point3D;
 
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Objects;
 
 public class Render {
@@ -56,5 +60,15 @@ public class Render {
             }
         }
         imageWriter.writeToimage();
+    }
+    private Point3D getClosestPoint(List<Point3D> pointList){
+        if (pointList.isEmpty()) return null;
+        Point3D p0 = _scene.getCamera().getP0();
+        Point3D closestPoint = pointList.get(0);
+        for (Point3D p: pointList)
+             if (p.distance(p0) < closestPoint.distance(p0))
+                 closestPoint = p;
+        return closestPoint;
+
     }
 }

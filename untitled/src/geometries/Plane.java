@@ -16,7 +16,7 @@ public class Plane extends Geometry {
      * @param normal
      */
     public Plane(Point3D p1, Vector normal) {
-        this.p1 = p1;
+        this.p1 = new Point3D(p1);
         this.normal = normal.normalize();
     }
 
@@ -27,10 +27,11 @@ public class Plane extends Geometry {
      * @param p3
      */
     public Plane(Point3D p1, Point3D p2, Point3D p3){
-        Vector v1 = p1.subtract(p2);
-        Vector v2 = p1.subtract(p3);
-        this.p1 = p1;
-        this.normal = v1.crossProduct(v2).normalize();
+        Vector v1 = p1.subtract(p2);//if p1==p2, a zero vector constructor attempt exception will be thrown
+        Vector v2 = p1.subtract(p3);//if p1==p3, a zero vector constructor attempt exception will be thrown
+        this.p1 = new Point3D(p1);
+        this.normal = v1.crossProduct(v2).normalize();//if the 3 dots are on the same line,
+        // the crossproduct function will throw a zero vector constructor attempt exception
     }
 
     /**

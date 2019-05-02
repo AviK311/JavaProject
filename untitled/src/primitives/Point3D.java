@@ -3,22 +3,24 @@ package primitives;
 import java.util.Objects;
 
 public class Point3D extends Point2D {
-    protected Coordinate z;
-    public static final Point3D originPoint = new Point3D(0,0,0);
+    private Coordinate z;
+    public static final Point3D ORIGIN_POINT = new Point3D(0, 0, 0);
 
     /**
      * ctor with coordinate params
+     *
      * @param x
      * @param y
      * @param z
      */
     public Point3D(Coordinate x, Coordinate y, Coordinate z) {
         super(x, y);
-        this.z = z;
+        this.z = new Coordinate(z);
     }
 
     /**
      * ctor with double params
+     *
      * @param x
      * @param y
      * @param z
@@ -30,15 +32,15 @@ public class Point3D extends Point2D {
 
     /**
      * copy ctor
+     *
      * @param other
      */
     public Point3D(Point3D other) {
         super(other);
-        this.z = other.z;
+        this.z = new Coordinate(other.z);
     }
 
     /**
-     *
      * @return coordinate z
      */
     public Coordinate getZ() {
@@ -51,6 +53,7 @@ public class Point3D extends Point2D {
 
     /**
      * equals override
+     *
      * @param o
      * @return if this equals o
      */
@@ -59,7 +62,7 @@ public class Point3D extends Point2D {
         if (this == o) return true;
         if (!(o instanceof Point3D)) return false;
         Point3D point3D = (Point3D) o;
-        return super.equals(o) && Objects.equals(getZ(), point3D.getZ());
+        return super.equals(o) && Objects.equals(z, point3D.z);
     }
 
     // TODO: 3/28/2019 We need to do proper תיעוד on everything 
@@ -74,41 +77,43 @@ public class Point3D extends Point2D {
 
     /**
      * adds a vector to a point
+     *
      * @param other vector to add
      * @return the point at the other end
      */
     public Point3D add(Vector other) {
-        return new Point3D(x.add(other.getHead().getX()),y.add(other.getHead().getY()),z.add(other.getHead().getZ()));
+        return new Point3D(x.add(other.getHead().x), y.add(other.getHead().y), z.add(other.getHead().z));
     }
 
     /**
-     *
      * @param other
      * @return
      */
     public Vector subtract(Point3D other) {
-        return new Vector(new Point3D(x.subtract(other.getX()),y.subtract(other.getY()),z.subtract(other.getZ())));
+        return new Vector(new Point3D(x.subtract(other.x), y.subtract(other.y), z.subtract(other.z)));
     }
 
     /**
+     * gets the distance between this point and other point
      *
      * @param other
-     * @return distance between this point and other point
+     * @return distance
      */
-    public double distance(Point3D other){
+    public double distance(Point3D other) {
         return Math.sqrt(distanceSquared(other));
     }
 
     /**
+     * gets the squared distance between this point and other point
      *
      * @param other
-     * @return squared distance between this point and other point
+     * @return squared distance
      */
-    public double distanceSquared(Point3D other){
-        double _x=getX().subtract(other.getX()).get();
-        double _y=getY().subtract(other.getY()).get();
-        double _z=getZ().subtract(other.getZ()).get();
-        return _x*_x + _y*_y + _z*_z;
+    public double distanceSquared(Point3D other) {
+        double _x = x.subtract(other.x).get();
+        double _y = y.subtract(other.y).get();
+        double _z = z.subtract(other.z).get();
+        return _x * _x + _y * _y + _z * _z;
     }
 
 }
