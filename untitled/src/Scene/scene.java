@@ -8,7 +8,7 @@ import javafx.scene.Camera;
 import java.awt.*;
 import java.util.*;
 
-public class Scene {
+public class scene {
     String sceneName;
     Color background;
     AmbientLight ambientLight;
@@ -16,7 +16,7 @@ public class Scene {
     Camera camera;
     double screenDistance;
 
-    public Scene(String sceneName, Color background, AmbientLight ambientLight, Camera camera, double screenDistance) {
+    public scene(String sceneName, Color background, AmbientLight ambientLight, Camera camera, double screenDistance) {
         this.sceneName = sceneName;
         this.background = background;
         this.ambientLight = ambientLight;
@@ -25,7 +25,7 @@ public class Scene {
         this.screenDistance = screenDistance;
     }
 
-    public Scene(Scene other) {
+    public scene(scene other) {
         this.sceneName = other.getSceneName() ;
         this.background = other.getBackground();
         this.ambientLight = other.getAmbientLight();
@@ -85,8 +85,8 @@ public class Scene {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Scene)) return false;
-        Scene scene = (Scene) o;
+        if (!(o instanceof scene)) return false;
+        scene scene = (Scene.scene) o;
         return Double.compare(scene.getScreenDistance(), getScreenDistance()) == 0 &&
                 getSceneName().equals(scene.getSceneName()) &&
                 getBackground().equals(scene.getBackground()) &&
@@ -102,7 +102,7 @@ public class Scene {
 
     @Override
     public String toString() {
-        return "Scene{" +
+        return "scene{" +
                 "Name='" + sceneName + '\'' +
                 ", background=" + background +
                 ", ambLight=" + ambientLight +
@@ -111,6 +111,7 @@ public class Scene {
                 ", scrnDist=" + screenDistance +
                 '}';
     }
+
 
     public void addGeometry(Geometry geometry){
         geometries.add(geometry);
