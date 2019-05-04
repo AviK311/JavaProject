@@ -9,6 +9,6 @@ public class AmbientLight {
 
     public Color getIntensity(){
 
-        return null;
+        return color.scale(Ka);
     }
 }

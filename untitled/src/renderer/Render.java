@@ -2,23 +2,28 @@ package renderer;
 
 
 import Scene.scene;
+import geometries.Geometry;
+import geometries.IIntersectable;
 import primitives.Point3D;
 
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
+import primitives.Ray;
+//import java.awt.Color;
+import primitives.Color;
 
 public class Render {
     scene _scene;
-    ImageWriter imageWriter;
+    ImageWriter _imageWriter;
 
     public Render(scene _scene, ImageWriter imageWriter) {
         this._scene = _scene;
-        this.imageWriter = imageWriter;
+        this._imageWriter = imageWriter;
     }
     public Render() {
-        this.imageWriter = new ImageWriter("rr",500,500,500,500);
+        this._imageWriter = new ImageWriter("rr",500,500,500,500);
     }
 
     public scene get_scene() {
@@ -29,12 +34,12 @@ public class Render {
         this._scene = _scene;
     }
 
-    public ImageWriter getImageWriter() {
-        return imageWriter;
+    public ImageWriter get_imageWriter() {
+        return _imageWriter;
     }
 
-    public void setImageWriter(ImageWriter imageWriter) {
-        this.imageWriter = imageWriter;
+    public void set_imageWriter(ImageWriter _imageWriter) {
+        this._imageWriter = _imageWriter;
     }
 
     @Override
@@ -43,23 +48,61 @@ public class Render {
         if (!(o instanceof Render)) return false;
         Render render = (Render) o;
         return get_scene().equals(render.get_scene()) &&
-                getImageWriter().equals(render.getImageWriter());
+                get_imageWriter().equals(render.get_imageWriter());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(get_scene(), getImageWriter());
+        return Objects.hash(get_scene(), get_imageWriter());
     }
-    public void printGrid(int interval)
-    {
-        for (int i=0; i<imageWriter.getHeight();i++){
-            for (int j=0; j<imageWriter.getWidth();j++)
+
+    public void renderImage(){
+        for (int i = 0; i< _imageWriter.getHeight(); i++){
+            for (int j = 0; j< _imageWriter.getWidth(); j++)
             {
-                if(i%interval==0||j%interval==0)
-                    imageWriter.writePixel(i,j,255,255,255);
+                Ray ray = _scene.getCamera().constructRayThroughAPixel(_imageWriter.getNx(),
+                        _imageWriter.getNy(), j, i,_scene.getScreenDistance(), _imageWriter.getWidth(),
+                       _imageWriter.getHeight());
+                List<Point3D> intersectionPoints = getSceneRayIntersections(ray);
+                if (intersectionPoints.isEmpty()){
+                    _imageWriter.writePixel(j, i, _scene.getBackground());
+                }
+                else {
+                    Point3D closetPoint = getClosestPoint(intersectionPoints);
+                    _imageWriter.writePixel(j,i,calcColor(closetPoint));
+                }
+
             }
         }
-        imageWriter.writeToimage();
+        _imageWriter.writeToimage();
+    }
+
+    private List<Point3D> getSceneRayIntersections(Ray ray){
+        Iterator<IIntersectable> geometries = _scene.getGeoIterator();
+        List<Point3D> intersectionPoints = new ArrayList<Point3D>();
+        while (geometries.hasNext())
+        {
+            IIntersectable geometry = geometries.next();
+            List<Point3D> geometryIntersectionPoints = geometry.FindIntersections(ray);
+            intersectionPoints.addAll(geometryIntersectionPoints);
+        }
+      return intersectionPoints;
+    }
+
+    private Color calcColor(Point3D point){
+        return new Color(0,150,0);
+    }
+
+    public void printGrid(int interval)
+    {
+        for (int i = 0; i< _imageWriter.getHeight(); i++){
+            for (int j = 0; j< _imageWriter.getWidth(); j++)
+            {
+                if(i%interval==0||j%interval==0)
+                    _imageWriter.writePixel(i,j,255,255,255);
+            }
+        }
+        _imageWriter.writeToimage();
     }
     private Point3D getClosestPoint(List<Point3D> pointList){
         if (pointList.isEmpty()) return null;

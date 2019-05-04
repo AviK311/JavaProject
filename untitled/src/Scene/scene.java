@@ -4,7 +4,7 @@ import elements.camera;
 import geometries.GeometryList;
 import geometries.Geometry;
 import geometries.IIntersectable;
-
+import primitives.Color;
 import java.awt.*;
 import java.util.*;
 
