@@ -10,8 +10,8 @@ public class Ray {
      * @param head
      */
     public Ray(Vector direction, Point3D head) {
-        this.direction = direction.normalize();
-        this.head = head;
+        this.direction = new Vector(direction);
+        this.head = new Point3D(head);
     }
 
     /**
@@ -19,8 +19,8 @@ public class Ray {
      * @param other
      */
     public Ray(Ray other) {
-        this.direction = other.getDirection();
-        this.head = other.getHead();
+        this.direction = new Vector(other.direction);
+        this.head = new Point3D(other.head);
     }
 
     /**
@@ -56,7 +56,7 @@ public class Ray {
         if (this == o) return true;
         if (!(o instanceof Ray)) return false;
         Ray ray = (Ray) o;
-        return getHead().equals(ray.getHead()) && getDirection().equals(ray.getDirection());
+        return head.equals(ray.head) && direction.equals(ray.direction);
     }
 
     @Override

@@ -1,9 +1,9 @@
 package Scene;
+import elements.AmbientLight;
+import elements.camera;
 import geometries.GeometryList;
 import geometries.Geometry;
-import geometries.IIntersectible;
-import javafx.scene.AmbientLight;
-import javafx.scene.Camera;
+import geometries.IIntersectable;
 
 import java.awt.*;
 import java.util.*;
@@ -13,15 +13,15 @@ public class scene {
     Color background;
     AmbientLight ambientLight;
     GeometryList geometries;
-    Camera camera;
+    camera Camera;
     double screenDistance;
 
-    public scene(String sceneName, Color background, AmbientLight ambientLight, Camera camera, double screenDistance) {
+    public scene(String sceneName, Color background, AmbientLight ambientLight, camera Camera, double screenDistance) {
         this.sceneName = sceneName;
         this.background = background;
         this.ambientLight = ambientLight;
         this.geometries = new GeometryList();
-        this.camera = camera;
+        this.Camera = Camera;
         this.screenDistance = screenDistance;
     }
 
@@ -30,7 +30,7 @@ public class scene {
         this.background = other.getBackground();
         this.ambientLight = other.getAmbientLight();
         this.geometries = other.getGeometries();
-        this.camera = other.getCamera();
+        this.Camera = other.getCamera();
         this.screenDistance = other.getScreenDistance();
     }
 
@@ -66,8 +66,8 @@ public class scene {
 //        this.geometries = geometries;
 //    }
 
-    public Camera getCamera() {
-        return camera;
+    public camera getCamera() {
+        return Camera;
     }
 
 //    public void setCamera(Camera camera) {
@@ -107,7 +107,7 @@ public class scene {
                 ", background=" + background +
                 ", ambLight=" + ambientLight +
                 ", geoList=" + geometries +
-                ", camera=" + camera +
+                ", camera=" + Camera +
                 ", scrnDist=" + screenDistance +
                 '}';
     }
@@ -116,7 +116,7 @@ public class scene {
     public void addGeometry(Geometry geometry){
         geometries.add(geometry);
     }
-    public Iterator<IIntersectible> getGeoIterator(){
+    public Iterator<IIntersectable> getGeoIterator(){
         return geometries.getIterator();
     }
 }

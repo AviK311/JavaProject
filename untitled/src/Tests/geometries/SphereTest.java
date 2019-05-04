@@ -22,7 +22,10 @@ public class SphereTest {
 
     }
 
-    @Test   // The example from Chapter 6
+    /**
+     * The example from Chapter 6
+     */
+    @Test
     public void findIntersections() {
         Point3D p0 = new Point3D(0,0,0);
         Sphere sphere = new Sphere(200,new Point3D(0,0,-400));
@@ -36,9 +39,13 @@ public class SphereTest {
         a.add(p2);
         assertEquals("fail",a,result);
     }
-    @Test   // This sphere is half from the previous one: from the center (0,0,-400) to (0,-200,-400)
+
+    /**
+     * The diameter of this sphere is half the diameter of the previous one: from the center (0,0,-400) to (0,-200,-400)
+     */
+    @Test
     public void findIntersections2() {
-        Point3D p0 = new Point3D(0,0,0);
+        Point3D p0 = Point3D.ORIGIN_POINT;
         Sphere sphere = new Sphere(100,new Point3D(0,-100,-400));
         Vector v1 = new Vector(0,0,-1);
         Ray r =new Ray(v1,p0);
@@ -49,9 +56,12 @@ public class SphereTest {
         assertEquals("fail",a,result);
     }
 
-    @Test //This sphere is similar to the previous one but with a smaller radius so there are no intersection points.
+    /**
+     * This sphere is similar to the previous one but with a smaller radius so there are no intersection points.
+     */
+    @Test
     public void findIntersections3() {
-        Point3D p0 = new Point3D(0,0,0);
+        Point3D p0 = Point3D.ORIGIN_POINT;
         Sphere sphere = new Sphere(80,new Point3D(0,-100,-400));
         Vector v1 = new Vector(0,0,-1);
         Ray r =new Ray(v1,p0);

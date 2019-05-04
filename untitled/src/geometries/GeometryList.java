@@ -7,16 +7,16 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class GeometryList implements IIntersectible{
-    List<IIntersectible> geometriesList;
+public class GeometryList implements IIntersectable {
+    List<IIntersectable> geometriesList;
 
     public GeometryList() {
         this.geometriesList = new ArrayList<>();
     }
-    public Iterator<IIntersectible> getIterator(){
+    public Iterator<IIntersectable> getIterator(){
         return geometriesList.iterator();
     }
-    public void add(IIntersectible geo){
+    public void add(IIntersectable geo){
         geometriesList.add(geo);
     }
 
@@ -24,7 +24,7 @@ public class GeometryList implements IIntersectible{
     public ArrayList<Point3D> FindIntersections(Ray myRay) {
         if (geometriesList==null) return null;
         ArrayList<Point3D> allIntersections = new ArrayList<>();
-        for (IIntersectible geo : geometriesList)
+        for (IIntersectable geo : geometriesList)
             allIntersections.addAll(geo.FindIntersections(myRay));
         return allIntersections;
     }

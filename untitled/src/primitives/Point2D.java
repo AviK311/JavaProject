@@ -31,8 +31,8 @@ public class Point2D {
      * @param other
      */
     public Point2D(Point2D other) {
-        this.x = other.x;
-        this.y = other.y;
+        this.x = new Coordinate(other.x);
+        this.y = new Coordinate(other.y);
     }
 
     /**
@@ -69,14 +69,11 @@ public class Point2D {
         if (this == o) return true;
         if (!(o instanceof Point2D)) return false;
         Point2D point2D = (Point2D) o;
-        return Objects.equals(getX(), point2D.getX()) &&
-                Objects.equals(getY(), point2D.getY());
+        return Objects.equals(x, point2D.x) &&
+                Objects.equals(y, point2D.x);
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(getX(), getY());
-    }
+
 
     @Override
     public String toString() {

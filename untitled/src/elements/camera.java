@@ -1,6 +1,5 @@
 package elements;
 
-import primitives.Coordinate;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
@@ -13,7 +12,7 @@ public class camera {
     private Vector vRight;
     private  Vector vTo;
     public camera() {
-        this.p0 = Point3D.originPoint;
+        this.p0 = Point3D.ORIGIN_POINT;
         vUp = new Vector(0,1,0);
         vTo = new Vector(0,0,-1);
         vRight =  vTo.crossProduct(vUp);//(1,0,0)
