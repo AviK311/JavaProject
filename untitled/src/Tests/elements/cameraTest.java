@@ -29,7 +29,7 @@ public class cameraTest {
         assertEquals(new Vector(new Point3D(50, -50, -100)).normalize(),ray.getDirection());
     }
 
-    //@Test
+    @Test
     public void testRaysConstruction(){
 
         final int WIDTH  = 3;

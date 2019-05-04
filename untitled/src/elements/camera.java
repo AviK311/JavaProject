@@ -22,9 +22,9 @@ public class camera {
     public camera(Point3D p0, Vector vup, Vector vtoward) {
         this.p0 = p0;
         this.vUp = vup;
+        this.vTo = vtoward;
         vRight =  vTo.crossProduct(vUp);//(1,0,0)
         //this.vRight = vright;
-        this.vTo = vtoward;
     }
     public camera(camera other) {
         this.p0 = other.getP0();
@@ -106,9 +106,9 @@ public class camera {
         Point3D pc = p0.add(vTo.scale(screenDist));
         double Rx=screenWidth/Nx;
         double Ry=screenHeight/Ny;
-        double A = (i-(double)Nx/2)*Rx-Rx/2;
-        double B = (j-(double)Ny/2)*Ry-Ry/2;
+        double A = (i-(double)Nx/2)*Rx+Rx/2;
+        double B = (j-(double)Ny/2)*Ry+Ry/2;
         Point3D p = pc.add(vRight.scale(A).subtract(vUp.scale(B)));
-        return new Ray(new Vector(p).normalize(),p0);
+        return new Ray(new Vector(p).normalize(),p);
     }
 }
