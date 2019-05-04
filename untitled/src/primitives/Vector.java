@@ -133,7 +133,6 @@ public class Vector {
         double k = head.x.get() * vector.head.y.get() - head.y.get() * vector.head.x.get();
         return new Vector(i, j, k);
     }
-
     /**
      * dot product between two vectors
      *
