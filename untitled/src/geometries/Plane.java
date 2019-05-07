@@ -1,5 +1,6 @@
 package geometries;
 
+import primitives.Color;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
@@ -16,6 +17,12 @@ public class Plane extends Geometry {
      * @param normal
      */
     public Plane(Point3D p1, Vector normal) {
+        this.p1 = new Point3D(p1);
+        this.normal = normal.normalize();
+    }
+
+    public Plane(Color emmision, Point3D p1, Vector normal) {
+        super(emmision);
         this.p1 = new Point3D(p1);
         this.normal = normal.normalize();
     }

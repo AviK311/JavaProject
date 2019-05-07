@@ -16,6 +16,15 @@ public class scene {
     camera Camera;
     double screenDistance;
 
+    public scene(){
+        this.sceneName = "New Scene";
+        this.background = new Color(255,255,255);
+        this.ambientLight = new AmbientLight();
+        this.geometries = new GeometryList();
+        this.Camera = new camera();
+        this.screenDistance = 50;
+    }
+
     public scene(String sceneName, Color background, AmbientLight ambientLight, camera Camera, double screenDistance) {
         this.sceneName = sceneName;
         this.background = background;
