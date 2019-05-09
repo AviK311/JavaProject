@@ -16,7 +16,7 @@ public class PlaneTest {
     @Test
     public void getNormal() {
         Vector vec = new Vector(1,2,3);
-        Plane plane = new Plane(null ,vec );
+        Plane plane = new Plane(Point3D.ORIGIN_POINT ,vec );
         assertTrue(vec.normalize().equals(plane.getNormal()) && vec.normalize().equals(plane.getNormal(null)));
     }
 
