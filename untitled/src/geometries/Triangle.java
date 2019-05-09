@@ -1,9 +1,6 @@
 package geometries;
 
-import primitives.Coordinate;
-import primitives.Point3D;
-import primitives.Ray;
-import primitives.Vector;
+import primitives.*;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -20,6 +17,12 @@ public class Triangle extends Plane{
      */
     public Triangle(Point3D p1, Point3D p2, Point3D p3) {
         super(p1,p1.subtract(p2).crossProduct(p1.subtract(p3)));
+        this.p2 = new Point3D(p2);
+        this.p3 = new Point3D(p3);
+    }
+
+    public Triangle(Color emmision, Point3D p1, Point3D p2, Point3D p3) {
+        super(emmision,p1,p1.subtract(p2).crossProduct(p1.subtract(p3)));
         this.p2 = new Point3D(p2);
         this.p3 = new Point3D(p3);
     }

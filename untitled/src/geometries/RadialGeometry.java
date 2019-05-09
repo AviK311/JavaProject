@@ -1,5 +1,6 @@
 package geometries;
 
+import primitives.Color;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
@@ -10,6 +11,11 @@ public class RadialGeometry extends Geometry{
     float radius;
 
     public RadialGeometry(float radius) {
+        this.radius = radius;
+    }
+
+    public RadialGeometry(Color emmision, float radius) {
+        super(emmision);
         this.radius = radius;
     }
 

@@ -59,19 +59,7 @@ public class Point2D {
 //        this.y = y;
 //    }
 
-    /**
-     * equals override
-     * @param o
-     * @return if equals
-     */
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (!(o instanceof Point2D)) return false;
-//        Point2D point2D = (Point2D) o;
-//        return Objects.equals(x, point2D.x) &&
-//                Objects.equals(y, point2D.x);
-//    }
+
 
     @Override
     public int hashCode() {
