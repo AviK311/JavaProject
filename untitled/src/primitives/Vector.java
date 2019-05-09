@@ -49,6 +49,11 @@ public class Vector {
 //        this.head = head;
 //    }
 
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
     /**
      * equals override
      *
@@ -89,7 +94,7 @@ public class Vector {
      * @return
      */
     public Vector subtract(Vector vector) {
-        return new Vector(head.subtract(vector.getHead()).getHead());
+        return new Vector(head.subtract(vector.head).head);
     }
 
     /**

@@ -105,9 +105,17 @@ public class camera {
         Point3D pc = p0.add(vTo.scale(screenDist));
         double Rx=screenWidth/Nx;
         double Ry=screenHeight/Ny;
-        double A = (i-(double)Nx/2)*Rx+Rx/2;
-        double B = (j-(double)Ny/2)*Ry+Ry/2;
-        Point3D p = pc.add(vRight.scale(A).subtract(vUp.scale(B)));
-        return new Ray(new Vector(p).normalize(),p);
+        double A = (i-(double)Nx/2)*Rx-Rx/2;
+        double B = (j-(double)Ny/2)*Ry-Ry/2;
+        Point3D p;
+        if (A == 0 && B == 0)
+            p = pc;
+        else if (A == 0)
+            p = pc.add(vUp.scale(-B));
+        else if (B == 0)
+            p = pc.add(vRight.scale(A));
+        else
+            p = pc.add(vRight.scale(A).subtract(vUp.scale(B)));
+        return new Ray(new Vector(p).normalize(),p0);
     }
 }

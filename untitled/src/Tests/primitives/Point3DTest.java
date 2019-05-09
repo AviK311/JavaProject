@@ -20,6 +20,13 @@ public class Point3DTest {
     }
 
     @Test
+    public void equals() {
+        Point3D p1 =new Point3D(1,2,3);
+        Point3D p2 =new Point3D(1,2,3);
+        assertTrue(p1.equals(p2));
+    }
+
+    @Test
     public void subtract() {
         Point3D p1 =new Point3D(1,2,4);
         Point3D p2 =new Point3D(2,3,4);

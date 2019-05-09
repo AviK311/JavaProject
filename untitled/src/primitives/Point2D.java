@@ -64,16 +64,19 @@ public class Point2D {
      * @param o
      * @return if equals
      */
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (!(o instanceof Point2D)) return false;
+//        Point2D point2D = (Point2D) o;
+//        return Objects.equals(x, point2D.x) &&
+//                Objects.equals(y, point2D.x);
+//    }
+
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Point2D)) return false;
-        Point2D point2D = (Point2D) o;
-        return Objects.equals(x, point2D.x) &&
-                Objects.equals(y, point2D.x);
+    public int hashCode() {
+        return Objects.hash(getX(), getY());
     }
-
-
 
     @Override
     public String toString() {
@@ -83,4 +86,12 @@ public class Point2D {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Point2D point2D = (Point2D) o;
+        return Objects.equals(x, point2D.x) &&
+                Objects.equals(y, point2D.y);
+    }
 }

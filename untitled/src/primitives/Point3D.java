@@ -57,13 +57,13 @@ public class Point3D extends Point2D {
      * @param o
      * @return if this equals o
      */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Point3D)) return false;
-        Point3D point3D = (Point3D) o;
-        return super.equals(o) && Objects.equals(z, point3D.z);
-    }
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (!(o instanceof Point3D)) return false;
+//        Point3D point3D = (Point3D) o;
+//        return super.equals(o) && z.equals(point3D.z);
+//    }
 
     // TODO: 3/28/2019 We need to do proper תיעוד on everything 
     @Override
@@ -82,6 +82,8 @@ public class Point3D extends Point2D {
      * @return the point at the other end
      */
     public Point3D add(Vector other) {
+        if (other == null)
+            return new Point3D(this);
         return new Point3D(x.add(other.getHead().x), y.add(other.getHead().y), z.add(other.getHead().z));
     }
 
@@ -116,4 +118,17 @@ public class Point3D extends Point2D {
         return _x * _x + _y * _y + _z * _z;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Point3D point3D = (Point3D) o;
+        return Objects.equals(z, point3D.z);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), z);
+    }
 }
