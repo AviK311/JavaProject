@@ -3,6 +3,7 @@ package renderer;
 
 import Scene.scene;
 import geometries.Geometry;
+import geometries.GeometryList;
 import geometries.IIntersectable;
 import primitives.Point3D;
 
@@ -84,13 +85,15 @@ public class Render {
         {
             IIntersectable geometry = geometries.next();
             List<Point3D> geometryIntersectionPoints = geometry.FindIntersections(ray);
-            intersectionPoints.addAll(geometryIntersectionPoints);
+            if (geometryIntersectionPoints!=null)
+                intersectionPoints.addAll(geometryIntersectionPoints);
         }
       return intersectionPoints;
     }
 
     private Color calcColor(Point3D point){
-        return new Color(0,150,0);
+
+        return _scene.getAmbientLight().getIntensity();
     }
 
     public void printGrid(int interval)
