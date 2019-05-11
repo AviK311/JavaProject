@@ -49,23 +49,23 @@ public class RenderTest {
         Color orange = new Color(220,150,0);
         Color pink = new Color(200,0,100);
 
-        scene.addGeometry(new Sphere(blue, 50, new Point3D(0.0, 0.0, -150)));
+        scene.addGeometry(new Sphere(blue, 105, new Point3D(0.0, 0.0, -150)));
 
-        Triangle triangle = new Triangle(red,new Point3D( 100, 0, -149),
-                new Point3D(  0, 100, -149),
-                new Point3D( 100, 100, -149));
+        Triangle triangle = new Triangle(red,new Point3D( 100, 0, -50),
+                new Point3D(  0, 100, -50),
+                new Point3D( 100, 100, -50));
 
-        Triangle triangle2 = new Triangle(green,new Point3D( 100, 0, -149),
-                new Point3D(  0, -100, -149),
-                new Point3D( 100,-100, -149));
+        Triangle triangle2 = new Triangle(green,new Point3D( 100, 0, -50),
+                new Point3D(  0, -100, -50),
+                new Point3D( 100,-100, -50));
 
-        Triangle triangle3 = new Triangle(orange,new Point3D(-100, 0, -149),
-                new Point3D(  0, 100, -149),
-                new Point3D(-100, 100, -149));
+        Triangle triangle3 = new Triangle(orange,new Point3D(-100, 0, -50),
+                new Point3D(  0, 100, -50),
+                new Point3D(-100, 100, -50));
 
-        Triangle triangle4 = new Triangle(pink,new Point3D(-100, 0, -149),
-                new Point3D(  0,  -100, -149),
-                new Point3D(-100, -100, -149));
+        Triangle triangle4 = new Triangle(pink,new Point3D(-100, 0, -50),
+                new Point3D(  0,  -100, -50),
+                new Point3D(-100, -100, -50));
 
         scene.addGeometry(triangle);
         scene.addGeometry(triangle2);

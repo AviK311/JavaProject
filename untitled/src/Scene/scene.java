@@ -18,8 +18,8 @@ public class scene {
 
     public scene(){
         this.sceneName = "New Scene";
-        this.background = new Color(255,255,255);
-        this.ambientLight = new AmbientLight();
+        this.background = new Color(0,0,0);
+        this.ambientLight = new AmbientLight(new Color(255,255,255), 1);
         this.geometries = new GeometryList();
         this.Camera = new camera();
         this.screenDistance = 50;
