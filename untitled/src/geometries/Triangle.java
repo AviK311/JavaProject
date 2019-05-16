@@ -3,7 +3,7 @@ package geometries;
 import primitives.*;
 
 import java.util.ArrayList;
-import java.util.Objects;
+import java.util.List;
 
 public class Triangle extends Plane{
     Point3D p2;
@@ -49,12 +49,12 @@ public class Triangle extends Plane{
     }
 
     @Override
-    public ArrayList<Point3D> FindIntersections(Ray ray) {
-        ArrayList<Point3D> intersectionPoints = super.FindIntersections(ray);
+    public List<GeoPoint> FindIntersections(Ray ray) {
+        ArrayList<GeoPoint> intersectionPoints = (ArrayList)FindIntersections(ray);
         if (intersectionPoints.isEmpty())
             return null;
         Point3D rayHead = ray.getHead();
-        Vector v0= intersectionPoints.get(0).subtract(rayHead); // p - p0
+        Vector v0= intersectionPoints.get(0).point.subtract(rayHead); // p - p0
         Vector v1= p1.subtract(rayHead); // T1 - P0
         Vector v2= p2.subtract(rayHead); // T2 - P0
         Vector v3= p3.subtract(rayHead); // T2 - P0

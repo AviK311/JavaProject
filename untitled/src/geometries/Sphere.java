@@ -39,15 +39,15 @@ public class Sphere extends RadialGeometry {
      * @return
      */
     @Override
-    public ArrayList<Point3D> FindIntersections(Ray ray) {
-        ArrayList<Point3D> intersectionPoints = new ArrayList<>();
+    public ArrayList<GeoPoint> FindIntersections(Ray ray) {
+        ArrayList<GeoPoint> intersectionPoints = new ArrayList<>();
         Vector u = center.subtract(ray.getHead());
         double uLength = u.length();
         double tM = u.dotProduct(ray.getDirection());
         double d = Math.sqrt(uLength*uLength - tM*tM);
         double tN = Math.sqrt(radius*radius - d*d);
-        if (tM + tN > 0) intersectionPoints.add(ray.getHead().add(ray.getDirection().scale(tM + tN)));
-        if (tM - tN > 0) intersectionPoints.add(ray.getHead().add(ray.getDirection().scale(tM - tN)));
+        if (tM + tN > 0) intersectionPoints.add(new GeoPoint(this, ray.getHead().add(ray.getDirection().scale(tM + tN))));
+        if (tM - tN > 0) intersectionPoints.add( new GeoPoint(this, ray.getHead().add(ray.getDirection().scale(tM - tN))));
         if (tM + tN == tM-tN && tM-tN != 0)//0nly one point
             intersectionPoints.remove(0);
         if (intersectionPoints.isEmpty())

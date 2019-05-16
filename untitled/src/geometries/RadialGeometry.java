@@ -37,7 +37,7 @@ public class RadialGeometry extends Geometry{
     }
 
     @Override
-    public ArrayList<Point3D> FindIntersections(Ray myRay) {
+    public ArrayList<GeoPoint> FindIntersections(Ray myRay) {
         return null;
     }
 }

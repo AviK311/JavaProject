@@ -1,5 +1,6 @@
 package Scene;
 import elements.AmbientLight;
+import elements.LightSource;
 import elements.camera;
 import geometries.GeometryList;
 import geometries.Geometry;
@@ -7,6 +8,7 @@ import geometries.IIntersectable;
 import primitives.Color;
 import java.awt.*;
 import java.util.*;
+import java.util.List;
 
 public class scene {
     String sceneName;
@@ -15,6 +17,12 @@ public class scene {
     GeometryList geometries;
     camera Camera;
     double screenDistance;
+
+    public List<LightSource> getLights() {
+        return lights;
+    }
+
+    List<LightSource> lights;
 
     public scene(){
         this.sceneName = "New Scene";

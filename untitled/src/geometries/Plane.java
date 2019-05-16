@@ -6,6 +6,7 @@ import primitives.Ray;
 import primitives.Vector;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Plane extends Geometry {
     Point3D p1;
@@ -68,15 +69,15 @@ public class Plane extends Geometry {
      * @return return a list of intersection points to this plane
      */
     @Override
-    public ArrayList<Point3D> FindIntersections(Ray ray) {
-        ArrayList<Point3D> intersectionPoints = new ArrayList<>();
+    public List<GeoPoint> FindIntersections(Ray ray) {
+        ArrayList<GeoPoint> intersectionPoints = new ArrayList<>();
         Vector v1 = ray.getHead().subtract(p1); // P0 - Q0
         double d = normal.dotProduct(ray.getDirection()); // N * V
         if (d!=0) {//checking whether the normal and the ray direction are vertical
             double t = -normal.dotProduct(v1)/d; // -N * (P0 - QO) / (N * V)
             if (t!=0){
                 Point3D p = ray.getHead().add(ray.getDirection().scale(t));
-                intersectionPoints.add(p);
+                intersectionPoints.add(new GeoPoint(this, p));
                 return intersectionPoints;
             }
         }

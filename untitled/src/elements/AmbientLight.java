@@ -1,8 +1,9 @@
 package elements;
 
 import primitives.Color;
+import primitives.Point3D;
 
-public class AmbientLight {
+public class AmbientLight extends Light {
     Color color;
     double Ka;
 
@@ -10,10 +11,8 @@ public class AmbientLight {
         this.color = color;
         this.Ka = Ka;
     }
-
-
-    public Color getIntensity(){
-
+    @Override
+    public Color getIntensity() {
         return color.scale(Ka);
     }
 }
