@@ -7,7 +7,7 @@ import geometries.Geometry;
 import geometries.GeometryList;
 import geometries.IIntersectable;
 import primitives.Point3D;
-import import geometries.IIntersectable.GeoPoint;
+import geometries.IIntersectable.GeoPoint;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -72,7 +72,7 @@ public class Render {
                 }
                 else {
                     GeoPoint closetPoint = getClosestPoint(intersectionPoints);
-                    _imageWriter.writePixel(j,i,calcColor(GeoPoint));
+                    _imageWriter.writePixel(j,i,calcColor(closetPoint));
                 }
 
             }
