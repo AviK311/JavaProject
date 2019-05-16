@@ -50,7 +50,7 @@ public class Triangle extends Plane{
 
     @Override
     public List<GeoPoint> FindIntersections(Ray ray) {
-        ArrayList<GeoPoint> intersectionPoints = (ArrayList)FindIntersections(ray);
+        ArrayList<GeoPoint> intersectionPoints = (ArrayList<GeoPoint>)super.FindIntersections(ray);
         if (intersectionPoints.isEmpty())
             return null;
         Point3D rayHead = ray.getHead();

@@ -21,9 +21,9 @@ public class GeometryList implements IIntersectable {
     }
 
     @Override
-    public ArrayList<Point3D> FindIntersections(Ray myRay) {
+    public ArrayList<GeoPoint> FindIntersections(Ray myRay) {
         if (geometriesList==null) return null;
-        ArrayList<Point3D> allIntersections = new ArrayList<>();
+        ArrayList<GeoPoint> allIntersections = new ArrayList<>();
         for (IIntersectable geo : geometriesList)
             allIntersections.addAll(geo.FindIntersections(myRay));
         return allIntersections;

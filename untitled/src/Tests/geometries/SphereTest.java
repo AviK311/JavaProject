@@ -6,6 +6,7 @@ import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
 
+
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;
@@ -31,12 +32,12 @@ public class SphereTest {
         Sphere sphere = new Sphere(200,new Point3D(0,0,-400));
         Vector v1 = new Vector(0,0,-1);
         Ray r =new Ray(v1,p0);
-        ArrayList<Point3D> result = sphere.FindIntersections(r);
-        ArrayList<Point3D> a=new ArrayList<Point3D>();
+        ArrayList<IIntersectable.GeoPoint> result = sphere.FindIntersections(r);
+        ArrayList<IIntersectable.GeoPoint> a=new ArrayList<IIntersectable.GeoPoint>();
         Point3D p1 =new Point3D(0,0,-600);
         Point3D p2 =new Point3D(0,0,-200);
-        a.add(p1);
-        a.add(p2);
+        a.add(new IIntersectable.GeoPoint(sphere, p1));
+        a.add(new IIntersectable.GeoPoint(sphere, p2));
         assertEquals("fail",a,result);
     }
 
@@ -49,10 +50,10 @@ public class SphereTest {
         Sphere sphere = new Sphere(100,new Point3D(0,-100,-400));
         Vector v1 = new Vector(0,0,-1);
         Ray r =new Ray(v1,p0);
-        ArrayList<Point3D> result = sphere.FindIntersections(r);
-        ArrayList<Point3D> a=new ArrayList<Point3D>();
+        ArrayList<IIntersectable.GeoPoint> result = sphere.FindIntersections(r);
+        ArrayList<IIntersectable.GeoPoint> a=new ArrayList<IIntersectable.GeoPoint>();
         Point3D p1 =new Point3D(0,0,-400);
-        a.add(p1);
+        a.add(new IIntersectable.GeoPoint(sphere, p1));
         assertEquals("fail",a,result);
     }
 
@@ -65,7 +66,7 @@ public class SphereTest {
         Sphere sphere = new Sphere(80,new Point3D(0,-100,-400));
         Vector v1 = new Vector(0,0,-1);
         Ray r =new Ray(v1,p0);
-        ArrayList<Point3D> result = sphere.FindIntersections(r);
+        ArrayList<IIntersectable.GeoPoint> result = sphere.FindIntersections(r);
         assertEquals("fail",null,result);
     }
 }

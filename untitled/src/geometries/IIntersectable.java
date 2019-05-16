@@ -15,6 +15,18 @@ public interface IIntersectable {
             this.point = point;
         }
 
+        @Override
+        public int hashCode() {
+            return super.hashCode();
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) return true;
+            if (obj == null || getClass() != obj.getClass()) return false;
+            GeoPoint Geo = (GeoPoint) obj;
+            return Geo.point.equals(point) && Geo.geo.equals(geo);
+        }
     }
     List<GeoPoint> FindIntersections(Ray myRay);
 }
