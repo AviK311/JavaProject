@@ -107,9 +107,11 @@ public class Render {
             Vector l = light.getL(p);
             if (n.dotProduct(l)*n.dotProduct(v)>0){
                 Color lightIntensity = light.getIntensity(p);
-                returnColor = returnColor.add(null);
+                returnColor = returnColor.add(calcDiffusive(kd, l, n, lightIntensity),
+                                calcSpecular(ks, l, n, v,lightIntensity, nShininess));
             }
         }
+        return returnColor;
     }
 
     public void printGrid(int interval)
@@ -128,9 +130,21 @@ public class Render {
         Point3D p0 = _scene.getCamera().getP0();
         GeoPoint closestPoint = pointList.get(0);
         for (GeoPoint p: pointList)
-             if (p.getPoint().distance(p0) < closestPoint.getPoint().distance(p0))
+             if (p.point.distance(p0) < closestPoint.point.distance(p0))
                  closestPoint = p;
         return closestPoint;
 
+    }
+    private Color calcDiffusive(double kd, Vector l, Vector n, Color intensity){
+        return intensity.scale(kd* l.dotProduct(n));
+    }
+
+    private Color calcSpecular(double ks, Vector l, Vector n, Vector v, Color intensity, int shininess){
+        Vector r = l.subtract(n.scale(2*n.dotProduct(l)));
+        double dotProduct = r.dotProduct(v);
+        int num = shininess == 0? 0:1;
+        for (int i=0;i<shininess;i++)
+            num *=dotProduct;
+        return intensity.scale(num);
     }
 }
