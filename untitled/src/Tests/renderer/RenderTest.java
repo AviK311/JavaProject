@@ -46,7 +46,7 @@ public class RenderTest {
         Color blue = new Color(0,0,255);
         Color green = new Color(0,255,0);
         Color red = new Color(255,0,0);
-        Color orange = new Color(220,150,0);
+        Color orange = new Color(220,100,20);
         Color pink = new Color(200,0,100);
 
         scene.addGeometry(new Sphere(blue, 105, new Point3D(0.0, 0.0, -150)));
