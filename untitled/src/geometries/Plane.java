@@ -28,6 +28,16 @@ public class Plane extends Geometry {
         this.normal = normal.normalize();
     }
 
+    public Plane(Color emmision, int Shininess, double _Kd, double _Ks, Point3D p1, Vector normal) {
+        super(emmision, Shininess, _Kd, _Ks);
+        this.p1 = p1;
+        this.normal = normal;
+    }
+
+
+
+
+
     /**
      * ctor with point params
      * @param p1

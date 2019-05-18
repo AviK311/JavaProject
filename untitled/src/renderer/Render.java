@@ -94,6 +94,9 @@ public class Render {
     }
 
     private Color calcColor(GeoPoint geoPoint){
+//        Color color = _scene.ambientLight.getIntensity();
+//        color = color.add(geoPoint.geo.getEmmision());
+//        return color;
         Geometry g = geoPoint.geo;
         Point3D p = geoPoint.point;
         Color returnColor = new Color(_scene.getAmbientLight().getIntensity());
@@ -101,8 +104,8 @@ public class Render {
         Vector v = p.subtract(_scene.getCamera().getP0()).normalize();
         Vector n = g.getNormal(p);
         int nShininess = g.getnShininess();
-        double kd = g.get_material().get_Kd();
-        double ks = g.get_material().get_Ks();
+        double kd = 0.5;//g.get_material().get_Kd();
+        double ks = 0.5;//g.get_material().get_Ks();
         for (LightSource light: _scene.getLights()){
             Vector l = light.getL(p);
             if (n.dotProduct(l)*n.dotProduct(v)>0){

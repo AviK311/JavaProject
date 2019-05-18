@@ -19,6 +19,11 @@ public class Sphere extends RadialGeometry {
         this.center = center;
     }
 
+    public Sphere(Color emmision, int Shininess, double _Kd, double _Ks, float radius, Point3D center) {
+        super(emmision, Shininess, _Kd, _Ks, radius);
+        this.center = center;
+    }
+
     /**
      *
      * @return center

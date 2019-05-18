@@ -19,6 +19,11 @@ public class RadialGeometry extends Geometry{
         this.radius = radius;
     }
 
+    public RadialGeometry(Color emmision, int Shininess, double _Kd, double _Ks, float radius) {
+        super(emmision, Shininess, _Kd, _Ks);
+        this.radius = radius;
+    }
+
     /**
      *
      * @return radius

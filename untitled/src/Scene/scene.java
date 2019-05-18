@@ -1,11 +1,15 @@
 package Scene;
 import elements.AmbientLight;
+import elements.DirectionalLight;
 import elements.LightSource;
 import elements.camera;
 import geometries.GeometryList;
 import geometries.Geometry;
 import geometries.IIntersectable;
 import primitives.Color;
+import primitives.Point3D;
+import primitives.Vector;
+
 import java.awt.*;
 import java.util.*;
 import java.util.List;
@@ -13,7 +17,7 @@ import java.util.List;
 public class scene {
     String sceneName;
     Color background;
-    AmbientLight ambientLight;
+    public AmbientLight ambientLight;
     GeometryList geometries;
     camera Camera;
     double screenDistance;
@@ -22,7 +26,8 @@ public class scene {
         return lights;
     }
 
-    List<LightSource> lights;
+    List<LightSource> lights = new LinkedList<>();
+
 
     public scene(){
         this.sceneName = "New Scene";
@@ -31,16 +36,23 @@ public class scene {
         this.geometries = new GeometryList();
         this.Camera = new camera();
         this.screenDistance = 50;
+        DirectionalLight light = new DirectionalLight(new Color(150,20,100),new Vector(new Point3D(0,1,2)));
+        lights.add(light);
     }
 
-    public scene(String sceneName, Color background, AmbientLight ambientLight, camera Camera, double screenDistance) {
+    public scene(String sceneName, Color background, AmbientLight ambientLight, camera Camera, double screenDistance ,LightSource...lightSources) {
         this.sceneName = sceneName;
         this.background = background;
         this.ambientLight = ambientLight;
         this.geometries = new GeometryList();
         this.Camera = Camera;
         this.screenDistance = screenDistance;
+        for (LightSource l : lightSources) {
+            lights.add(l);
+        }
     }
+
+
 
     public scene(scene other) {
         this.sceneName = other.getSceneName() ;
