@@ -4,8 +4,13 @@ import primitives.Point3D;
 
 public abstract class Light {
     Color _color;
+
+    public Light(Color _color) {
+        this._color = _color;
+    }
+
     public Color getIntensity(){
-        return null;
+        return _color;
     }
 
 
