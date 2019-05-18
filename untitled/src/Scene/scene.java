@@ -36,8 +36,6 @@ public class scene {
         this.geometries = new GeometryList();
         this.Camera = new camera();
         this.screenDistance = 50;
-        DirectionalLight light = new DirectionalLight(new Color(150,20,100),new Vector(new Point3D(0,1,2)));
-        lights.add(light);
     }
 
     public scene(String sceneName, Color background, AmbientLight ambientLight, camera Camera, double screenDistance ,LightSource...lightSources) {
