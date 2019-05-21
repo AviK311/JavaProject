@@ -148,8 +148,9 @@ public class Color {
 	 */
 	public Color scale(double k) {
 		if (k < 0)
-			throw new IllegalArgumentException(
-					"Can't scale a color by a negative number");
+			return this;
+//			throw new IllegalArgumentException(
+//					"Can't scale a color by a negative number");
 		double r = _r * k;
 		double g = _g * k;
 		double b = _b * k;

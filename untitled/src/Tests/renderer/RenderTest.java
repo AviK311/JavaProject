@@ -2,12 +2,14 @@ package renderer;
 
 import Scene.scene;
 import elements.pointLight;
+import elements.spotLight;
 import geometries.Sphere;
 import geometries.Triangle;
 import org.junit.Test;
 import primitives.Coordinate;
 import primitives.Point3D;
 import primitives.Color;
+import primitives.Vector;
 
 import java.awt.*;
 
@@ -95,7 +97,8 @@ public class RenderTest {
         Color orange = new Color(220,100,20);
         Color pink = new Color(200,0,100);
 
-        scene.addGeometry(new Sphere(blue, 4,0.5,0.2, 130, new Point3D(20.0, 0.0, -150)));
+        scene.addGeometry(new Sphere(blue, 2,0.5,0.2, 140, new Point3D(30, 0.0, -150)));
+        scene.addGeometry(new Sphere(blue, 3,0.5,0.2, 70, new Point3D(-20.0, 0.0, -150)));
 
         Triangle triangle = new Triangle(red,3,0.3,0.6, new Point3D( 100, 0, -50),
                 new Point3D(  0, 100, -50),
@@ -120,8 +123,10 @@ public class RenderTest {
 
         ImageWriter imageWriter = new ImageWriter("Render test2", 500, 500, 500, 500);
 
-        pointLight light2=new pointLight(new Color(220,100,20), new Point3D(0,20,-150),1.5,1.3,1.4);
+        pointLight light2=new pointLight(new Color(0,100,20), new Point3D(190,150,80),0.5,0.3,0.4);
         scene.getLights().add(light2);
+        spotLight light3=new spotLight(new Color(200,100,20), new Point3D(170,130,80),0.5,0.9,0.4,new Vector(new Point3D(1,2,3)));
+        scene.getLights().add(light3);
         Render render = new Render(scene, imageWriter);
 
         render.renderImage();
