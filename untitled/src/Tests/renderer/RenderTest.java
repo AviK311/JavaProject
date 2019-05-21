@@ -1,6 +1,7 @@
 package renderer;
 
 import Scene.scene;
+import elements.pointLight;
 import geometries.Sphere;
 import geometries.Triangle;
 import org.junit.Test;
@@ -38,7 +39,7 @@ public class RenderTest {
 
     }
 
-    @Test
+    //@Test
 
     public void basicRendering(){
 
@@ -51,19 +52,19 @@ public class RenderTest {
 
         scene.addGeometry(new Sphere(blue, 105, new Point3D(0.0, 0.0, -150)));
 
-        Triangle triangle = new Triangle(red,new Point3D( 100, 0, -50),
+        Triangle triangle = new Triangle(red, new Point3D( 100, 0, -50),
                 new Point3D(  0, 100, -50),
                 new Point3D( 100, 100, -50));
 
-        Triangle triangle2 = new Triangle(green,new Point3D( 100, 0, -50),
+        Triangle triangle2 = new Triangle(green ,new Point3D( 100, 0, -50),
                 new Point3D(  0, -100, -50),
                 new Point3D( 100,-100, -50));
 
-        Triangle triangle3 = new Triangle(orange,new Point3D(-100, 0, -50),
+        Triangle triangle3 = new Triangle(orange,  new Point3D(-100, 0, -50),
                 new Point3D(  0, 100, -50),
                 new Point3D(-100, 100, -50));
 
-        Triangle triangle4 = new Triangle(pink,new Point3D(-100, 0, -50),
+        Triangle triangle4 = new Triangle(pink, new Point3D(-100, 0, -50),
                 new Point3D(  0,  -100, -50),
                 new Point3D(-100, -100, -50));
 
@@ -78,6 +79,53 @@ public class RenderTest {
 
         render.renderImage();
         render.printGrid(50);
+        imageWriter.writeToimage();
+
+
+    }
+
+    @Test
+
+    public void basicRendering2(){
+
+        scene scene = new scene();
+        Color blue = new Color(0,0,255);
+        Color green = new Color(0,255,0);
+        Color red = new Color(255,0,0);
+        Color orange = new Color(220,100,20);
+        Color pink = new Color(200,0,100);
+
+        scene.addGeometry(new Sphere(blue, 4,0.5,0.2, 130, new Point3D(20.0, 0.0, -150)));
+
+        Triangle triangle = new Triangle(red,3,0.3,0.6, new Point3D( 100, 0, -50),
+                new Point3D(  0, 100, -50),
+                new Point3D( 100, 100, -50));
+
+        Triangle triangle2 = new Triangle(green, 2,0.7,0.6,new Point3D( 100, 0, -50),
+                new Point3D(  0, -100, -50),
+                new Point3D( 100,-100, -50));
+
+        Triangle triangle3 = new Triangle(orange, 5,0.3,0.9, new Point3D(-100, 0, -50),
+                new Point3D(  0, 100, -50),
+                new Point3D(-100, 100, -50));
+
+        Triangle triangle4 = new Triangle(pink, 3,0.3,0.6,new Point3D(-100, 0, -50),
+                new Point3D(  0,  -100, -50),
+                new Point3D(-100, -100, -50));
+
+        //scene.addGeometry(triangle);
+        //scene.addGeometry(triangle2);
+        //scene.addGeometry(triangle3);
+        //scene.addGeometry(triangle4);
+
+        ImageWriter imageWriter = new ImageWriter("Render test2", 500, 500, 500, 500);
+
+        pointLight light2=new pointLight(new Color(220,100,20), new Point3D(0,20,-150),1.5,1.3,1.4);
+        scene.getLights().add(light2);
+        Render render = new Render(scene, imageWriter);
+
+        render.renderImage();
+        //render.printGrid(50);
         imageWriter.writeToimage();
 
 

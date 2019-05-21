@@ -104,14 +104,14 @@ public class Render {
         Vector v = p.subtract(_scene.getCamera().getP0()).normalize();
         Vector n = g.getNormal(p);
         int nShininess = g.getnShininess();
-        double kd = 0.5;//g.get_material().get_Kd();
-        double ks = 0.5;//g.get_material().get_Ks();
+        double kd = g.get_material().get_Kd();
+        double ks = g.get_material().get_Ks();
         for (LightSource light: _scene.getLights()){
             Vector l = light.getL(p);
             if (n.dotProduct(l)*n.dotProduct(v)>0){
                 Color lightIntensity = light.getIntensity(p);
                 returnColor = returnColor.add(calcDiffusive(kd, l, n, lightIntensity),
-                                calcSpecular(ks, l, n, v,lightIntensity, nShininess));
+                               calcSpecular(ks, l, n, v,lightIntensity, nShininess));
             }
         }
         return returnColor;
@@ -143,9 +143,9 @@ public class Render {
     }
 
     private Color calcSpecular(double ks, Vector l, Vector n, Vector v, Color intensity, int shininess){
-        Vector r = l.subtract(n.scale(2*n.dotProduct(l)));
+        Vector r = l.subtract(n.scale(-2*n.dotProduct(l)));
         double dotProduct = r.dotProduct(v);
-        int num = shininess == 0? 0:1;
+        int num = 1;
         for (int i=0;i<shininess;i++)
             num *=dotProduct;
         return intensity.scale(num);

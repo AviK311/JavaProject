@@ -1,6 +1,8 @@
 package Scene;
 import elements.AmbientLight;
-import elements.DirectionalLight;
+import  elements.DirectionalLight;
+import elements.spotLight;
+import elements.pointLight;
 import elements.LightSource;
 import elements.camera;
 import geometries.GeometryList;
@@ -32,10 +34,16 @@ public class scene {
     public scene(){
         this.sceneName = "New Scene";
         this.background = new Color(0,0,0);
-        this.ambientLight = new AmbientLight(new Color(100,100,100), 1);
+        this.ambientLight = new AmbientLight(new Color(100,100,100), 0.5);
         this.geometries = new GeometryList();
         this.Camera = new camera();
         this.screenDistance = 50;
+
+//        DirectionalLight light=new DirectionalLight(new Color(255,255,255), new Vector(new Point3D(1,1,1)));
+//        pointLight light2=new pointLight(new Color(220,100,20), new Point3D(0,20,-150),1.5,1.3,1.4);
+//        spotLight light3=new spotLight(new Color(220,100,20), new Point3D(0,20,-150),0.5,0.3,0.4,new Vector(new Point3D(1,1,1)));
+//        //lights.add(light2);
+//        lights.add(light3);
     }
 
     public scene(String sceneName, Color background, AmbientLight ambientLight, camera Camera, double screenDistance ,LightSource...lightSources) {
