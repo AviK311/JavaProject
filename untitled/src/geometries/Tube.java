@@ -1,7 +1,10 @@
 package geometries;
 
 import primitives.Point3D;
+import primitives.Ray;
 import primitives.Vector;
+
+import java.util.List;
 
 public class Tube extends RadialGeometry {
     Vector axisDirection;
@@ -22,5 +25,15 @@ public class Tube extends RadialGeometry {
      */
     public Vector getAxisDirection() {
         return axisDirection;
+    }
+
+    @Override
+    public Vector getNormal(Point3D p) {
+        return null;
+    }
+
+    @Override
+    public List<GeoPoint> findIntersections(Ray myRay) {
+        return null;
     }
 }

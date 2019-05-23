@@ -27,8 +27,8 @@ public class Triangle extends Plane{
         this.p3 = new Point3D(p3);
     }
 
-    public Triangle(Color emmision, int Shininess, double _Kd, double _Ks, Point3D p1, Point3D p2, Point3D p3) {
-        super(emmision, Shininess, _Kd, _Ks, p1, p1.subtract(p2).crossProduct(p1.subtract(p3)));
+    public Triangle(Color emmision, int Shininess, double Kd, double Ks, Point3D p1, Point3D p2, Point3D p3) {
+        super(emmision, Shininess, Kd, Ks, p1, p1.subtract(p2).crossProduct(p1.subtract(p3)));
         this.p2 = p2;
         this.p3 = p3;
     }
@@ -55,8 +55,8 @@ public class Triangle extends Plane{
     }
 
     @Override
-    public List<GeoPoint> FindIntersections(Ray ray) {
-        ArrayList<GeoPoint> intersectionPoints = (ArrayList<GeoPoint>)super.FindIntersections(ray);
+    public List<GeoPoint> findIntersections(Ray ray) {
+        List<GeoPoint> intersectionPoints = super.findIntersections(ray);
         if (intersectionPoints.isEmpty())
             return null;
         Point3D rayHead = ray.getHead();

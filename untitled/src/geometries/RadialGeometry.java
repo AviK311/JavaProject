@@ -7,42 +7,44 @@ import primitives.Vector;
 
 import java.util.ArrayList;
 
-public class RadialGeometry extends Geometry{
+public abstract class RadialGeometry extends Geometry {
     float radius;
 
+    /**
+     * radius ctor
+     * @param radius
+     */
     public RadialGeometry(float radius) {
         this.radius = radius;
     }
 
-    public RadialGeometry(Color emmision, float radius) {
-        super(emmision);
-        this.radius = radius;
-    }
-
-    public RadialGeometry(Color emmision, int Shininess, double _Kd, double _Ks, float radius) {
-        super(emmision, Shininess, _Kd, _Ks);
+    /**
+     * emission and radius ctor
+     * @param emission
+     * @param radius
+     */
+    public RadialGeometry(Color emission, float radius) {
+        super(emission);
         this.radius = radius;
     }
 
     /**
-     *
+     * ctor with more params
+     * @param emission
+     * @param Shininess
+     * @param _Kd
+     * @param _Ks
+     * @param radius
+     */
+    public RadialGeometry(Color emission, int Shininess, double _Kd, double _Ks, float radius) {
+        super(emission, Shininess, _Kd, _Ks);
+        this.radius = radius;
+    }
+
+    /**
      * @return radius
      */
-    public float getRadius() {
+    public  float getRadius() {
         return radius;
-    }
-
-//    public void setRadius(float radius) {
-//        this.radius = radius;
-//    }
-
-    @Override
-    public Vector getNormal(Point3D p) {
-        return null;
-    }
-
-    @Override
-    public ArrayList<GeoPoint> FindIntersections(Ray myRay) {
-        return null;
     }
 }

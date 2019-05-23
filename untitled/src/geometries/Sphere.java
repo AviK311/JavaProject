@@ -5,22 +5,43 @@ import primitives.Ray;
 import primitives.Vector;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Sphere extends RadialGeometry {
     private Point3D center;
 
+    /**
+     * ctor with basic params
+     * @param radius
+     * @param center
+     */
     public Sphere(float radius, Point3D center) {
         super(radius);
         this.center = center;
     }
 
-    public Sphere(Color emmision, float radius, Point3D center) {
-        super(emmision,radius);
+    /**
+     * ctor with emission
+     * @param emission
+     * @param radius
+     * @param center
+     */
+    public Sphere(Color emission, float radius, Point3D center) {
+        super(emission,radius);
         this.center = center;
     }
 
-    public Sphere(Color emmision, int Shininess, double _Kd, double _Ks, float radius, Point3D center) {
-        super(emmision, Shininess, _Kd, _Ks, radius);
+    /**
+     * ctor with material params
+     * @param emission
+     * @param Shininess
+     * @param _Kd
+     * @param _Ks
+     * @param radius
+     * @param center
+     */
+    public Sphere(Color emission, int Shininess, double _Kd, double _Ks, float radius, Point3D center) {
+        super(emission, Shininess, _Kd, _Ks, radius);
         this.center = center;
     }
 
@@ -38,14 +59,9 @@ public class Sphere extends RadialGeometry {
         return v.normalize();
     }
 
-    /**
-     *
-     * @param ray
-     * @return
-     */
     @Override
-    public ArrayList<GeoPoint> FindIntersections(Ray ray) {
-        ArrayList<GeoPoint> intersectionPoints = new ArrayList<>();
+    public List<GeoPoint> findIntersections(Ray ray) {
+        List<GeoPoint> intersectionPoints = new ArrayList<>();
         Vector u = center.subtract(ray.getHead());
         double uLength = u.length();
         double tM = u.dotProduct(ray.getDirection());

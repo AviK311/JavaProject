@@ -1,13 +1,13 @@
 package geometries;
 
-import elements.camera;
+import elements.Camera;
 import org.junit.Test;
-import primitives.Coordinate;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
-import geometries.IIntersectable.GeoPoint;
+import geometries.Intersectable.GeoPoint;
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -28,25 +28,22 @@ public class PlaneTest {
         Vector v2 = new Vector(0,0,-1);
         Plane plane = new  Plane(p2,v2);
         Ray r =new Ray(v1,p1);
-        ArrayList<GeoPoint> result = (ArrayList<GeoPoint>) plane.FindIntersections(r);
-        ArrayList<GeoPoint> a=new ArrayList<GeoPoint>();
-        Point3D p3 =new Point3D(-200,-200,-200);
-        a.add(new GeoPoint(plane, p3));
-        assertEquals("fail",a,result);
+        List<GeoPoint> result = plane.findIntersections(r);
+        assertEquals("fail",1,result.size());
 
     }
 
     /**
-     * When the plane is adjacent to the camera
+     * When the plane is adjacent to the Camera
      */
     @Test
     public void getPlanePointsThroughPixels1() {
-        camera c = new camera();
+        Camera c = new Camera();
         Plane p = new Plane(new Point3D(0,0,-1), new Vector(0,0,-1));
-        ArrayList<GeoPoint> results = new ArrayList<>();
+        List<GeoPoint> results = new ArrayList<>();
         for (int i = 1; i < 4; i++)
             for(int j = 1; j< 4; j++){
-                ArrayList<GeoPoint> rayResult = (ArrayList<GeoPoint>) p.FindIntersections(c.constructRayThroughAPixel(3, 3, i, j, 100, 150, 150));
+                List<GeoPoint> rayResult = p.findIntersections(c.constructRayThroughAPixel(3, 3, i, j, 100, 150, 150));
                 if (rayResult!=null)
                     results.addAll(rayResult);
             }
@@ -55,16 +52,16 @@ public class PlaneTest {
     }
 
     /**
-     * when the plane is perpendicular to the camera
+     * when the plane is perpendicular to the Camera
      */
     @Test
     public void getPlanePointsThroughPixels2() {
-        camera c = new camera();
+        Camera c = new Camera();
         Plane p = new Plane(new Point3D(0,0,-1), new Vector(1,0,0));
-        ArrayList<GeoPoint> results = new ArrayList<>();
+        List<GeoPoint> results = new ArrayList<>();
         for (int i = 1; i < 4; i++)
             for(int j = 1; j< 4; j++) {
-                ArrayList<GeoPoint> rayResult = (ArrayList<GeoPoint>) p.FindIntersections(c.constructRayThroughAPixel(3, 3, i, j, 100, 150, 150));
+                List<GeoPoint> rayResult = p.findIntersections(c.constructRayThroughAPixel(3, 3, i, j, 100, 150, 150));
                 if (rayResult!=null)
                      results.addAll(rayResult);
             }

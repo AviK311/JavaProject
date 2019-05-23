@@ -6,6 +6,11 @@ import primitives.*;
 public class DirectionalLight extends Light implements LightSource {
     Vector _Direction;
 
+    /**
+     * params ctor
+     * @param _color
+     * @param _Direction
+     */
     public DirectionalLight(Color _color, Vector _Direction) {
         super(_color);
         this._Direction = _Direction;
@@ -24,6 +29,11 @@ public class DirectionalLight extends Light implements LightSource {
 
     @Override
     public Vector getD() {
+        return null;
+    }
+
+    @Override
+    public Color getIntensity() {
         return null;
     }
 }

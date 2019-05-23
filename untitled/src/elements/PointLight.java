@@ -4,11 +4,19 @@ import primitives.Color;
 import primitives.Point3D;
 import primitives.Vector;
 
-public class pointLight extends Light implements LightSource{
+public class PointLight extends Light implements LightSource{
     Point3D position;
     double Kc=1,Kl=0,Kq=0;
 
-    public pointLight(Color _color, Point3D position, double Kc, double kl, double kq) {
+    /**
+     * params ctor
+     * @param _color
+     * @param position
+     * @param Kc
+     * @param kl
+     * @param kq
+     */
+    public PointLight(Color _color, Point3D position, double Kc, double kl, double kq) {
         super(_color);
         this.position = position;
         this.Kc = Kc;
@@ -30,6 +38,11 @@ public class pointLight extends Light implements LightSource{
 
     @Override
     public Vector getD() {
+        return null;
+    }
+
+    @Override
+    public Color getIntensity() {
         return null;
     }
 }
