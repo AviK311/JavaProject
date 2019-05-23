@@ -4,6 +4,8 @@ import primitives.Color;
 import primitives.Point3D;
 import primitives.Vector;
 
+import java.awt.*;
+
 public class PointLight extends Light implements LightSource{
     Point3D position;
     double Kc=1,Kl=0,Kq=0;
@@ -27,13 +29,14 @@ public class PointLight extends Light implements LightSource{
     @Override
     public Color getIntensity(Point3D point) {
         double d = position.distance(point);
-        Color c=_color.scale(1.0/Kc+Kl*d+Kq*d*d); // I0 / (Kc+Kl*d+Kq*d*d)
+        double s = 1.0/(Kc+Kl*d+Kq*d*d);
+        Color c=_color.scale(s); // I0 / (Kc+Kl*d+Kq*d*d)
         return c;
     }
 
     @Override
     public Vector getL(Point3D point) {
-        return position.subtract(point);
+        return point.subtract(position);
     }
 
     @Override
