@@ -24,7 +24,9 @@ public class SpotLight extends PointLight {
     @Override
     public Color getIntensity(Point3D point) {
         double dl = getD().normalize().dotProduct(getL(point).normalize()); // D*L
-        Color c = super.getIntensity(point).scale(dl); // [I0(D*L)] / (Kc+Kl*d+Kq*d*d)
+        if (dl<0)
+            dl=0;
+        Color c = super.getIntensity(point).scale( dl); // [I0(D*L)] / (Kc+Kl*d+Kq*d*d)
         return c;
     }
 
