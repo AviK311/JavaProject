@@ -133,6 +133,7 @@ public class Render {
     private Color calcSpecular(double ks, Vector l, Vector n, Vector v, Color intensity, int shininess) {
         Vector r = l.subtract(n.scale(2 * n.dotProduct(l)));
         double dotProduct = r.dotProduct(v.scale(-1));
+        if(dotProduct<0) dotProduct=0;
         double num = 1;
         for (int i = 0; i < shininess; i++)
             num *= dotProduct;
