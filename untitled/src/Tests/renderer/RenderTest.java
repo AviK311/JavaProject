@@ -76,8 +76,8 @@ public class RenderTest {
                 new Point3D(0, 0, -50),
                 new Point3D(-100, -100, -50));
 
-        scene.addGeometry(triangle, triangle2, triangle3, triangle4, triangle5, new Sphere(blue, 1, 0.5, 0.5, 105, new Point3D(0.0, 0.0, -150)));
 
+        //DirectionalLight light1 = new DirectionalLight(new Color(i, i, i), new Vector(-1, 0, -1));
         //SpotLight light1 = new SpotLight(new Color(i,i,i), new Point3D(0,100,0), 0.5, 0.5,0.5,new Vector(0,-1,-1) );
         //DirectionalLight light1 = new DirectionalLight(new Color(i, i, i), new Vector(-1, 0, -1));
         //scene.getLights().add(light1);
@@ -182,5 +182,49 @@ public class RenderTest {
 
 
     }
+
+    @Test
+
+    public void triangle() {
+
+        Scene scene = new Scene("Hello");
+        scene.setCamera(c);
+        scene.setScreenDistance(50);
+        scene.setAmbientLight(new AmbientLight(new Color(0, 0, 0), 0.5));
+        Color blue = new Color(0, 0, 255);
+        Color green = new Color(0, 150, 0);
+        Color red = new Color(150, 0, 0);
+        Color orange = new Color(220, 100, 20);
+        Color pink = new Color(200, 0, 100);
+
+
+        Triangle triangle1 = new Triangle(red, 1, 0.5, 0.5,
+                new Point3D(100, 100, -100),
+                new Point3D(-100, 100, -100),
+                new Point3D(100, -100, -50));
+        Triangle triangle2 = new Triangle(green, 1, 0.5, 0.5,
+                new Point3D(100, -100, -50),
+                new Point3D(-100, -100, -50),
+                new Point3D(-100, 100, -100));
+
+
+
+        scene.addGeometry(triangle1, triangle2);
+
+        PointLight light1 = new PointLight(new Color(1,1,1), new Point3D(0,0,-1), 0.5, 0,0 );
+        //DirectionalLight light1 = new DirectionalLight(new Color(i, i, i), new Vector(-1, 0, -1));
+        scene.addLight(light1);
+
+        ImageWriter imageWriter = new ImageWriter("triangletest", 500, 500, 500, 500);
+
+        Render render = new Render(scene, imageWriter);
+
+        render.renderImage();
+        render.printGrid(50);
+        imageWriter.writeToimage();
+
+
+    }
+
 
 }

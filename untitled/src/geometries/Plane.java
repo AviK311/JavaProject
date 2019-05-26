@@ -47,7 +47,7 @@ public class Plane extends Geometry {
     public Plane(Color emission, int Shininess, double _Kd, double _Ks, Point3D p1, Vector normal) {
         super(emission, Shininess, _Kd, _Ks);
         this.p1 = p1;
-        this.normal = normal;
+        this.normal = normal.normalize();
     }
 
 
@@ -89,6 +89,8 @@ public class Plane extends Geometry {
     @Override
     public List<GeoPoint> findIntersections(Ray ray) {
         List<GeoPoint> intersectionPoints = new ArrayList<>();
+        if (ray.getHead().equals(p1))
+            return null;
         Vector v1 = ray.getHead().subtract(p1); // P0 - Q0
         double d = normal.dotProduct(ray.getDirection()); // N * V
         if (d != 0) {//checking whether the normal and the ray direction are vertical

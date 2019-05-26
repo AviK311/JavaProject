@@ -10,7 +10,7 @@ public class Ray {
      * @param head
      */
     public Ray(Vector direction, Point3D head) {
-        this.direction = new Vector(direction);
+        this.direction = new Vector(direction).normalize();
         this.head = new Point3D(head);
     }
 

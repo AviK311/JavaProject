@@ -54,6 +54,7 @@ public class Render {
 
     /**
      * calculates the color of the pixel according the the color of the geo, lights, directions, etc
+     *
      * @param geoPoint
      * @return color
      */
@@ -71,8 +72,9 @@ public class Render {
             Vector l = light.getL(p);
             if (n.dotProduct(l) * n.dotProduct(v) > 0) {
                 Color lightIntensity = light.getIntensity(p);
-                returnColor = returnColor.add(calcDiffusive(kd, l, n, lightIntensity),
-                       calcSpecular(ks, l, n, v, lightIntensity, nShininess));
+                Color diff = calcDiffusive(kd, l, n, lightIntensity);
+                Color spec = calcSpecular(ks, l, n, v, lightIntensity, nShininess);
+                returnColor = returnColor.add(diff, spec);
             }
         }
         return returnColor;
@@ -80,6 +82,7 @@ public class Render {
 
     /**
      * prints a grid on the screen
+     *
      * @param interval
      */
     public void printGrid(int interval) {
@@ -94,6 +97,7 @@ public class Render {
 
     /**
      * returns the closes point to the camera origin on the pointList
+     *
      * @param pointList
      * @return GeoPoint
      */
@@ -110,6 +114,7 @@ public class Render {
 
     /**
      * calculates intensity*(l*n)*kd
+     *
      * @param kd
      * @param l
      * @param n
@@ -123,6 +128,7 @@ public class Render {
 
     /**
      * calculates ks(v*r)^n*iL
+     *
      * @param ks
      * @param l
      * @param n
@@ -134,10 +140,10 @@ public class Render {
     private Color calcSpecular(double ks, Vector l, Vector n, Vector v, Color intensity, int shininess) {
         Vector r = l.subtract(n.scale(2 * n.dotProduct(l)));
         double dotProduct = r.dotProduct(v.scale(-1));
-        if(dotProduct<0) dotProduct=0;
+        if (dotProduct < 0) dotProduct = 0;
         double num = 1;
         for (int i = 0; i < shininess; i++)
             num *= dotProduct;
-        return intensity.scale(ks*num);
+        return intensity.scale(ks * num);
     }
 }

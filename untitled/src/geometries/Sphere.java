@@ -1,8 +1,5 @@
 package geometries;
-import primitives.Color;
-import primitives.Point3D;
-import primitives.Ray;
-import primitives.Vector;
+import primitives.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,15 +59,20 @@ public class Sphere extends RadialGeometry {
     @Override
     public List<GeoPoint> findIntersections(Ray ray) {
         List<GeoPoint> intersectionPoints = new ArrayList<>();
+        if (ray.getHead().equals(center)){//if the ray starts from the center of the sphere
+            intersectionPoints.add(new GeoPoint(this, center.add(ray.getDirection().scale(radius))));
+            return intersectionPoints;
+        }
         Vector u = center.subtract(ray.getHead());
         double uLength = u.length();
         double tM = u.dotProduct(ray.getDirection());
-        double d = Math.sqrt(uLength*uLength - tM*tM);
-        double tN = Math.sqrt(radius*radius - d*d);
-        if (tM + tN > 0) intersectionPoints.add(new GeoPoint(this, ray.getHead().add(ray.getDirection().scale(tM + tN))));
-        if (tM - tN > 0) intersectionPoints.add( new GeoPoint(this, ray.getHead().add(ray.getDirection().scale(tM - tN))));
-        if (tM + tN == tM-tN && tM-tN != 0)//0nly one point
-            intersectionPoints.remove(0);
+        double d2 = uLength*uLength - tM*tM;//*squared* distance of ray vector from center
+        if (Util.alignZero(d2 - radius*radius)>0)//if the ray does not intersect with the sphere
+            return null;
+        double tN = Math.sqrt(Util.alignZero(radius*radius - d2));
+        double tMtNplus = tM+tN, tMtNminus = tM-tN;
+        if (tMtNplus > 0) intersectionPoints.add(new GeoPoint(this, ray.getHead().add(ray.getDirection().scale(tMtNplus))));
+        if (tMtNminus > 0 && tMtNminus-tMtNplus!=0 ) intersectionPoints.add( new GeoPoint(this, ray.getHead().add(ray.getDirection().scale(tMtNminus))));
         if (intersectionPoints.isEmpty())
             return null;
         return intersectionPoints;

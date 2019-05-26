@@ -1,5 +1,6 @@
 package geometries;
 
+import com.sun.org.apache.xalan.internal.xsltc.cmdline.getopt.GetOpt;
 import org.junit.Test;
 import primitives.Coordinate;
 import primitives.Point3D;
@@ -25,50 +26,100 @@ public class SphereTest {
     }
 
     /**
-     * The example from Chapter 6
+     * 4 EP tests
+     * 11 VBA tests
      */
     @Test
     public void findIntersections() {
-        Point3D p0 = new Point3D(0,0,0);
-        Sphere sphere = new Sphere(200,new Point3D(0,0,-400));
-        Vector v1 = new Vector(0,0,-1);
-        Ray r =new Ray(v1,p0);
-        List<Intersectable.GeoPoint> result = sphere.findIntersections(r);
-        List<Intersectable.GeoPoint> a= new ArrayList<>();
-
-        Point3D p1 =new Point3D(0,0,-600);
-        Point3D p2 =new Point3D(0,0,-200);
-        a.add(new Intersectable.GeoPoint(sphere, p1));
-        a.add(new Intersectable.GeoPoint(sphere, p2));
-        assertEquals("fail",a.size(),result.size());
-    }
-
-    /**
-     * The diameter of this sphere is half the diameter of the previous one: from the center (0,0,-400) to (0,-200,-400)
-     */
-    @Test
-    public void findIntersections2() {
         Point3D p0 = Point3D.ORIGIN_POINT;
-        Sphere sphere = new Sphere(100,new Point3D(0,-100,-400));
-        Vector v1 = new Vector(0,0,-1);
-        Ray r =new Ray(v1,p0);
+
+        //EPTest 1: Classic situation
+        Sphere sphere = new Sphere(5,new Point3D(0,0,-10));
+        Ray r = new Ray(new Vector(0,-0.5,-1),p0);
         List<Intersectable.GeoPoint> result = sphere.findIntersections(r);
-        ArrayList<Intersectable.GeoPoint> a=new ArrayList<Intersectable.GeoPoint>();
-        Point3D p1 =new Point3D(0,0,-400);
-        a.add(new Intersectable.GeoPoint(sphere, p1));
-        assertEquals("fail",a.size(),result.size());
+        assertEquals("failed EPTest 1",2,result.size());
+
+        //EPTest 2: Ray does not go through the sphere
+        r = new Ray(new Vector(0,1,0), p0);
+        result = sphere.findIntersections(r);
+        assertEquals("failed EPTest 2",null,result);
+
+        //EPTest 3: Ray points away from the sphere
+        r = new Ray(new Vector(0,0.5,1), p0);
+        result = sphere.findIntersections(r);
+        assertEquals("failed EPTest 3",null,result);
+
+        //EPTest 4: Ray begins inside sphere
+        sphere = new Sphere(5, new Point3D(0,0,-1));
+        r = new Ray(new Vector(0,-1,-1), p0);
+        result = sphere.findIntersections(r);
+        assertEquals("failed EPTest 4",1,result.size());
+
+        //VBATest 1: ray begins on sphere but points away
+        sphere = new Sphere(5, new Point3D(0,0,-5));
+        r = new Ray(new Vector(0,-1,1), p0);
+        result = sphere.findIntersections(r);
+        assertEquals("failed VBATest 1",null,result);
+
+        //VBATest 2: ray begins on sphere and points inwards
+        sphere = new Sphere(5, new Point3D(0,0,-5));
+        r = new Ray(new Vector(0,-1,-1), p0);
+        result = sphere.findIntersections(r);
+        assertEquals("failed VBATest 2",1,result.size());
+
+        //VBATest 3: ray is tangent to the sphere
+        sphere = new Sphere(1, new Point3D(1,0,-1));
+        r = new Ray(new Vector(0,0,-1), p0);
+        result = sphere.findIntersections(r);
+        assertEquals("failed VBATest 3",1,result.size());
+
+        //VBATest 4: ray is tangent to the sphere and head is on sphere
+        sphere = new Sphere(5, new Point3D(0,0,-5));
+        r = new Ray(new Vector(0,1,0), p0);
+        result = sphere.findIntersections(r);
+        assertEquals("failed VBATest 4",null,result);
+
+        //VBATest 5: ray tail is tangent to the sphere and head is not on sphere
+        sphere = new Sphere(5, new Point3D(0,-5,-5));
+        r = new Ray(new Vector(0,1,0), p0);
+        result = sphere.findIntersections(r);
+        assertEquals("failed VBATest 5",null,result);
+
+        //VBATest 6: ray head on sphere, ray tail extends to center
+        sphere = new Sphere(5, new Point3D(0,0,-5));
+        r = new Ray(new Vector(0,0,1), p0);
+        result = sphere.findIntersections(r);
+        assertEquals("failed VBATest 6",null,result);
+
+        //VBATest 7: ray head outside sphere, ray tail extends to center
+        sphere = new Sphere(5, new Point3D(0,0,-6));
+        r = new Ray(new Vector(0,0,1), p0);
+        result = sphere.findIntersections(r);
+        assertEquals("failed VBATest 7",null,result);
+
+        //VBATest 8: ray head on sphere center
+        sphere = new Sphere(5, new Point3D(0,0,0));
+        r = new Ray(new Vector(0,0,-1), p0);
+        result = sphere.findIntersections(r);
+        assertEquals("failed VBATest 8",1,result.size());
+
+        //VBATest 9: ray head on sphere, pointing to center
+        sphere = new Sphere(5, new Point3D(0,0,-5));
+        r = new Ray(new Vector(0,0,-1), p0);
+        result = sphere.findIntersections(r);
+        assertEquals("failed VBATest 9",1,result.size());
+
+        //VBATest 10: ray head outside sphere, pointing to center
+        sphere = new Sphere(5, new Point3D(0,0,-6));
+        r = new Ray(new Vector(0,0,-1), p0);
+        result = sphere.findIntersections(r);
+        assertEquals("failed VBATest 10",2,result.size());
+
+        //VBATest 11: ray head outside sphere, pointing vertically from sphere center
+        sphere = new Sphere(1, new Point3D(0,0,-2));
+        r = new Ray(new Vector(1,0,0), p0);
+        result = sphere.findIntersections(r);
+        assertEquals("failed VBATest 11",null,result);
     }
 
-    /**
-     * This sphere is similar to the previous one but with a smaller radius so there are no intersection points.
-     */
-    @Test
-    public void findIntersections3() {
-        Point3D p0 = Point3D.ORIGIN_POINT;
-        Sphere sphere = new Sphere(80,new Point3D(0,-100,-400));
-        Vector v1 = new Vector(0,0,-1);
-        Ray r =new Ray(v1,p0);
-        List<Intersectable.GeoPoint> result = sphere.findIntersections(r);
-        assertEquals("fail",null,result);
-    }
 }
