@@ -73,6 +73,10 @@ public class Scene {
     public void addGeometry(Intersectable... geos) {
         geometries.add(geos);
     }
+    public void addLight(LightSource... light) {
+        for(LightSource l: light)
+            lights.add(l);
+    }
 
     @Override
     public String toString() {

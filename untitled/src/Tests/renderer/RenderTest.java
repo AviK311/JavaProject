@@ -105,24 +105,28 @@ public class RenderTest {
         Color red = new Color(20, 0, 0);
 
 
-        scene.addGeometry(new Sphere(blue, 1, 0.8, 1.7, 105, new Point3D(0.0, 0.0, -110)));
+        scene.addGeometry(new Sphere(blue, 1, 0.5, 0.5, 105, new Point3D(0.0, 0.0, -110)));
 
         //SpotLight light1 = new SpotLight(new Color(i,i,i), new Point3D(0,100,0), 0.5, 0.5,0.5,new Vector(0,-1,-1) );
         //DirectionalLight light1 = new DirectionalLight(new Color(i, i, i), new Vector(-1, 0, -1));
         //scene.getLights().add(light1);
-        PointLight p = new PointLight(new Color(1, 1, 1), new Point3D(20, 0, 0), 0.1, 0, 0);
-        PointLight p2 = new PointLight(new Color(1, 1, 1), new Point3D(-30, -20, 0), 0.1, 0, 0);
-        // DirectionalLight p = new DirectionalLight(new Color(1, 1, 1), new Point3D(20, 0.0, 0).subtract(new Point3D(0, 0, -110)));
-        scene.getLights().add(p);
-        //scene.getLights().add(p2);
-        ImageWriter imageWriter = new ImageWriter("test", 500, 500, 500, 500);
+        PointLight p2 = new PointLight(new Color(1, 1, 1), new Point3D(-30, 0, 0), 0.1, 0.001, 0);
+         DirectionalLight p3 = new DirectionalLight(new Color(50, 50, 50),new Vector(-1,0,-1));
+         for (int i = -10; i<10; i++) {
+             SpotLight p4 = new SpotLight(new Color(1, 1, 1), new Point3D(0, 0,10 ), 0.1, 0.01, 0, new Vector(0, i, -1));
+             PointLight p1 = new PointLight(new Color(1, 1, 1), new Point3D(30, 0, 0), 0.1, 0.001, 0);
 
-        Render render = new Render(scene, imageWriter);
+             scene.addLight(p4, p1);
 
-        render.renderImage();
-        //render.printGrid(50);
-        imageWriter.writeToimage();
-        scene.getLights().clear();
+             ImageWriter imageWriter = new ImageWriter("test" + (i+10), 500, 500, 500, 500);
+
+             Render render = new Render(scene, imageWriter);
+
+             render.renderImage();
+             //render.printGrid(50);
+             imageWriter.writeToimage();
+             scene.getLights().clear();
+         }
     }
 
 
