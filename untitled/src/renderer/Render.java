@@ -14,6 +14,8 @@ import primitives.Ray;
 import primitives.Color;
 import primitives.Vector;
 
+import static primitives.Util.uscale;
+
 public class Render {
     private Scene _scene;
     private ImageWriter _imageWriter;
@@ -138,12 +140,25 @@ public class Render {
      * @return color
      */
     private Color calcSpecular(double ks, Vector l, Vector n, Vector v, Color intensity, int shininess) {
-        Vector r = l.subtract(n.scale(2 * n.dotProduct(l)));
-        double dotProduct = r.dotProduct(v.scale(-1));
-        if (dotProduct < 0) dotProduct = 0;
-        double num = 1;
-        for (int i = 0; i < shininess; i++)
-            num *= dotProduct;
-        return intensity.scale(ks * num);
+//        Vector r = l.subtract(n.scale(2 * n.dotProduct(l)));
+//        double dotProduct = r.dotProduct(v.scale(-1));
+//        if (dotProduct < 0) dotProduct = 0;
+//        double num = 1;
+//        for (int i = 0; i < shininess; i++)
+//            num *= dotProduct;
+//        return intensity.scale(ks * num);
+        double dn = n.dotProduct(l)*2;
+        if(dn<0)
+        {
+            n=n.scale(-1);
+            dn = uscale(dn,-1);
+        }
+        Vector R=new Vector(l);
+        n=n.scale(dn);
+        R=R.subtract(n).normalize();
+        double res=Math.pow(v.dotProduct(R),shininess);
+        double k=uscale(ks,res);
+        Color c= intensity.scale(k);
+        return  c;
     }
 }

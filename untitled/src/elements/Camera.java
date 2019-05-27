@@ -124,4 +124,20 @@ public class Camera {
             p = pc.add(vRight.scale(A).subtract(vUp.scale(B)));
         return new Ray(new Vector(p).normalize(), p0);
     }
+
+    public void setP0(Point3D p0) {
+        this.p0 = p0;
+    }
+
+    public void setvUp(Vector vUp) {
+        this.vUp = vUp;
+    }
+
+    public void setvRight(Vector vRight) {
+        this.vRight = vRight;
+    }
+
+    public void setvTo(Vector vTo) {
+        this.vTo = vTo;
+    }
 }

@@ -137,7 +137,7 @@ public class Color {
 			g += c._g;
 			b += c._b;
 		}
-		return new Color(r, g, b);
+		return new Color(r, g, b).scale(1);
 	}
 
 	/**
@@ -147,13 +147,13 @@ public class Color {
 	 * @return new Color object which is the result of the operation
 	 */
 	public Color scale(double k) {
-		if (k < 0)
-			return this;
+	    k=Math.abs(k);
+			//return this;
 //			throw new IllegalArgumentException(
 //					"Can't scale a color by a negative number");
-		double r = _r * k;
-		double g = _g * k;
-		double b = _b * k;
+		double r = Double.min(Double.max(_r*k,0),255);;
+		double g = Double.min(Double.max(_g*k,0),255);
+		double b = Double.min(Double.max(_b*k,0),255);
 		return new Color(r, g, b);
 	}
 
@@ -173,4 +173,27 @@ public class Color {
 		return new Color(r, g, b);
 	}
 
+    public double get_r() {
+        return _r;
+    }
+
+    public void set_r(double _r) {
+        this._r = Double.min(Double.max(_r,0),255);
+    }
+
+    public double get_g() {
+        return _g;
+    }
+
+    public void set_g(double _g) {
+        this._g = Double.min(Double.max(_g,0),255);
+    }
+
+    public double get_b() {
+        return _b;
+    }
+
+    public void set_b(double _b) {
+        this._b = Double.min(Double.max(_b,0),255);
+    }
 }
