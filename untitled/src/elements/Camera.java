@@ -31,9 +31,9 @@ public class Camera {
      */
     public Camera(Point3D p0, Vector vup, Vector vtoward) {
         this.p0 = p0;
-        this.vUp = vup;
+        this.vRight = vup;
         this.vTo = vtoward;
-        vRight = vTo.crossProduct(vUp);//(1,0,0)
+        vUp = vTo.crossProduct(vRight);//(1,0,0)
         //this.vRight = vright;
     }
 

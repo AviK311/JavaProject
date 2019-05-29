@@ -72,6 +72,8 @@ public class Render {
         double ks = g.get_material().get_Ks();
         for (LightSource light : _scene.getLights()) {
             Vector l = light.getL(p);
+            boolean occ = occluded(l,geoPoint,n);
+            if (!occ)
             if (n.dotProduct(l) * n.dotProduct(v) > 0) {
                 Color lightIntensity = light.getIntensity(p);
                 Color diff = calcDiffusive(kd, l, n, lightIntensity);
@@ -124,7 +126,7 @@ public class Render {
      * @return color
      */
     private Color calcDiffusive(double kd, Vector l, Vector n, Color intensity) {
-        double ln = java.lang.Math.abs(l.dotProduct(n));
+        double ln = java.lang.Math.abs(n.dotProduct(l));
         return intensity.scale(kd * ln);
     }
 
@@ -147,18 +149,32 @@ public class Render {
 //        for (int i = 0; i < shininess; i++)
 //            num *= dotProduct;
 //        return intensity.scale(ks * num);
-        double dn = n.dotProduct(l)*2;
-        if(dn<0)
-        {
-            n=n.scale(-1);
-            dn = uscale(dn,-1);
+        double dn = n.dotProduct(l) * 2;
+        if (dn < 0) {
+            n = n.scale(-1);
+            dn = uscale(dn, -1);
         }
-        Vector R=new Vector(l);
-        n=n.scale(dn);
-        R=R.subtract(n).normalize();
-        double res=Math.pow(v.dotProduct(R),shininess);
-        double k=uscale(ks,res);
-        Color c= intensity.scale(k);
-        return  c;
+        Vector R = new Vector(l);
+        n = n.scale(dn);
+        R = R.subtract(n).normalize();
+        double res = Math.pow(v.dotProduct(R), shininess);
+        double k = uscale(ks, res);
+        Color c = intensity.scale(k);
+        return c;
+    }
+
+    public ImageWriter get_imageWriter() {
+        return _imageWriter;
+    }
+
+    private boolean occluded(Vector l, GeoPoint gp, Vector normal) {
+        Vector lightDirection = l.scale(-1);
+//        Vector epsVector = normal.scale(normal.dotProduct(lightDirection) > 0 ? 2 : -2);
+        Vector epsVector = normal.scale(2);
+        Point3D lightPoint = gp.point.add(epsVector);
+        Ray rayToLight = new Ray(l, lightPoint);
+        List<GeoPoint> blockers = _scene.getGeometries().findIntersections(rayToLight);
+        return !blockers.isEmpty();
+
     }
 }
