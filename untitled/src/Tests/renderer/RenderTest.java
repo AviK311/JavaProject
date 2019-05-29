@@ -281,25 +281,25 @@ public class RenderTest {
 
         //Material material = new Material(19, 0.4, 0.2, 0.2,1);
         Point3D pSphere = new Point3D(-50, -100, -150);
-        Sphere sphere = new Sphere(new Color(10, 100, 20),19, 0.2, 1,50, pSphere);
+        Sphere sphere = new Sphere(new Color(10, 100, 20),19, 0, 1,50, pSphere);
         //sphere.setEmmission(new Color(10, 100, 20));
         //sphere.setMaterial(material);
         scene.addGeometry(sphere);
 
         Point3D pSphere1 = new Point3D(-30, 0, -250);
-        Sphere sphere1 = new Sphere(new Color(110, 20, 10), 19, 0.4, 0.2,70,pSphere1);
+        Sphere sphere1 = new Sphere(new Color(110, 20, 10), 19, 0, 0.2,70,pSphere1);
         //sphere1.setEmmission(new Color(110, 20, 10));
         //sphere1.setMaterial(material);
         scene.addGeometry(sphere1);
 
         Point3D pSphere2 = new Point3D(-10, 150, -350);
-        Sphere sphere2 = new Sphere(new Color(20, 20, 100), 19, 0.2, 1,90,pSphere2 );
+        Sphere sphere2 = new Sphere(new Color(20, 20, 100), 19, 0, 1,90,pSphere2 );
         //sphere2.setEmmission(new Color(20, 20, 100));
         //sphere2.setMaterial(material);
         scene.addGeometry(sphere2);
 
 
-        Plane plane = new Plane(new Color(133, 133, 133),15, 0.2, 1,new Point3D(-100, 0 , 0),new Vector(1,0,0));
+        Plane plane = new Plane(new Color(133, 133, 133),15, 0, 1,new Point3D(-100, 0 , 0),new Vector(1,0,0));
         //plane.setMaterial(15, 0.1, 0.4, 0.2,1);
         //plane.setEmmission(new Color(133, 133, 133));
         scene.addGeometry(plane);

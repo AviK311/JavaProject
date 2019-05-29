@@ -101,6 +101,8 @@ public class Plane extends Geometry {
 
             }
         }
+        if (intersectionPoints.size()==0)
+            return null;
         return intersectionPoints;
     }
 }
