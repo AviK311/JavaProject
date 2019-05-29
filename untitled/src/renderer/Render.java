@@ -124,7 +124,7 @@ public class Render {
      * @return color
      */
     private Color calcDiffusive(double kd, Vector l, Vector n, Color intensity) {
-        double ln = java.lang.Math.abs(l.dotProduct(n));
+        double ln = java.lang.Math.abs(n.dotProduct(l));
         return intensity.scale(kd * ln);
     }
 
@@ -160,5 +160,9 @@ public class Render {
         double k=uscale(ks,res);
         Color c= intensity.scale(k);
         return  c;
+    }
+
+    public ImageWriter get_imageWriter() {
+        return _imageWriter;
     }
 }
