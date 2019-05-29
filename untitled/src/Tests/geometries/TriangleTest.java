@@ -98,6 +98,12 @@ public class TriangleTest {
         result = triangle.findIntersections(ray);
         assertEquals("fail VBATest 7", null, result);
 
+        //VBA 7: triangle is behind ray
+        triangle = new Triangle(pointArray[1], pointArray[6], pointArray[8]);
+        ray = new Ray(new Vector(0,0,-1), new Point3D(0,0,-3));
+        result = triangle.findIntersections(ray);
+        assertEquals("fail VBATest 7", null, result);
+
     }
 
 }

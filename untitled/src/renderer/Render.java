@@ -169,10 +169,11 @@ public class Render {
 
     private boolean occluded(Vector l, GeoPoint gp, Vector normal) {
         Vector lightDirection = l.scale(-1);
-//        Vector epsVector = normal.scale(normal.dotProduct(lightDirection) > 0 ? 2 : -2);
-        Vector epsVector = normal.scale(2);
+//        lightDirection = l;
+        Vector epsVector = normal.scale(normal.dotProduct(lightDirection) > 0 ? 2 : -2);
+//        Vector epsVector = normal.scale(2);
         Point3D lightPoint = gp.point.add(epsVector);
-        Ray rayToLight = new Ray(l, lightPoint);
+        Ray rayToLight = new Ray(lightDirection, lightPoint);
         List<GeoPoint> blockers = _scene.getGeometries().findIntersections(rayToLight);
         return !blockers.isEmpty();
 
