@@ -30,6 +30,7 @@ public class SpotLight extends PointLight {
         return c;
     }
 
+
     @Override
     public Vector getD() {
         return direction;
