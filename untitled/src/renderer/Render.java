@@ -167,6 +167,13 @@ public class Render {
         return _imageWriter;
     }
 
+    /**
+     * checks whether the geometry is shadowed by another geometry
+     * @param l direction from light
+     * @param gp geopoint
+     * @param normal of geometry at point
+     * @return true of false
+     */
     private boolean occluded(Vector l, GeoPoint gp, Vector normal) {
         Vector lightDirection = l.scale(-1);
 //        lightDirection = l;

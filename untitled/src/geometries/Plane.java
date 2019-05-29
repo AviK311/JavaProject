@@ -50,6 +50,25 @@ public class Plane extends Geometry {
         this.normal = normal.normalize();
     }
 
+    /**
+     * ctor with material params
+     * @param emission
+     * @param Shininess
+     * @param _Kd
+     * @param _Ks
+     * @param p1
+     * @param p2
+     * @param p3
+     */
+    public Plane(Color emission, int Shininess, double _Kd, double _Ks, Point3D p1, Point3D p2, Point3D p3) {
+        super(emission, Shininess, _Kd, _Ks);
+        Vector v1 = p1.subtract(p2);//if p1==p2, a zero vector constructor attempt exception will be thrown
+        Vector v2 = p1.subtract(p3);//if p1==p3, a zero vector constructor attempt exception will be thrown
+        this.p1 = new Point3D(p1);
+        this.normal = v1.crossProduct(v2).normalize();//if the 3 dots are on the same line,
+        // the crossproduct function will throw a zero vector constructor attempt exception
+    }
+
 
     /**
      * ctor with point params
