@@ -20,12 +20,14 @@ public class Material {
     double _Ks;
     double _Kr;
     double _Kt;
+    int nShininess;
 
-    public Material(double _Kd, double _Ks, double _Kr, double _Kt) {
+    public Material(double _Kd, double _Ks, double _Kr, double _Kt,int nShininess) {
         this._Kd = _Kd;
         this._Ks = _Ks;
         this._Kr = _Kr;
         this._Kt = _Kt;
+        this.nShininess = nShininess;
     }
 
 }

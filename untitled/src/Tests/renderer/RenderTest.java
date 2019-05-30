@@ -265,15 +265,15 @@ public class RenderTest {
         scene.addGeometry(triangle2);
 
         scene.addLight(new SpotLight(new Color(100, 80, 0), new Point3D(150,150,-50), //right light
-                 0, 0.000001, 0.0000005,new Point3D(0,0,-100).subtract(new Point3D(50,0,0))));
+                 0.000001, 0.0000005,new Point3D(0,0,-100).subtract(new Point3D(50,0,0))));
 
         // I added this light
         scene.addLight(new SpotLight(new Color(100, 80, 0), new Point3D(-1000,-600,-50), //right light
-                0, 0.000001, 0.0000005,new Point3D(0,0,-100).subtract(new Point3D(50,0,0))));
+                0.000001, 0.0000005,new Point3D(0,0,-100).subtract(new Point3D(50,0,0))));
 
         Vector V = new Vector(new Point3D(-0.2,-0.6,-1)).normalize();
-        scene.addLight(new SpotLight(new Color(220, 230, 60), new Point3D(0,0,-350), //light behind the sphere
-                0, 0.00001, 0.00005,V));
+        scene.addLight(new SpotLight(new Color(220, 230, 60), new Point3D(0,0,-350)//light behind the sphere
+                 , 0.00001, 0.00005,V));
 
         render.renderImage();
         //imageWriter.writeToimage();
@@ -419,16 +419,16 @@ public class RenderTest {
         scene.setAmbientLight(new AmbientLight(new Color(100, 100, 100), 0.1));
 
         Plane plane = new Plane(new Color(40, 40, 40),
-                100, 0.6,0,0, 0,
+                100, 0.6,0,0.3, 0,
                 new Point3D(0, 0 , -200),new Vector(1,0,1));
 
         Sphere sphere = new Sphere(new Color(0, 0, 100),
-                100,0.4,0.5,0,0,50,
+                100,0.4,0.3,0.1,0,50,
                 new Point3D(0, 0, -100));
 
         scene.addGeometry(plane, sphere);
-        PointLight pointLight = new PointLight(new Color(800, 600, 0), new Point3D(0,0,0), //right light
-                1, 0.0001, 0.00002);
+        PointLight pointLight = new PointLight(new Color(800, 600, 0), new Point3D(0,200,0), //right light
+                 0.0001, 0.00002);
 
         scene.addLight(pointLight);
 

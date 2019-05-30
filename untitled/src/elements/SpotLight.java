@@ -11,13 +11,12 @@ public class SpotLight extends PointLight {
      * params ctor
      * @param _color
      * @param position
-     * @param _Kc
      * @param kl
      * @param kq
      * @param direction
      */
-    public SpotLight(Color _color, Point3D position, double _Kc, double kl, double kq, Vector direction) {
-        super(_color, position, _Kc, kl, kq);
+    public SpotLight(Color _color, Point3D position, double kl, double kq, Vector direction) {
+        super(_color, position,  kl, kq);
         this.direction = direction.normalize();
     }
 

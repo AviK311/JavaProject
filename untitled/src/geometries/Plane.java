@@ -115,7 +115,8 @@ public class Plane extends Geometry {
         if (d != 0) {//checking whether the normal and the ray direction are vertical
             double t = -normal.dotProduct(v1) / d; // -N * (P0 - QO) / (N * V)
             if (t > 0) {
-                Point3D p = ray.getHead().add(ray.getDirection().scale(t));
+                Vector temov = ray.getDirection().scale(t);
+                Point3D p = ray.getHead().add(temov);
                 intersectionPoints.add(new GeoPoint(this, p));
 
             }

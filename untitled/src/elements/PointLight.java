@@ -18,7 +18,7 @@ public class PointLight extends Light implements LightSource{
      * @param kl
      * @param kq
      */
-    public PointLight(Color _color, Point3D position, double Kc, double kl, double kq) {
+    public PointLight(Color _color, Point3D position, double kl, double kq) {
         super(_color);
         this.position = position;
         this.Kc = 1;

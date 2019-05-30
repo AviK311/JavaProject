@@ -104,6 +104,7 @@ public class Vector {
      * @return scaled vector
      */
     public Vector scale(double scalingFacor) {
+        System.out.println(head);
         Coordinate x_ = this.head.getX().scale(scalingFacor);
         Coordinate y_ = this.head.getY().scale(scalingFacor);
         Coordinate z_ = this.head.getZ().scale(scalingFacor);

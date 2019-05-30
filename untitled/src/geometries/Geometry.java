@@ -58,7 +58,6 @@ public abstract class Geometry implements Intersectable {
      */
     public Geometry(Color emission, int Shininess, double _Kd, double _Ks, double _Kr, double _Kt) {
         this.emission = emission;
-        this.nShininess = Shininess;
-        this._material = new Material(_Kd, _Ks, _Kr, _Kt);
+        this._material = new Material(_Kd, _Ks, _Kr, _Kt, Shininess);
     }
 }
