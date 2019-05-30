@@ -92,14 +92,14 @@ public class Render {
         for (LightSource light : _scene.getLights()) {
             Vector l = light.getL(p);
             if (n.dotProduct(l) * n.dotProduct(v) > 0) {
-//                double ktr = transparency(l,geoPoint,n);
-//                if (ktr > MINIMUM_KTR) {
-                    Color lightIntensity = light.getIntensity(p);
-//                    Color lightIntensity = light.getIntensity(p).scale(ktr);
+               double ktr = transparency(l,geoPoint,n);
+               if (ktr > MINIMUM_KTR) {
+                   // Color lightIntensity = light.getIntensity(p);
+                    Color lightIntensity = light.getIntensity(p).scale(ktr);
                     Color diff = calcDiffusive(kd, l, n, lightIntensity);
                     Color spec = calcSpecular(ks, l, n, v, lightIntensity, nShininess);
                     returnColor = returnColor.add(diff, spec);
-//                }
+               }
             }
         }
 //        double kr = g.get_material().getKr();
