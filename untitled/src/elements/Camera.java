@@ -2,6 +2,7 @@ package elements;
 
 import primitives.Point3D;
 import primitives.Ray;
+import primitives.Util;
 import primitives.Vector;
 
 import java.util.Objects;
@@ -13,16 +14,6 @@ public class Camera {
     private Vector vTo;
 
     /**
-     * default ctor - the camera we often use
-     */
-    public Camera() {
-        this.p0 = Point3D.ORIGIN_POINT;
-        vUp = new Vector(0, 1, 0);
-        vTo = new Vector(0, 0, -1);
-        vRight = vTo.crossProduct(vUp);//(1,0,0)
-    }
-
-    /**
      * params ctor. cRight is calculated by vUp and vtoward
      *
      * @param p0
@@ -31,22 +22,11 @@ public class Camera {
      */
     public Camera(Point3D p0, Vector vup, Vector vtoward) {
         this.p0 = p0;
-        this.vRight = vup;
-        this.vTo = vtoward;
-        vUp = vTo.crossProduct(vRight);//(1,0,0)
-        //this.vRight = vright;
-    }
-
-    /**
-     * copy Ctor
-     *
-     * @param other
-     */
-    public Camera(Camera other) {
-        this.p0 = other.getP0();
-        this.vUp = other.getvUp();
-        this.vRight = other.getvRight();
-        this.vTo = other.getvTo();
+        this.vUp = vup.normalize();
+        this.vTo = vtoward.normalize();
+        if (!Util.isZero(vUp.dotProduct(vTo)))
+            throw new IllegalArgumentException("Vup and Vto must be orthogonal!");
+        this.vRight = vTo.crossProduct(vUp);//(1,0,0)
     }
 
     /**
@@ -111,33 +91,13 @@ public class Camera {
         Point3D pc = p0.add(vTo.scale(screenDist));
         double Rx = screenWidth / Nx;
         double Ry = screenHeight / Ny;
-        double A = (i - (double) Nx / 2) * Rx - Rx / 2;
-        double B = (j - (double) Ny / 2) * Ry - Ry / 2;
-        Point3D p;
-        if (A == 0 && B == 0)
-            p = pc;
-        else if (A == 0)
-            p = pc.add(vUp.scale(-B));
-        else if (B == 0)
-            p = pc.add(vRight.scale(A));
-        else
-            p = pc.add(vRight.scale(A).subtract(vUp.scale(B)));
-        return new Ray(new Vector(p).normalize(), p0);
-    }
-
-    public void setP0(Point3D p0) {
-        this.p0 = p0;
-    }
-
-    public void setvUp(Vector vUp) {
-        this.vUp = vUp;
-    }
-
-    public void setvRight(Vector vRight) {
-        this.vRight = vRight;
-    }
-
-    public void setvTo(Vector vTo) {
-        this.vTo = vTo;
+        double A = (i - (double) Nx / 2) * Rx + Rx / 2;
+        double B = (j - (double) Ny / 2) * Ry + Ry / 2;
+        Point3D p = pc;
+        if (A != 0)
+            p = p.add(vRight.scale(A));
+        if (B != 0)
+            p = p.add(vUp.scale(-B));
+        return new Ray(p.subtract(p0), p0);
     }
 }

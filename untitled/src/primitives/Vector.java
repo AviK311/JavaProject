@@ -11,8 +11,8 @@ public class Vector {
      * @param head direction of the vector
      */
     public Vector(Point3D head) {
-        if (head.equals(Point3D.ORIGIN_POINT))
-            throw new IllegalArgumentException("Zero vector is not allowed");
+//        if (head.equals(Point3D.ORIGIN_POINT))
+//            throw new IllegalArgumentException("Zero vector is not allowed");
         this.head = new Point3D(head);
     }
 

@@ -32,9 +32,9 @@ public class Color {
 	 * @param b Blue component
 	 */
 	public Color(double r, double g, double b) {
-		_r = r>255?255:r<0?0:r;
-		_g = g>255?255:g<0?0:g;
-		_b = b>255?255:b<0?0:b;
+		_r = r<0?0:r;
+		_g = g<0?0:g;
+		_b = b<0?0:b;
 	}
 
 	/**

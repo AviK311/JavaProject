@@ -36,36 +36,36 @@ public class PlaneTest {
     /**
      * When the plane is adjacent to the Camera
      */
-    @Test
-    public void getPlanePointsThroughPixels1() {
-        Camera c = new Camera();
-        Plane p = new Plane(new Point3D(0,0,-1), new Vector(0,0,-1));
-        List<GeoPoint> results = new ArrayList<>();
-        for (int i = 1; i < 4; i++)
-            for(int j = 1; j< 4; j++){
-                List<GeoPoint> rayResult = p.findIntersections(c.constructRayThroughAPixel(3, 3, i, j, 100, 150, 150));
-                if (rayResult!=null)
-                    results.addAll(rayResult);
-            }
-        assertEquals(9,results.size());
-
-    }
+//    @Test
+//    public void getPlanePointsThroughPixels1() {
+//        Camera c = new Camera();
+//        Plane p = new Plane(new Point3D(0,0,-1), new Vector(0,0,-1));
+//        List<GeoPoint> results = new ArrayList<>();
+//        for (int i = 1; i < 4; i++)
+//            for(int j = 1; j< 4; j++){
+//                List<GeoPoint> rayResult = p.findIntersections(c.constructRayThroughAPixel(3, 3, i, j, 100, 150, 150));
+//                if (rayResult!=null)
+//                    results.addAll(rayResult);
+//            }
+//        assertEquals(9,results.size());
+//
+//    }
 
     /**
      * when the plane is perpendicular to the Camera
      */
-    @Test
-    public void getPlanePointsThroughPixels2() {
-        Camera c = new Camera();
-        Plane p = new Plane(new Point3D(0,0,-1), new Vector(1,0,0));
-        List<GeoPoint> results = new ArrayList<>();
-        for (int i = 1; i < 4; i++)
-            for(int j = 1; j< 4; j++) {
-                List<GeoPoint> rayResult = p.findIntersections(c.constructRayThroughAPixel(3, 3, i, j, 100, 150, 150));
-                if (rayResult!=null)
-                     results.addAll(rayResult);
-            }
-        assertEquals(0,results.size());
-
-    }
+//    @Test
+//    public void getPlanePointsThroughPixels2() {
+//        Camera c = new Camera();
+//        Plane p = new Plane(new Point3D(0,0,-1), new Vector(1,0,0));
+//        List<GeoPoint> results = new ArrayList<>();
+//        for (int i = 1; i < 4; i++)
+//            for(int j = 1; j< 4; j++) {
+//                List<GeoPoint> rayResult = p.findIntersections(c.constructRayThroughAPixel(3, 3, i, j, 100, 150, 150));
+//                if (rayResult!=null)
+//                     results.addAll(rayResult);
+//            }
+//        assertEquals(0,results.size());
+//
+//    }
 }

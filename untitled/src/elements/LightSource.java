@@ -18,5 +18,4 @@ public interface LightSource {
      * @return vector
      */
     public Vector getL(Point3D point);
-    public Vector getD();
 }

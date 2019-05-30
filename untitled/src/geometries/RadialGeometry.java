@@ -36,8 +36,8 @@ public abstract class RadialGeometry extends Geometry {
      * @param _Ks
      * @param radius
      */
-    public RadialGeometry(Color emission, int Shininess, double _Kd, double _Ks, float radius) {
-        super(emission, Shininess, _Kd, _Ks);
+    public RadialGeometry(Color emission, int Shininess, double _Kd, double _Ks,double _Kr, double _Kt, float radius) {
+        super(emission, Shininess, _Kd, _Ks, _Kr, _Kt);
         this.radius = radius;
     }
 

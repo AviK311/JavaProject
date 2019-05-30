@@ -5,7 +5,7 @@ import primitives.Point3D;
 import primitives.Vector;
 
 public class SpotLight extends PointLight {
-    Vector direction;
+    private Vector direction;
 
     /**
      * params ctor
@@ -18,21 +18,18 @@ public class SpotLight extends PointLight {
      */
     public SpotLight(Color _color, Point3D position, double _Kc, double kl, double kq, Vector direction) {
         super(_color, position, _Kc, kl, kq);
-        this.direction = direction;
+        this.direction = direction.normalize();
     }
 
     @Override
     public Color getIntensity(Point3D point) {
-        double dl = getD().normalize().dotProduct(getL(point).normalize()); // D*L
+        double dl = direction.dotProduct(getL(point).normalize()); // D*L
         if (dl<0)
-            dl=0;
-        Color c = super.getIntensity(point).scale( dl); // [I0(D*L)] / (Kc+Kl*d+Kq*d*d)
+            return Color.BLACK;
+        Color c = super.getIntensity(point).scale(dl); // [I0(D*L)] / (Kc+Kl*d+Kq*d*d)
         return c;
     }
 
 
-    @Override
-    public Vector getD() {
-        return direction;
-    }
+
 }

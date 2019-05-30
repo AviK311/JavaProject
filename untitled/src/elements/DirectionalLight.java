@@ -18,7 +18,7 @@ public class DirectionalLight extends Light implements LightSource {
 
     @Override
     public Color getIntensity(Point3D point) {
-        return _color;
+        return getIntensity();
     }
 
     @Override
@@ -27,14 +27,8 @@ public class DirectionalLight extends Light implements LightSource {
     }
 
 
-    @Override
-    public Vector getD() {
-        return null;
-    }
 
-    @Override
-    public Color getIntensity() {
-        return null;
-    }
+
+
 }
 

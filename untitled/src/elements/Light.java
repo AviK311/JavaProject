@@ -3,7 +3,7 @@ import primitives.Color;
 import primitives.Point3D;
 
 public abstract class Light {
-    Color _color;
+    private Color _color;
 
     /**
      * params ctor
@@ -13,7 +13,9 @@ public abstract class Light {
         this._color = _color;
     }
 
-    public abstract Color getIntensity();
+    public  Color getIntensity(){
+        return _color;
+    };
 
 
 

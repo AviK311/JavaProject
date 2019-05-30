@@ -1,19 +1,17 @@
 package renderer;
 
-//import java.awt.Color;
-import primitives.Color;
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-import javax.imageio.ImageIO;
+import javax.imageio.*;
+import javax.imageio.stream.*;
 
 public class ImageWriter {
 
-    private int _imageWidth;
-    private int _imageHeight;
-
-    private int _Ny, _Nx;
+    private double _imageWidth, _imageHeight;
+    private int _nX, _nY;
 
     final String PROJECT_PATH = System.getProperty("user.dir");
 
@@ -22,76 +20,52 @@ public class ImageWriter {
     private String _imageName;
 
     // ***************** Constructors ********************** //
-
-    public ImageWriter(String imageName, int width, int height, int Ny, int Nx){
-
-        _Nx = Nx;
-        _Ny = Ny;
-
+    public ImageWriter(String imageName, double width, double height, int nX, int nY) {
+        _imageName = imageName;
         _imageWidth = width;
         _imageHeight = height;
+        _nX = nX;
+        _nY = nY;
 
-        _imageName = imageName;
-
-        _image = new BufferedImage(
-                _imageWidth, _imageHeight, BufferedImage.TYPE_INT_RGB);;
+        _image = new BufferedImage(_nX, _nY, BufferedImage.TYPE_INT_RGB);
     }
 
-    public ImageWriter (ImageWriter imageWriter){
-        _Nx = imageWriter._Nx;
-        _Ny = imageWriter._Ny;
-
-        _imageWidth = imageWriter.getWidth();
-        _imageHeight = imageWriter.getHeight();
-
-        _imageName = imageWriter._imageName;
-
-        _image = new BufferedImage(
-                _imageWidth, _imageHeight, BufferedImage.TYPE_INT_RGB);;
+    public ImageWriter (ImageWriter imageWriter) {
+        this(	imageWriter._imageName,
+                imageWriter._imageWidth, imageWriter._imageHeight,
+                imageWriter._nX, imageWriter._nY);
     }
 
     // ***************** Getters/Setters ********************** //
 
-    public int getWidth()  { return _imageWidth;  }
-    public int getHeight() { return _imageHeight; }
+    public double getWidth()  { return _imageWidth;  }
+    public double getHeight() { return _imageHeight; }
 
-    public int getNy() { return _Ny; }
-    public int getNx() { return _Nx; }
+    public int getNy() { return _nY; }
+    public int getNx() { return _nX; }
 
-    public void setNy(int _Ny) { this._Ny = _Ny; }
-    public void setNx(int _Nx) { this._Nx = _Nx; }
+    public void setNy(int _Ny) { this._nY = _Ny; }
+    public void setNx(int _Nx) { this._nX = _Nx; }
 
     // ***************** Operations ******************** //
 
     public void writeToimage(){
-
         File ouFile = new File(PROJECT_PATH + "/" + _imageName + ".jpg");
-
         try {
-            ImageIO.write(_image, "jpg", ouFile);
+            javax.imageio.ImageWriter jpgWriter = ImageIO.getImageWritersByFormatName("jpg").next();
+            ImageWriteParam jpgWriteParam = jpgWriter.getDefaultWriteParam();
+            jpgWriteParam.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
+            jpgWriteParam.setCompressionQuality(1f);
+            jpgWriter.setOutput(new FileImageOutputStream(ouFile));
+            jpgWriter.write(null,new IIOImage(_image, null, null), jpgWriteParam);
+            //ImageIO.write(_image, "jpg", ouFile);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void writePixel(int xIndex, int yIndex, int r, int g, int b){
-
-        int rgb = new Color(r, g, b).getColor().getRGB();
-        _image.setRGB(xIndex, yIndex, rgb);
-
-    }
-
-    public void writePixel(int xIndex, int yIndex, int[] rgbArray){
-
-        int rgb = new Color(rgbArray[0], rgbArray[1], rgbArray[2]).getColor().getRGB();
-        _image.setRGB(xIndex, yIndex, rgb);
-
-    }
-
     public void writePixel(int xIndex, int yIndex, Color color){
-
-        _image.setRGB(xIndex, yIndex, color.getColor().getRGB());
-
+        _image.setRGB(xIndex, yIndex, color.getRGB());
     }
 
 }

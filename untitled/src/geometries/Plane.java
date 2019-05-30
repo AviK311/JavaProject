@@ -44,8 +44,8 @@ public class Plane extends Geometry {
      * @param p1
      * @param normal
      */
-    public Plane(Color emission, int Shininess, double _Kd, double _Ks, Point3D p1, Vector normal) {
-        super(emission, Shininess, _Kd, _Ks);
+    public Plane(Color emission, int Shininess, double _Kd, double _Ks,double _Kr, double _Kt, Point3D p1, Vector normal) {
+        super(emission, Shininess, _Kd, _Ks, _Kr, _Kt);
         this.p1 = p1;
         this.normal = normal.normalize();
     }
@@ -60,8 +60,8 @@ public class Plane extends Geometry {
      * @param p2
      * @param p3
      */
-    public Plane(Color emission, int Shininess, double _Kd, double _Ks, Point3D p1, Point3D p2, Point3D p3) {
-        super(emission, Shininess, _Kd, _Ks);
+    public Plane(Color emission, int Shininess, double _Kd, double _Ks,double _Kr, double _Kt, Point3D p1, Point3D p2, Point3D p3) {
+        super(emission, Shininess, _Kd, _Ks, _Kr, _Kt);
         Vector v1 = p1.subtract(p2);//if p1==p2, a zero vector constructor attempt exception will be thrown
         Vector v2 = p1.subtract(p3);//if p1==p3, a zero vector constructor attempt exception will be thrown
         this.p1 = new Point3D(p1);
