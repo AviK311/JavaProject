@@ -22,7 +22,7 @@ public class Render {
     private final static double EPSILON = 0.001;
     private final static double MINIMUM_K = 0.01;
     private final static double MINIMUM_KTR = 0.0001;
-    private final static int MAX_CALC_COLOR = 12;
+    private final static int MAX_CALC_COLOR = 20;
 
     public Render(Scene _scene, ImageWriter imageWriter) {
         this._scene = _scene;

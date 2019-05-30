@@ -83,8 +83,9 @@ public class Sphere extends RadialGeometry {
         double tMtNplus = Util.alignZero(tM + tN),
                 tMtNminus = Util.alignZero(tM - tN);
 
+
         List<GeoPoint> intersectionPoints = new ArrayList<>();
-        if (tMtNplus > 0)
+        if (tMtNplus>0)
             intersectionPoints.add(new GeoPoint(this, ray.getHead().add(ray.getDirection().scale(tMtNplus))));
         if (tMtNminus > 0)
             intersectionPoints.add(new GeoPoint(this, ray.getHead().add(ray.getDirection().scale(tMtNminus))));

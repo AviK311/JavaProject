@@ -91,13 +91,13 @@ public class Camera {
         Point3D pc = p0.add(vTo.scale(screenDist));
         double Rx = screenWidth / Nx;
         double Ry = screenHeight / Ny;
-        double A = (i - (double) Nx / 2) * Rx + Rx / 2;
-        double B = (j - (double) Ny / 2) * Ry + Ry / 2;
+        double Pi = (i - (double) Nx / 2) * Rx + Rx / 2;
+        double Pj = (j - (double) Ny / 2) * Ry + Ry / 2;
         Point3D p = pc;
-        if (A != 0)
-            p = p.add(vRight.scale(A));
-        if (B != 0)
-            p = p.add(vUp.scale(-B));
+        if (Pi != 0)
+            p = p.add(vRight.scale(Pi));
+        if (Pj != 0)
+            p = p.add(vUp.scale(-Pj));
         return new Ray(p.subtract(p0), p0);
     }
 }

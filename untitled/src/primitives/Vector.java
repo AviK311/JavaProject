@@ -11,8 +11,8 @@ public class Vector {
      * @param head direction of the vector
      */
     public Vector(Point3D head) {
-//        if (head.equals(Point3D.ORIGIN_POINT))
-//            throw new IllegalArgumentException("Zero vector is not allowed");
+//       if (head.equals(Point3D.ORIGIN_POINT))
+//           throw new IllegalArgumentException("Zero vector is not allowed");
         this.head = new Point3D(head);
     }
 
@@ -25,8 +25,8 @@ public class Vector {
      */
     public Vector(double x, double y, double z) {
         this.head = new Point3D(x, y, z);
-        if (this.head.equals(Point3D.ORIGIN_POINT))
-            throw new IllegalArgumentException("Zero vector is not allowed");
+//        if (this.head.equals(Point3D.ORIGIN_POINT))
+//            throw new IllegalArgumentException("Zero vector is not allowed");
     }
 
     /**
@@ -104,11 +104,11 @@ public class Vector {
      * @return scaled vector
      */
     public Vector scale(double scalingFacor) {
-        System.out.println(head);
         Coordinate x_ = this.head.getX().scale(scalingFacor);
         Coordinate y_ = this.head.getY().scale(scalingFacor);
         Coordinate z_ = this.head.getZ().scale(scalingFacor);
-        return new Vector(new Point3D(x_, y_, z_));
+        Point3D p = new Point3D(x_, y_, z_);
+        return new Vector(p);
     }
 
     /**
