@@ -184,7 +184,7 @@ public class RenderTest {
 
         Scene scene = new Scene("Hello");
         scene.setCamera(c);
-        scene.setScreenDistance(50);
+        scene.setScreenDistance(100);
         scene.setAmbientLight(new AmbientLight(new Color(0, 0, 0), 0.5));
         Color blue = new Color(0, 0, 100);
         Color green = new Color(0, 150, 0);
