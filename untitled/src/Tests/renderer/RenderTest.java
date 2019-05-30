@@ -220,8 +220,8 @@ public class RenderTest {
                 0, 0.000001, 0.0000005);
         scene.addLight(pointLight,pointLight2);
         PointLight light1 = new PointLight(new Color(1,1,1), new Point3D(0,0,-1), 0.5, 0,0 );
-        //DirectionalLight light1 = new DirectionalLight(new Color(i, i, i), new Vector(-1, 0, -1));
-//        scene.addLight(light1);
+        DirectionalLight light11 = new DirectionalLight(new Color(255, 255, 255), new Vector(-1, 0, -1));
+        scene.addLight(light11);
 
         ImageWriter imageWriter = new ImageWriter("triangletest", 500, 500, 500, 500);
 
