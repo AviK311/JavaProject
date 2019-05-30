@@ -240,40 +240,44 @@ public class RenderTest {
         ImageWriter imageWriter = new ImageWriter("testPart3_01", 500, 500, 500, 500);
 
         Render render = new Render(scene,imageWriter);
-
-        scene.setCamera(c);
+        Camera c1 = new Camera(new Point3D(0,0,0),
+                new Vector(0,-1,0),
+                new Vector(0,0,-100));
+        scene.setCamera(c1);
         //scene.getCamera().setP0(new Point3D(0,0,0));
-        scene.setScreenDistance(1000);
+        scene.setScreenDistance(150);
         scene.setAmbientLight(new AmbientLight(new Color(255, 255, 255), 0.1));
 
-        Sphere sphere = new Sphere(new Color(0, 0, 100),170,0.1,0.5,0.2,0.2,80, new Point3D(0, 0, -250));
+        Sphere sphere = new Sphere(new Color(0, 0, 100),
+                170,0.5,0.5,0.5,0,80,
+                new Point3D(0, 0, -250));
         scene.addGeometry(sphere);
 
-        Triangle triangle = new Triangle(new Color(0, 50, 0),19,0,0.5,0.2,0.2,new Point3D(  0, 0, -450), //green triangle
+        Triangle triangle = new Triangle(new Color(0, 50, 0),100,0,0.5,0.2,0.2,new Point3D(  0, 0, -450), //green triangle
                 new Point3D( -2000,  0, -500),
                 new Point3D( 0, -4000, -500));
         scene.addGeometry(triangle);
 
-        Triangle triangle1 = new Triangle(new Color(80, 0, 0),19,0,0.5,0.2,0.2,new Point3D(  100, 100, -100), //red triangle
+        Triangle triangle1 = new Triangle(new Color(80, 0, 0),100,0.1,0.3,0.5,0.2,new Point3D(  100, 100, -100), //red triangle
                 new Point3D( 90,  200, -90),
                 new Point3D( -50, 100, -100));
         scene.addGeometry(triangle1);
 
-        Triangle triangle2 = new Triangle(new Color(33, 33, 33),19,0,0.5,0.2,0.2,new Point3D(  -2000, -2000, -2000), //gray triangle
+        Triangle triangle2 = new Triangle(new Color(33, 33, 33),100,0.2,0.5,0.2,0,new Point3D(  -2000, -2000, -2000), //gray triangle
                 new Point3D( -2000,  500, -2000),
                 new Point3D( 1500, 800, -800));
         scene.addGeometry(triangle2);
 
-        scene.addLight(new SpotLight(new Color(100, 80, 0), new Point3D(150,150,-50), //right light
-                 0, 0.000001, 0.0000005,new Point3D(0,0,-100).subtract(new Point3D(50,0,0))));
+        scene.addLight(new SpotLight(new Color(800, 80, 0), new Point3D(150,150,-50),
+                 0.000001, 0.0000005,new Point3D(0,0,-100).subtract(new Point3D(50,0,0))));
 
         // I added this light
-        scene.addLight(new SpotLight(new Color(100, 80, 0), new Point3D(-1000,-600,-50), //right light
-                0, 0.000001, 0.0000005,new Point3D(0,0,-100).subtract(new Point3D(50,0,0))));
+        scene.addLight(new SpotLight(new Color(100, 1000, 0), new Point3D(-1000,-600,-50),
+                 0.000001, 0.0000005,new Point3D(0,0,-100).subtract(new Point3D(50,0,0))));
 
         Vector V = new Vector(new Point3D(-0.2,-0.6,-1)).normalize();
-        scene.addLight(new SpotLight(new Color(220, 230, 60), new Point3D(0,0,-350), //light behind the sphere
-                0, 0.00001, 0.00005,V));
+        scene.addLight(new SpotLight(new Color(220, 230, 1000), new Point3D(0,0,-350),
+                0.00001, 0.00005,V));
 
         render.renderImage();
         //imageWriter.writeToimage();
@@ -419,22 +423,63 @@ public class RenderTest {
         scene.setAmbientLight(new AmbientLight(new Color(100, 100, 100), 0.1));
 
         Plane plane = new Plane(new Color(40, 40, 40),
-                100, 0.6,0,0, 0,
+                100, 0.4,0.1,0.4, 0,
                 new Point3D(0, 0 , -200),new Vector(1,0,1));
 
         Sphere sphere = new Sphere(new Color(0, 0, 100),
-                100,0.4,0.5,0,0,50,
+                100,0.2,0.3,0.5,0,50,
                 new Point3D(0, 0, -100));
 
         scene.addGeometry(plane, sphere);
-        PointLight pointLight = new PointLight(new Color(800, 600, 0), new Point3D(0,0,0), //right light
-                1, 0.0001, 0.00002);
+        PointLight pointLight = new PointLight(new Color(800, 600, 0),
+                new Point3D(0,200,0),
+                0.0001, 0.00002);
 
         scene.addLight(pointLight);
 
         render.renderImage();
         imageWriter.writeToimage();
     }
+    @Test
+    public void myBallTest() {
+        Scene scene = new Scene("Hello");
+        ImageWriter imageWriter = new ImageWriter("picture3Balls ", 200, 200, 500, 500);
+        Render render = new Render(scene,imageWriter);
+        scene.setCamera(c);
+        scene.setScreenDistance(1000);
+        scene.setAmbientLight(new AmbientLight(new Color(100, 100, 100), 0.1));
+
+        Plane plane = new Plane(new Color(40, 40, 40),
+                100, 0.4,0.1,0.4, 0,
+                new Point3D(-50, 0 , -500),new Vector(1,0,1));
+
+        Sphere sphere = new Sphere(new Color(100, 0, 0),
+                100,0.2,0.3,0.2,0,50,
+                new Point3D(0, 100, -500));
+        Sphere sphere1 = new Sphere(new Color(0, 0, 100),
+                100,0.2,0.3,0.2,0,50,
+                new Point3D(0, 0, -500));
+        Sphere sphere2 = new Sphere(new Color(0, 100, 0),
+                100,0.2,0.3,0.2,0,50,
+                new Point3D(0, -100, -500));
+        Pyramid pyramid = new Pyramid(Color.BLACK, 100, 0.2, 0.5, 0, 0,
+                new Point3D(0,0,-500), new Point3D(0, 200,-700),
+                new Point3D(0, -200, -700),
+                new Point3D(100,0,-500));
+//        scene.addGeometry(pyramid);
+
+       scene.addGeometry(plane, sphere, sphere1, sphere2);
+
+        PointLight pointLight = new PointLight(new Color(800, 600, 0),
+                new Point3D(200,200,0),
+                0.0001, 0.000005);
+
+        scene.addLight(pointLight);
+
+        render.renderImage();
+        imageWriter.writeToimage();
+    }
+
 
 
 

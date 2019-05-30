@@ -26,10 +26,9 @@ public abstract class Geometry implements Intersectable {
      * @return shininess
      */
     public int getnShininess() {
-        return nShininess;
+        return _material.getnShininess();
     }
 
-    int nShininess;
 
     /**
      * return the material of the geometry

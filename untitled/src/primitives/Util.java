@@ -54,8 +54,6 @@ public abstract class Util {
 
     public static double uscale(double lhs, double factor) {
         double deltaExp = getExp(factor - 1);
-//        System.out.println(lhs);
-//        System.out.println(factor);
         return deltaExp < ACCURACY ? lhs : lhs * factor;
     }
 

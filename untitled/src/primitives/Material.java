@@ -16,13 +16,21 @@ public class Material {
         return _Kt;
     }
 
+    public int getnShininess() {
+        return nShininess;
+    }
+
+    public void setnShininess(int nShininess) {
+        this.nShininess = nShininess;
+    }
+
+    int nShininess;
     double _Kd;
     double _Ks;
     double _Kr;
     double _Kt;
-    int nShininess;
 
-    public Material(double _Kd, double _Ks, double _Kr, double _Kt,int nShininess) {
+    public Material(double _Kd, double _Ks, double _Kr, double _Kt, int nShininess) {
         this._Kd = _Kd;
         this._Ks = _Ks;
         this._Kr = _Kr;

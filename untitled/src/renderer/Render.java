@@ -20,9 +20,9 @@ public class Render {
     private Scene _scene;
     private ImageWriter _imageWriter;
     private final static double EPSILON = 0.001;
-    private final static double MINIMUM_K = 0.01;
-    private final static double MINIMUM_KTR = 0.0001;
-    private final static int MAX_CALC_COLOR = 4;
+    private final static double MINIMUM_K = 0.0001;
+    private final static double MINIMUM_KTR = 0.000001;
+    private final static int MAX_CALC_COLOR = 20;
 
     public Render(Scene _scene, ImageWriter imageWriter) {
         this._scene = _scene;
@@ -92,30 +92,30 @@ public class Render {
         for (LightSource light : _scene.getLights()) {
             Vector l = light.getL(p);
             if (n.dotProduct(l) * n.dotProduct(v) > 0) {
-//                double ktr = transparency(l,geoPoint,n);
-//                if (ktr > MINIMUM_KTR) {
-                    Color lightIntensity = light.getIntensity(p);
-//                    Color lightIntensity = light.getIntensity(p).scale(ktr);
+                double ktr = transparency(l,geoPoint,n);
+                if (ktr > MINIMUM_KTR) {
+//                    Color lightIntensity = light.getIntensity(p);
+                    Color lightIntensity = light.getIntensity(p).scale(ktr);
                     Color diff = calcDiffusive(kd, l, n, lightIntensity);
                     Color spec = calcSpecular(ks, l, n, v, lightIntensity, nShininess);
                     returnColor = returnColor.add(diff, spec);
-//                }
+                }
             }
         }
-//        double kr = g.get_material().getKr();
-//        Ray reflectedRay = constructReflectedRay(n,p,inRay);
-//        GeoPoint gpReflect = findClosestIntersection(reflectedRay);
-//
-//        Color reflectedLight = Color.BLACK;
-//        if (gpReflect!=null)
-//            reflectedLight = calcColor(gpReflect,reflectedRay,level-1,k*kr).scale(kr);
-//        double kt = g.get_material().getKt();
-//        Ray refractedRay = constructRefractedRay(p,inRay);
-//        GeoPoint gpRefract = findClosestIntersection(refractedRay);
-//        Color refractedLight = Color.BLACK;
-//        if (gpRefract!=null)
-//            refractedLight = calcColor(gpRefract,reflectedRay,level-1,k*kt).scale(kt);
-//        returnColor = returnColor.add(reflectedLight, refractedLight);
+        double kr = g.get_material().getKr();
+        Ray reflectedRay = constructReflectedRay(n,p,inRay);
+        GeoPoint gpReflect = findClosestIntersection(reflectedRay);
+
+        Color reflectedLight = Color.BLACK;
+        if (gpReflect!=null)
+            reflectedLight = calcColor(gpReflect,reflectedRay,level-1,k*kr).scale(kr);
+        double kt = g.get_material().getKt();
+        Ray refractedRay = constructRefractedRay(p,inRay);
+        GeoPoint gpRefract = findClosestIntersection(refractedRay);
+        Color refractedLight = Color.BLACK;
+        if (gpRefract!=null)
+            refractedLight = calcColor(gpRefract,reflectedRay,level-1,k*kt).scale(kt);
+        returnColor = returnColor.add(reflectedLight, refractedLight);
         return returnColor;
     }
 

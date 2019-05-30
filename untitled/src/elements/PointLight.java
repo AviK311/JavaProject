@@ -14,7 +14,6 @@ public class PointLight extends Light implements LightSource{
      * params ctor
      * @param _color
      * @param position
-     * @param Kc
      * @param kl
      * @param kq
      */
