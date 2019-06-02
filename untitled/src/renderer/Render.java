@@ -227,14 +227,10 @@ public class Render {
     private Ray constructReflectedRay(Vector n, Point3D point, Ray inRay){
         Vector l = inRay.getDirection();
         double dn = n.dotProduct(l)*2;
-        if (dn<0) {
-            n = n.scale(-1);
-            dn = uscale(dn, -1);
-        }
-        return new Ray(l.subtract(n.scale(dn)).normalize(), point);
+        return new Ray(l.subtract(n.scale(dn)), point.add(n.scale(EPSILON)));
     }
 
-    /**
+    /**ד
      * calculates the ray that comes out the other side of a geometry
      * @param point
      * @param inRay

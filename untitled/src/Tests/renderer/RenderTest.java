@@ -423,7 +423,7 @@ public class RenderTest {
         scene.setAmbientLight(new AmbientLight(new Color(100, 100, 100), 0.1));
 
         Plane plane = new Plane(new Color(40, 40, 40),
-                100, 0.4,0.1,0.4, 0,
+                100, 0.4,0.1,0.4, 0.1,
                 new Point3D(0, 0 , -200),new Vector(1,0,1));
 
         Sphere sphere = new Sphere(new Color(0, 0, 100),
