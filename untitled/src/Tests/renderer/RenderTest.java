@@ -610,13 +610,13 @@ public class RenderTest {
                 new Point3D(-50, 0 , -500),new Vector(1,0,1));
 
         Sphere sphere3 = new Sphere(new Color(100, 0, 0),
-                100,0.2,0.3,0,0.3,30,
+                100,0.2,0.3,0.9,0.3,30,
                 new Point3D(0, 0, -500));
         Sphere sphere1 = new Sphere(new Color(0, 0, 100),
                 100,0.2,0.3,0.7,0.3,100,
                 new Point3D(0, 0, -500));
         Sphere sphere2 = new Sphere(new Color(0, 100, 0),
-                100,0.2,0.3,0.5,0.2,60,
+                100,0.2,0.3,0.5,0.4,60,
                 new Point3D(0, 0, -500));
 
         scene.addGeometry(plane,sphere1, sphere2,sphere3);
@@ -632,9 +632,9 @@ public class RenderTest {
     }
 
     @Test
-    public void myBallTest4() {
+    public void triangles_ball() {
         Scene scene = new Scene("Hello");
-        ImageWriter imageWriter = new ImageWriter("picture111 ", 200, 200, 500, 500);
+        ImageWriter imageWriter = new ImageWriter("triangles_ball ", 200, 200, 500, 500);
         Render render = new Render(scene,imageWriter);
         scene.setCamera(c);
         scene.setScreenDistance(800);
@@ -674,9 +674,9 @@ public class RenderTest {
 
 
     @Test
-    public void myBallTest5() {
+    public void box() {
         Scene scene = new Scene("Hello");
-        ImageWriter imageWriter = new ImageWriter("picture1112 ", 200, 200, 500, 500);
+        ImageWriter imageWriter = new ImageWriter("box ", 200, 200, 500, 500);
         Render render = new Render(scene,imageWriter);
         scene.setCamera(c);
         scene.setScreenDistance(800);
