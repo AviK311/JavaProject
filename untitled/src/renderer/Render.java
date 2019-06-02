@@ -110,7 +110,7 @@ public class Render {
         if (gpReflect!=null)
             reflectedLight = calcColor(gpReflect,reflectedRay,level-1,k*kr).scale(kr);
         double kt = g.get_material().getKt();
-        Ray refractedRay = constructRefractedRay(p,inRay);
+        Ray refractedRay = constructRefractedRay(n,p,inRay);
         GeoPoint gpRefract = findClosestIntersection(refractedRay);
         Color refractedLight = Color.BLACK;
         if (gpRefract!=null)
@@ -236,8 +236,8 @@ public class Render {
      * @param inRay
      * @return ray
      */
-    private Ray constructRefractedRay(Point3D point, Ray inRay){
-        return new Ray(inRay.getDirection(), point);
+    private Ray constructRefractedRay(Vector n, Point3D point, Ray inRay){
+        return new Ray(inRay.getDirection(), point.add(n.scale(-EPSILON)));
     }
 
     /**

@@ -460,17 +460,28 @@ public class RenderTest {
         scene.setAmbientLight(new AmbientLight(new Color(100, 100, 100), 0.1));
 
         Plane plane = new Plane(new Color(40, 40, 40),
-                100, 0.4,0.1,0.4, 0,
+                100, 0.4,0.1,0.9, 0,
                 new Point3D(-50, 0 , -500),new Vector(1,0,1));
 
+
+
         Sphere sphere = new Sphere(new Color(100, 0, 0),
-                100,0.2,0.3,0.2,0,50,
+                100,0.2,0.3,0.5,0.5,50,
                 new Point3D(0, 100, -500));
         Sphere sphere1 = new Sphere(new Color(0, 0, 100),
-                100,0.2,0.3,0.2,0,50,
+                100,0.2,0.3,0.5,0.5,50,
                 new Point3D(0, 0, -500));
         Sphere sphere2 = new Sphere(new Color(0, 100, 0),
-                100,0.2,0.3,0.2,0,50,
+                100,0.2,0.3,0.5,0.5,50,
+                new Point3D(0, -100, -500));
+        Sphere sphere3 = new Sphere(new Color(0, 0, 100),
+                100,0.2,0.3,0.5,0,25,
+                new Point3D(0, 100, -500));
+        Sphere sphere4 = new Sphere(new Color(0, 100, 0),
+                100,0.2,0.3,0.5,0,25,
+                new Point3D(0, 0, -500));
+        Sphere sphere5 = new Sphere(new Color(100, 0, 0),
+                100,0.2,0.3,0.5,0,25,
                 new Point3D(0, -100, -500));
         Pyramid pyramid = new Pyramid(Color.BLACK, 100, 0.2, 0.5, 0, 0,
                 new Point3D(0,0,-500), new Point3D(0, 200,-700),
@@ -479,12 +490,16 @@ public class RenderTest {
 //        scene.addGeometry(pyramid);
 
        scene.addGeometry(plane, sphere, sphere1, sphere2);
+       scene.addGeometry(sphere3, sphere4, sphere5);
 
         PointLight pointLight = new PointLight(new Color(800, 600, 0),
                 new Point3D(200,200,0),
                 0.0001, 0.000005);
+        PointLight pointLight2 = new PointLight(new Color(800, 600, 0),
+                new Point3D(-200,200,0),
+                0.0001, 0.000005);
 
-        scene.addLight(pointLight);
+        scene.addLight(pointLight, pointLight2);
 
         render.renderImage();
         imageWriter.writeToimage();
