@@ -439,6 +439,14 @@ public class RenderTest {
         DirectionalLight light1 = new DirectionalLight(new Color(50, 100, 50), new Vector(-1, 0, -1));
             scene.addLight(light1);
 
+        PointLight pointLight2 = new PointLight(new Color(800, 600, 0),
+                new Point3D(10,230,0),
+                0.0001, 0.00002);
+
+        scene.addLight(pointLight2);
+
+
+
         render.renderImage();
         imageWriter.writeToimage();
     }
