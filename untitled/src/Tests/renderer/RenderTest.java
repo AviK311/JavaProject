@@ -427,7 +427,7 @@ public class RenderTest {
                 new Point3D(0, 0 , -200),new Vector(1,0,1));
 
         Sphere sphere = new Sphere(new Color(0, 0, 100),
-                100,0.2,0.3,0.5,0,50,
+                100,0.2,0.3,0.1,0,50,
                 new Point3D(0, 0, -100));
 
         scene.addGeometry(plane, sphere);
@@ -436,6 +436,8 @@ public class RenderTest {
                 0.0001, 0.00002);
 
         scene.addLight(pointLight);
+        DirectionalLight light1 = new DirectionalLight(new Color(50, 100, 50), new Vector(-1, 0, -1));
+            scene.addLight(light1);
 
         render.renderImage();
         imageWriter.writeToimage();
