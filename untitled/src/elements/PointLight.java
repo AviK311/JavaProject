@@ -7,6 +7,10 @@ import primitives.Vector;
 import java.awt.*;
 
 public class PointLight extends Light implements LightSource{
+    public Point3D getPosition() {
+        return position;
+    }
+
     Point3D position;
     double Kc=1,Kl=0,Kq=0;
 

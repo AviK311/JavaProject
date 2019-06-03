@@ -1,6 +1,7 @@
 package renderer;
 
 
+import elements.PointLight;
 import scene.*;
 import elements.LightSource;
 import geometries.*;
@@ -22,7 +23,7 @@ public class Render {
     private final static double EPSILON = 0.001;
     private final static double MINIMUM_K = 0.0001;
     private final static double MINIMUM_KTR = 0.000001;
-    private final static int MAX_CALC_COLOR = 20;
+    private final static int MAX_CALC_COLOR = 10;
 
     public Render(Scene _scene, ImageWriter imageWriter) {
         this._scene = _scene;
@@ -92,9 +93,11 @@ public class Render {
         for (LightSource light : _scene.getLights()) {
             Vector l = light.getL(p);
             if (n.dotProduct(l) * n.dotProduct(v) > 0) {
-                double ktr = transparency(l,geoPoint,n);
+                double distanceLimit = Double.MAX_VALUE;
+                if (light instanceof PointLight)
+                    distanceLimit = p.distance(((PointLight)light).getPosition());
+                double ktr = transparency(l,geoPoint,n, distanceLimit);
                 if (ktr > MINIMUM_KTR) {
-//                    Color lightIntensity = light.getIntensity(p);
                     Color lightIntensity = light.getIntensity(p).scale(ktr);
                     Color diff = calcDiffusive(kd, l, n, lightIntensity);
                     Color spec = calcSpecular(ks, l, n, v, lightIntensity, nShininess);
@@ -207,7 +210,7 @@ public class Render {
      * @param normal of geometry at point
      * @return true of false
      */
-    private double transparency(Vector l, GeoPoint gp, Vector normal) {
+    private double transparency(Vector l, GeoPoint gp, Vector normal, double maxDistance) {
         Vector lightDirection = l.scale(-1);
 //        lightDirection = l;
         Vector epsVector = normal.scale(normal.dotProduct(lightDirection) > 0 ? EPSILON : -EPSILON);
@@ -215,6 +218,7 @@ public class Render {
         Point3D lightPoint = gp.point.add(epsVector);
         Ray rayToLight = new Ray(lightDirection, lightPoint);
         List<GeoPoint> blockers = _scene.getGeometries().findIntersections(rayToLight);
+        blockers.removeIf(geoPoint -> geoPoint.point.distance(gp.point)>maxDistance);
         double ktr = 1;
         for (GeoPoint geoPoint:blockers)
             ktr*=geoPoint.geo.get_material().getKt();

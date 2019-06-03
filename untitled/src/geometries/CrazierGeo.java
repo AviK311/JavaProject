@@ -20,6 +20,7 @@ public class CrazierGeo extends CrazyGeo {
     public List<GeoPoint> findIntersections(Ray myRay) {
         List<GeoPoint> superList =  super.findIntersections(myRay);
         List<GeoPoint> thisList = new ArrayList<>();
+        if (spheres!=null)
         for (Sphere s: spheres){
             List<GeoPoint> sphereList = s.findIntersections(myRay);
             if (sphereList!=null)

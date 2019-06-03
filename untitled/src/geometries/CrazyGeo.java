@@ -20,6 +20,7 @@ public class CrazyGeo extends Geometry {
             for (int j = i+1; j<points.length-1; j++)
                 for (int k = j+1; k<points.length; k++)
                     triangles.add(new Triangle(emission,Shininess,_Kd,_Ks,_Kr,_Kt,points[i], points[j], points[k]));
+
     }
 
 
