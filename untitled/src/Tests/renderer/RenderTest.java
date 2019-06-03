@@ -704,10 +704,14 @@ public class RenderTest {
                 100,0.2,0.3,0.2,0,20,
                 new Point3D(45, 0, 0));
 
-        scene.addGeometry(plane, triangle1, triangle2, triangle3, triangle4);
-        scene.addGeometry(triangle5, triangle6, triangle7, triangle8);
-        scene.addGeometry(triangle9, triangle10,triangle11, triangle12, sphere1);
+        //scene.addGeometry(plane, triangle1, triangle2, triangle3, triangle4);
+        //scene.addGeometry(triangle5, triangle6, triangle7, triangle8);
+        //scene.addGeometry(triangle9, triangle10,triangle11, triangle12, sphere1);
 
+        Box box = new Box(new Color(100,100,50),10,0.2,0.3,0.2,0.5,new Point3D(70,0,-200),new Point3D(70,-70,0),new Point3D(70,70,0),
+                new Point3D(70,0,200),new Point3D(20,70,0),new Point3D(20,0,-200),new Point3D(20,0,200),new Point3D(20,-70,0));
+
+        scene.addGeometry(plane , box);
         PointLight pointLight = new PointLight(new Color(800, 600, 0),
                 new Point3D(90,-100,0),
                 0.0001, 0.00002);
