@@ -249,21 +249,27 @@ public class RenderTest {
         scene.setAmbientLight(new AmbientLight(new Color(255, 255, 255), 0.1));
 
         Sphere sphere = new Sphere(new Color(0, 0, 100),
-                170,0.5,0.5,0.5,0,80,
+                170,0.5,0.5,0.5,0.1,80,
                 new Point3D(0, 0, -250));
         scene.addGeometry(sphere);
 
-        Triangle triangle = new Triangle(new Color(0, 50, 0),100,0,0.5,0.2,0.2,new Point3D(  0, 0, -450), //green triangle
+        Triangle triangle = new Triangle(new Color(0, 50, 0),
+                100,0.2,0.5,0.2,0.2,
+                new Point3D(  0, 0, -450), //green triangle
                 new Point3D( -2000,  0, -500),
                 new Point3D( 0, -4000, -500));
         scene.addGeometry(triangle);
 
-        Triangle triangle1 = new Triangle(new Color(80, 0, 0),100,0.1,0.3,0.5,0.2,new Point3D(  100, 100, -100), //red triangle
+        Triangle triangle1 = new Triangle(new Color(80, 0, 0),
+                100,0.1,0.3,0.5,0.2,
+                new Point3D(  100, 100, -100), //red triangle
                 new Point3D( 90,  200, -90),
                 new Point3D( -50, 100, -100));
         scene.addGeometry(triangle1);
 
-        Triangle triangle2 = new Triangle(new Color(33, 33, 33),100,0.2,0.5,0.2,0,new Point3D(  -2000, -2000, -2000), //gray triangle
+        Triangle triangle2 = new Triangle(new Color(33, 33, 33),
+                100,0.2,0.5,0.2,0,
+                new Point3D(  -2000, -2000, -2000), //gray triangle
                 new Point3D( -2000,  500, -2000),
                 new Point3D( 1500, 800, -800));
         scene.addGeometry(triangle2);
