@@ -777,7 +777,7 @@ public class RenderTest {
     }
 
     @Test
-    public void avi() {
+    public void word() {
         Scene scene = new Scene("Hello");
         ImageWriter imageWriter = new ImageWriter("p111 ", 200, 200, 500, 500);
         Render render = new Render(scene,imageWriter);
