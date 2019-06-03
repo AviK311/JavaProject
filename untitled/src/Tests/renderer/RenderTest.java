@@ -958,5 +958,55 @@ public class RenderTest {
         imageWriter.writeToimage();
     }
 
+    @Test
+    public void pyramid2() {
+        Scene scene = new Scene("Hello");
+        ImageWriter imageWriter = new ImageWriter("pyramid2 ", 200, 200, 500, 500);
+        Render render = new Render(scene,imageWriter);
+        scene.setCamera(c);
+        scene.setScreenDistance(1000);
+        scene.setAmbientLight(new AmbientLight(new Color(100, 100, 100), 0.1));
+
+        Plane plane = new Plane(new Color(40, 40, 40),
+                100, 0.4,0.1,0.4, 0.1,
+                new Point3D(-50, 0 , 0),new Vector(1,0.2,0.2));
+
+        Pyramid pyramid = new Pyramid(new Color(30, 70, 80),
+                100, 0.2, 0.3, 0.4, 0.2, new Point3D(0, -70, 0),
+                new Point3D(0, 0, 30), new Point3D(30, -80, -100), new Point3D(30, 40, -100), new Point3D(60,-45,-50));
+
+        Sphere sphere = new Sphere(new Color(70, 80, 50).scale(2),
+                100,0.2,0.4,0.3,0.2,11,
+                new Point3D(50, 40, 0));
+
+        scene.addGeometry(plane,sphere,pyramid);
+        PointLight pointLight = new PointLight(new Color(800, 600, 0),
+                new Point3D(0,200,0),
+                0.0001, 0.00002);
+
+        scene.addLight(pointLight);
+        DirectionalLight light1 = new DirectionalLight(new Color(50, 100, 50), new Vector(-1, 0, -1));
+        scene.addLight(light1);
+
+        PointLight pointLight2 = new PointLight(new Color(800, 600, 0),
+                new Point3D(10,230,0),
+                0.0001, 0.00002);
+
+        scene.addLight(pointLight2);
+
+        PointLight pointLight3 = new PointLight(new Color(800, 600, 0),
+                new Point3D(60,-90,0),
+                0.0001, 0.00002);
+
+        scene.addLight(pointLight3);
+
+
+
+        render.renderImage();
+        imageWriter.writeToimage();
+    }
+
+
+
 
 }
