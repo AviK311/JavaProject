@@ -792,10 +792,54 @@ public class RenderTest {
 
         Plane plane = new Plane(new Color(40, 40, 40),
                 100, 0.4, 0.1, 0.4, 0.1,
-                new Point3D(-10, -70, -100), new Vector(10, 0, 1));
+                new Point3D(-40, -70, -100), new Vector(10, 0, 1));
 
         CrazyGeo cg = new CrazyGeo(new Color(0, 80, 80),
                 100, 0.4, 0.4, 0.1, 0.4,
+                new Point3D(0, 0, 0),
+                new Point3D(0, 25, -50),
+                new Point3D(50, 0, -70),
+                new Point3D(65, 50, -60),
+                new Point3D(-50,-50,-50),
+                new Point3D(80, 70, -40),
+                new Point3D(-50, 50, -40),
+                new Point3D(20, 20, -80));
+
+        scene.addGeometry( plane,cg);
+        PointLight pointLight = new PointLight(new Color(800, 600, 0),
+                new Point3D(10, -60, -100),
+                0.0001, 0.00002);
+
+        scene.addLight(pointLight);
+        DirectionalLight light1 = new DirectionalLight(new Color(50, 100, 50), new Vector(-1, 1, -1));
+        scene.addLight(light1);
+
+        PointLight pointLight2 = new PointLight(new Color(800, 600, 0),
+                new Point3D(50, 230, 0),
+                0.0001, 0.00002);
+
+        scene.addLight(pointLight2);
+
+
+        render.renderImage();
+        imageWriter.writeToimage();
+    }
+
+    @Test
+    public void CrazierGeoTest() {
+        Scene scene = new Scene("Hello");
+        ImageWriter imageWriter = new ImageWriter("crazier ", 200, 200, 500, 500);
+        Render render = new Render(scene, imageWriter);
+        scene.setCamera(c);
+        scene.setScreenDistance(1000);
+        scene.setAmbientLight(new AmbientLight(new Color(100, 100, 100), 0.1));
+
+        Plane plane = new Plane(new Color(40, 40, 40),
+                100, 0.4, 0.1, 0.4, 0.1,
+                new Point3D(-40, -70, -100), new Vector(10, 0, 1));
+
+        CrazierGeo cg = new CrazierGeo(new Color(0, 80, 80),
+                100, 0.4, 0.4, 0.1, 0.4, 20,
                 new Point3D(0, 0, 0),
                 new Point3D(0, 25, -50),
                 new Point3D(50, 0, -70),

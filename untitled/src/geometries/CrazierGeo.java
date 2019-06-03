@@ -13,7 +13,7 @@ public class CrazierGeo extends CrazyGeo {
     public CrazierGeo(Color emission, int Shininess, double _Kd, double _Ks, double _Kr, double _Kt, float radius, Point3D... points) {
         super(emission, Shininess, _Kd, _Ks, _Kr, _Kt, points);
         for(Point3D p:points)
-            spheres.add(new Sphere(radius,p));
+            spheres.add(new Sphere(emission, Shininess, _Kd, _Ks, _Kr, _Kt,radius, p));
     }
 
     @Override
