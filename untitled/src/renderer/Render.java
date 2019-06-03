@@ -102,19 +102,24 @@ public class Render {
                 }
             }
         }
-        double kr = g.get_material().getKr();
-        Ray reflectedRay = constructReflectedRay(n,p,inRay);
-        GeoPoint gpReflect = findClosestIntersection(reflectedRay);
 
+        double kr = g.get_material().getKr();
         Color reflectedLight = Color.BLACK;
-        if (gpReflect!=null)
-            reflectedLight = calcColor(gpReflect,reflectedRay,level-1,k*kr).scale(kr);
+        if (kr!=0) {
+            Ray reflectedRay = constructReflectedRay(n, p, inRay);
+            GeoPoint gpReflect = findClosestIntersection(reflectedRay);
+            if (gpReflect != null)
+                reflectedLight = calcColor(gpReflect, reflectedRay, level - 1, k * kr).scale(kr);
+        }
+
         double kt = g.get_material().getKt();
-        Ray refractedRay = constructRefractedRay(n,p,inRay);
-        GeoPoint gpRefract = findClosestIntersection(refractedRay);
         Color refractedLight = Color.BLACK;
-        if (gpRefract!=null)
-            refractedLight = calcColor(gpRefract,reflectedRay,level-1,k*kt).scale(kt);
+        if (kt!=0) {
+            Ray refractedRay = constructRefractedRay(n, p, inRay);
+            GeoPoint gpRefract = findClosestIntersection(refractedRay);
+            if (gpRefract != null)
+                refractedLight = calcColor(gpRefract, refractedRay, level - 1, k * kt).scale(kt);
+        }
         returnColor = returnColor.add(reflectedLight, refractedLight);
         return returnColor;
     }
