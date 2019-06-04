@@ -40,7 +40,6 @@ public class Sphere2 extends Geometry {
  //                  intersectionPoints1.remove(g);
   //                  intersectionPoints2.remove(g);
                 }
-        int y =4;
 
 //        if (intersectionPoints2 !=null)
 //            intersectionPoints1.removeAll(intersectionPoints2);
