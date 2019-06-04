@@ -248,9 +248,16 @@ public class RenderTest {
         scene.setScreenDistance(150);
         scene.setAmbientLight(new AmbientLight(new Color(255, 255, 255), 0.1));
 
-        Sphere sphere = new Sphere(new Color(0, 0, 100),
+        Sphere sphere = new HolyBall(new Color(0, 0, 100),
                 170, 0.5, 0.5, 0.5, 0.1, 80,
-                new Point3D(0, 0, -250));
+                new Vector(1,1,0.75),
+                new Vector(0.5,-2,2),
+                new Point3D(0, 0, -250),
+                40);
+//        Sphere sphere = new Sphere(new Color(0, 0, 100),
+//                170, 0.5, 0.5, 0.5, 0.1, 80,
+
+//                new Point3D(0, 0, -250));
         scene.addGeometry(sphere);
 
         Triangle triangle = new Triangle(new Color(0, 50, 0),
@@ -1030,7 +1037,7 @@ public class RenderTest {
 
         Halo halo = new Halo(new Color(100, 0, 0),
                 100, 0.2, 0.3, 0.7, 0.2, 60,
-                new Vector(1,-1,-0.5).scale(-1),new Point3D(0, 0, -100), 80);
+                new Vector(1,-1,-0.5).scale(-1),new Point3D(0, 0, -100), 70);
         HolyBall holyball = new HolyBall(new Color(50, 0, 100),
                 100, 0.2, 0.3, 0.5, 0.2, 80,
                 new Vector(1,1,0.75),
