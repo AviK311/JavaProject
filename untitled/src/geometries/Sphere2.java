@@ -32,7 +32,7 @@ public class Sphere2 extends Geometry {
         List<GeoPoint> intersectionPoints3 = new ArrayList<>();
         if (intersectionPoints1!=null&&intersectionPoints2!=null)
             for(GeoPoint g: intersectionPoints1)
-                if(!(g.point.subtract(sphere2.getCenter()).length()<sphere1.radius)) {
+                if((g.point.subtract(sphere2.getCenter()).length()<sphere1.radius)) {
                     intersectionPoints3.add(g);
 //                    g.geo=new Sphere(new Color(0, 100, 0),
 //                            100, 0.2, 0.3, 0.1, 0, 50,

@@ -1019,9 +1019,15 @@ public class RenderTest {
                 100, 0.4, 0.1, 0.4, 0.1,
                 new Point3D(0, 0, -200), new Vector(1, 0, 1));
 
-        Sphere2 sphere = new Sphere2(new Color(0, 0, 100),
-                100, 0.2, 0.3, 0.1, 0, 50,
-                new Point3D(0, 0, -100),new Vector(2,1,1));
+        Sphere2 sphere = new Sphere2(new Color(0, 60, 0),
+                100, 0.2, 0.3, 0.1, 0.3, 50,
+                new Point3D(0, 0, -100),new Vector(-1,-1,-0.5));
+        Sphere2 sphere3 = new Sphere2(new Color(100, 0, 0),
+                100, 0.2, 0.3, 0.1, 0.2, 60,
+                new Point3D(0, 0, -100),new Vector(1,-1,-0.5));
+        Sphere sphere2 = new Sphere(new Color(0, 0, 50),
+                100, 0.2, 0.3, 0.1, 0.3, 30,
+                new Point3D(-20, 0, -100));
 
         scene.addGeometry(plane, sphere);
         PointLight pointLight = new PointLight(new Color(800, 600, 0),
@@ -1035,7 +1041,6 @@ public class RenderTest {
         PointLight pointLight2 = new PointLight(new Color(800, 600, 0),
                 new Point3D(10, 230, 0),
                 0.0001, 0.00002);
-
         scene.addLight(pointLight2);
 
 
