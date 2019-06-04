@@ -248,9 +248,16 @@ public class RenderTest {
         scene.setScreenDistance(150);
         scene.setAmbientLight(new AmbientLight(new Color(255, 255, 255), 0.1));
 
-        Sphere sphere = new Sphere(new Color(0, 0, 100),
+        Sphere sphere = new HolyBall(new Color(0, 0, 100),
                 170, 0.5, 0.5, 0.5, 0.1, 80,
-                new Point3D(0, 0, -250));
+                new Vector(1,1,0.75),
+                new Vector(0.5,-2,2),
+                new Point3D(0, 0, -250),
+                40);
+//        Sphere sphere = new Sphere(new Color(0, 0, 100),
+//                170, 0.5, 0.5, 0.5, 0.1, 80,
+
+//                new Point3D(0, 0, -250));
         scene.addGeometry(sphere);
 
         Triangle triangle = new Triangle(new Color(0, 50, 0),
@@ -1006,10 +1013,12 @@ public class RenderTest {
         imageWriter.writeToimage();
     }
 
+
+
     @Test
     public void myTest2() {
         Scene scene = new Scene("Hello");
-        ImageWriter imageWriter = new ImageWriter("picture6 ", 200, 200, 500, 500);
+        ImageWriter imageWriter = new ImageWriter("picture6 ", 200, 200, 750, 750);
         Render render = new Render(scene, imageWriter);
         scene.setCamera(c);
         scene.setScreenDistance(1000);
@@ -1017,19 +1026,29 @@ public class RenderTest {
 
         Plane plane = new Plane(new Color(40, 40, 40),
                 100, 0.4, 0.1, 0.4, 0.1,
-                new Point3D(0, 0, -200), new Vector(1, 0, 1));
+                new Point3D(0, 0, -220), new Vector(1, 0, 1));
 
-        Sphere2 sphere = new Sphere2(new Color(0, 60, 0),
-                100, 0.2, 0.3, 0.1, 0.3, 50,
-                new Point3D(0, 0, -100),new Vector(-1,-1,-0.5));
-        Sphere2 sphere3 = new Sphere2(new Color(100, 0, 0),
-                100, 0.2, 0.3, 0.1, 0.2, 60,
-                new Point3D(0, 0, -100),new Vector(1,-1,-0.5));
+        HalfSphere halfSphere = new HalfSphere(new Color(0, 60, 0),
+                100, 0.2, 0.3, 0.1, 0.3, 50
+                ,new Vector(-1,-1,-0.5).scale(-1),new Point3D(0, 0, -100),80);
+        HalfSphere halfSphere2 = new HalfSphere(new Color(0, 60, 0),
+                100, 0.2, 0.3, 0.1, 0.3, 50
+                ,new Vector(-1,-1,-0.5),new Point3D(0, 0, -100),80);
+
+        Halo halo = new Halo(new Color(100, 0, 0),
+                100, 0.2, 0.3, 0.7, 0.2, 60,
+                new Vector(1,-1,-0.5).scale(-1),new Point3D(0, 0, -100), 70);
+        HolyBall holyball = new HolyBall(new Color(50, 0, 100),
+                100, 0.2, 0.3, 0.5, 0.2, 80,
+                new Vector(1,1,0.75),
+                new Vector(0.5,-2,2),new Point3D(0, 0, -100), 61.22);
         Sphere sphere2 = new Sphere(new Color(0, 0, 50),
                 100, 0.2, 0.3, 0.1, 0.3, 30,
-                new Point3D(-20, 0, -100));
+                new Point3D(0, 0, -100));
 
-        scene.addGeometry(plane, sphere);
+        scene.addGeometry(plane, halfSphere, halfSphere2, sphere2,  halo, holyball);
+//       scene.addGeometry(plane,holyball);
+
         PointLight pointLight = new PointLight(new Color(800, 600, 0),
                 new Point3D(0, 200, 0),
                 0.0001, 0.00002);
@@ -1047,6 +1066,8 @@ public class RenderTest {
         render.renderImage();
         imageWriter.writeToimage();
     }
+
+
 
 
 
