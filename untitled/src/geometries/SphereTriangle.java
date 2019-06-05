@@ -30,6 +30,14 @@ public class SphereTriangle extends Sphere {
         p1_ = p.add(v1);
         p2_= p.add(v2);
         p3_ = p.add(v3);
+
+//
+//        Vector v1 = new Vector(-1,0,0);
+//        Vector v2 = new Vector(0,-1,0);
+//        Vector v3 = new Vector(0,0,-1);
+//        p1_ =p.add(v1.normalize().scale(radius));
+//        p2_= p.add(v2.normalize().scale(radius));
+//        p3_ = p.add(v3.normalize().scale(radius));
     }
 
 
