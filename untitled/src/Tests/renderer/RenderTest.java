@@ -1049,8 +1049,11 @@ public class RenderTest {
         SphereTriangle st = new SphereTriangle(new Color(0, 60, 0),
                 100, 0.2, 0.3, 0.1, 0.3, 50
                 ,new Vector(-1,1,1),new Point3D(0, 0, -100),80);
+        SphereTriangle st2 = new SphereTriangle(new Color(0, 60, 0),
+                100, 0.2, 0.3, 0.1, 0.3, 50
+                ,new Vector(-1,1,1),new Point3D(0, 50, -100),80);
 
-        scene.addGeometry(plane, st);
+        scene.addGeometry(plane,st, st2);
 //       scene.addGeometry(plane,holyball);
 
         PointLight pointLight = new PointLight(new Color(800, 600, 0),

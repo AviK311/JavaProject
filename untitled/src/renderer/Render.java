@@ -19,7 +19,7 @@ import primitives.Vector;
 import static primitives.Util.uscale;
 
 public class Render {
-    int rayCount = 0, rayHits = 0;
+    int rayCount = 0, rayHits = 0, totalRays = 0;
     private Scene _scene;
     private ImageWriter _imageWriter;
     private final static double EPSILON = 0.001;
@@ -52,6 +52,7 @@ public class Render {
         for (int i = 0; i < ny; i++) {
             for (int j = 0; j < nx; j++) {
                 Ray ray = _scene.getCamera().constructRayThroughAPixel(nx, ny, j, i, dist, width, height);
+                totalRays++;
                 List<GeoPoint> intersectionPoints = new ArrayList<>();
                 if (_scene.checkBoundaries(ray)) {
                     intersectionPoints = _scene.getGeometries().findIntersections(ray);
@@ -66,7 +67,8 @@ public class Render {
                 }
             }
         }
-        System.out.println("the number of rays was: " + rayCount);
+        System.out.println("the total number of rays was: " + rayCount);
+        System.out.println("the number of created rays was: " + rayCount);
         System.out.println("the number of hits was: " + rayHits);
 
         _imageWriter.writeToimage();

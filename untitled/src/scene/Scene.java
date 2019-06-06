@@ -189,33 +189,35 @@ public class Scene {
 
     public void addGeometry(Intersectable... geos) {
         for (Intersectable g:geos){
+            if (!checkBox) {
                 double minX, maxX, minY, maxY, minZ, maxZ;
                 minX = maxX = minY = maxY = minZ = maxZ = 0;
                 if (g instanceof Plane) {
-                    checkBox = false;
+                    if (camera.getvTo().dotProduct(((Plane) g).getNormal()) != 0)
+                        checkBox = true;
                 }
-                if (g instanceof Triangle){
-                    Triangle t = (Triangle)g;
+                if (g instanceof Triangle) {
+                    Triangle t = (Triangle) g;
                     Point3D P1 = t.getP1(), P2 = t.getP2(), P3 = t.getP3();
-                    minX = Double.min(Double.min(P1.getX().get(),P2.getX().get()), P3.getX().get());
-                    maxX = Double.max(Double.max(P1.getX().get(),P2.getX().get()), P3.getX().get());
-                    minY = Double.min(Double.min(P1.getY().get(),P2.getY().get()), P3.getY().get());
-                    maxY = Double.max(Double.max(P1.getY().get(),P2.getY().get()), P3.getY().get());
-                    minZ = Double.min(Double.min(P1.getZ().get(),P2.getZ().get()), P3.getZ().get());
-                    maxZ = Double.max(Double.max(P1.getZ().get(),P2.getZ().get()), P3.getZ().get());
+                    minX = Double.min(Double.min(P1.getX().get(), P2.getX().get()), P3.getX().get());
+                    maxX = Double.max(Double.max(P1.getX().get(), P2.getX().get()), P3.getX().get());
+                    minY = Double.min(Double.min(P1.getY().get(), P2.getY().get()), P3.getY().get());
+                    maxY = Double.max(Double.max(P1.getY().get(), P2.getY().get()), P3.getY().get());
+                    minZ = Double.min(Double.min(P1.getZ().get(), P2.getZ().get()), P3.getZ().get());
+                    maxZ = Double.max(Double.max(P1.getZ().get(), P2.getZ().get()), P3.getZ().get());
                 }
-                if (g instanceof Sphere){
-                    Sphere s = (Sphere)g;
+                if (g instanceof Sphere) {
+                    Sphere s = (Sphere) g;
                     Point3D center = s.getCenter();
-                    minX = center.add(new Vector(1,0,0).scale(-s.getRadius())).getX().get();
-                    maxX = center.add(new Vector(1,0,0).scale(s.getRadius())).getX().get();
-                    minY = center.add(new Vector(0,1,0).scale(-s.getRadius())).getY().get();
-                    maxY = center.add(new Vector(0,1,0).scale(s.getRadius())).getY().get();
-                    minZ = center.add(new Vector(0,0,1).scale(-s.getRadius())).getZ().get();
-                    maxZ = center.add(new Vector(0,0,1).scale(s.getRadius())).getZ().get();
+                    minX = center.add(new Vector(1, 0, 0).scale(-s.getRadius())).getX().get();
+                    maxX = center.add(new Vector(1, 0, 0).scale(s.getRadius())).getX().get();
+                    minY = center.add(new Vector(0, 1, 0).scale(-s.getRadius())).getY().get();
+                    maxY = center.add(new Vector(0, 1, 0).scale(s.getRadius())).getY().get();
+                    minZ = center.add(new Vector(0, 0, 1).scale(-s.getRadius())).getZ().get();
+                    maxZ = center.add(new Vector(0, 0, 1).scale(s.getRadius())).getZ().get();
                 }
                 if (box == null)
-                    box = new GeometriesBox(maxX,minX,maxY,minY,maxZ,minZ);
+                    box = new GeometriesBox(maxX, minX, maxY, minY, maxZ, minZ);
                 else {
                     box.setMax_X(maxX);
                     box.setMax_Y(maxY);
@@ -224,7 +226,7 @@ public class Scene {
                     box.setMin_Y(minY);
                     box.setMin_Z(minZ);
                 }
-
+            }
             geometries.add(g);
             }
 
