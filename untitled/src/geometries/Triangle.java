@@ -22,14 +22,14 @@ public class Triangle extends Plane {
         this.p3 = new Point3D(p3);
     }
 
-    public Triangle(Color emmision, Point3D p1, Point3D p2, Point3D p3) {
-        super(emmision, p1, p1.subtract(p2).crossProduct(p1.subtract(p3)));
+    public Triangle(Color emission, Point3D p1, Point3D p2, Point3D p3) {
+        super(emission, p1, p1.subtract(p2).crossProduct(p1.subtract(p3)));
         this.p2 = new Point3D(p2);
         this.p3 = new Point3D(p3);
     }
 
-    public Triangle(Color emmision, int Shininess, double Kd, double Ks,double Kr, double Kt, Point3D p1, Point3D p2, Point3D p3) {
-        super(emmision, Shininess, Kd, Ks,Kr, Kt, p1, p1.subtract(p2).crossProduct(p1.subtract(p3)));
+    public Triangle(Color emission, int Shininess, double Kd, double Ks,double Kr, double Kt, Point3D p1, Point3D p2, Point3D p3) {
+        super(emission, Shininess, Kd, Ks,Kr, Kt, p1, p1.subtract(p2).crossProduct(p1.subtract(p3)));
         this.p2 = p2;
         this.p3 = p3;
     }

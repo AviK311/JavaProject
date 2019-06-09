@@ -1049,6 +1049,9 @@ public class RenderTest {
         SphereTriangle st = new SphereTriangle(new Color(0, 60, 0),
                 100, 0.2, 0.3, 0.1, 0.3, 50
                 ,new Vector(-1,1,1),new Point3D(0, 0, -100),80);
+        SphereTriangle st2 = new SphereTriangle(new Color(0, 60, 0),
+                100, 0.2, 0.3, 0.1, 0.3, 50
+                ,new Vector(-1,1,1),new Point3D(0, 50, -100),80);
 
         scene.addGeometry(plane, halfSphere, halo, sphere2);
        //scene.addGeometry(plane,holyball);
@@ -1091,12 +1094,14 @@ public class RenderTest {
 
         Plane2 plane2 = new Plane2(new Color(0, 60, 0),
                 100, 0.4, 0.1, 0.4, 0.1,
-                new Point3D(-100, -10, -10), new Vector(1, 1, 0));
+                new Point3D(0, 0, -100), new Vector(1, 0, 1));
 
 
 
         scene.addGeometry( plane2);
         //scene.addGeometry(plane,holyball);
+        //scene.addGeometry(plane,st, st2);
+//       scene.addGeometry(plane,holyball);
 
         PointLight pointLight = new PointLight(new Color(800, 600, 0),
                 new Point3D(0, 200, 0),

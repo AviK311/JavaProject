@@ -12,6 +12,19 @@ public class HalfSphere extends Sphere {
    protected double distance;
    protected Point3D holePoint;
 
+    /**
+     * ctor with params
+     * @param emission
+     * @param Shininess
+     * @param _Kd
+     * @param _Ks
+     * @param _Kr
+     * @param _Kt
+     * @param radius
+     * @param holeDirection
+     * @param center
+     * @param distance
+     */
     public HalfSphere(Color emission, int Shininess, double _Kd, double _Ks, double _Kr, double _Kt, float radius, Vector holeDirection, Point3D center, double distance) {
         super(emission, Shininess, _Kd, _Ks, _Kr, _Kt, radius, center);
         if (distance>=2*radius)
@@ -19,9 +32,6 @@ public class HalfSphere extends Sphere {
         this.distance = distance;
         holePoint = center.add(holeDirection.normalize().scale(radius));
     }
-
-
-
 
     @Override
     public List<GeoPoint> findIntersections(Ray myRay) {

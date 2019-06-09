@@ -13,7 +13,7 @@ public class DirectionalLight extends Light implements LightSource {
      */
     public DirectionalLight(Color _color, Vector _Direction) {
         super(_color);
-        this._Direction = _Direction;
+        this._Direction = _Direction.normalize();
     }
 
     @Override
@@ -23,7 +23,7 @@ public class DirectionalLight extends Light implements LightSource {
 
     @Override
     public Vector getL(Point3D point) {
-        return _Direction.normalize();
+        return _Direction;
     }
 
 

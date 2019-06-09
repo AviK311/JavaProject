@@ -20,14 +20,16 @@ public class Plane2 extends Plane {
             return null;
         List<GeoPoint> list = new ArrayList<>();
         for (GeoPoint g: superList) {
+            Point3D gp =g.point;
+            Point3D point = gp.add(new Vector(10,0,0));
             if (Math.abs(g.point.getZ().get() - (int) g.point.getZ().get()) < 0.5) {
                 g.geo.setEmission(new Color(60, 0, 0));
                 list.add(g);
             }
         }
-        superList.removeIf(gp-> Math.abs(gp.point.getZ().get()- (int)gp.point.getZ().get())<0.5);
+  //      superList.removeIf(gp-> Math.abs(gp.point.getZ().get()- (int)gp.point.getZ().get())<0.5);
 
-        superList.addAll(list);
+      //  superList.addAll(list);
         //superList.removeIf(gp-> Math.abs(gp.point.getZ().get()- (int)gp.point.getZ().get())<0.5);
         return superList;
     }

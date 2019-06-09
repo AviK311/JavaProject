@@ -8,6 +8,7 @@ import geometries.*;
 import primitives.Point3D;
 import geometries.Intersectable.GeoPoint;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import primitives.Ray;
@@ -18,6 +19,7 @@ import primitives.Vector;
 import static primitives.Util.uscale;
 
 public class Render {
+    int rayCount = 0, rayHits = 0, totalRays = 0;
     private Scene _scene;
     private ImageWriter _imageWriter;
     private final static double EPSILON = 0.001;
@@ -50,15 +52,25 @@ public class Render {
         for (int i = 0; i < ny; i++) {
             for (int j = 0; j < nx; j++) {
                 Ray ray = _scene.getCamera().constructRayThroughAPixel(nx, ny, j, i, dist, width, height);
-                List<GeoPoint> intersectionPoints = _scene.getGeometries().findIntersections(ray);
+                totalRays++;
+                List<GeoPoint> intersectionPoints = new ArrayList<>();
+                if (_scene.checkBoundaries(ray)) {
+                    intersectionPoints = _scene.getGeometries().findIntersections(ray);
+                    rayCount++;
+                }
                 if (intersectionPoints.isEmpty()) {
                     _imageWriter.writePixel(i, j, _scene.getBackground().getColor());
                 } else {
+                    rayHits++;
                     GeoPoint closetPoint = getClosestPoint(intersectionPoints, _scene.getCamera().getP0());
                     _imageWriter.writePixel(i, j, calcColor(closetPoint,ray).getColor());
                 }
             }
         }
+        System.out.println("the total number of rays was: " + rayCount);
+        System.out.println("the number of created rays was: " + rayCount);
+        System.out.println("the number of hits was: " + rayHits);
+
         _imageWriter.writeToimage();
     }
 
