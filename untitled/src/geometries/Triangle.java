@@ -34,6 +34,12 @@ public class Triangle extends Plane {
         this.p3 = p3;
     }
 
+    public Triangle(Color emission, Material material, Point3D p1, Point3D p2, Point3D p3) {
+        super(emission, material, p1, p1.subtract(p2).crossProduct(p1.subtract(p3)));
+        this.p2 = p2;
+        this.p3 = p3;
+    }
+
     /**
      * @return p2
      */
@@ -62,7 +68,7 @@ public class Triangle extends Plane {
         Vector v0 = intersectionPoints.get(0).point.subtract(rayHead); // p - p0
         Vector v1 = p1.subtract(rayHead); // T1 - P0
         Vector v2 = p2.subtract(rayHead); // T2 - P0
-        Vector v3 = p3.subtract(rayHead); // T2 - P0
+        Vector v3 = p3.subtract(rayHead); // T3 - P0
         if (v1.equals(ray.getDirection()) ||v2.equals(ray.getDirection())||v3.equals(ray.getDirection()))
             return null;
         Vector N1 = v2.crossProduct(v1).normalize(); // v2 x v1 / |v2 x v1|

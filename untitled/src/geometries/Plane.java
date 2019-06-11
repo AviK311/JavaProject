@@ -1,9 +1,6 @@
 package geometries;
 
-import primitives.Color;
-import primitives.Point3D;
-import primitives.Ray;
-import primitives.Vector;
+import primitives.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +8,12 @@ import java.util.List;
 public class Plane extends Geometry {
     Point3D p1;
     Vector normal;
+
+    public Plane(Color emission, Material material, Point3D p1, Vector normal) {
+        super(emission, material);
+        this.p1 = p1;
+        this.normal = normal.normalize();
+    }
 
     /**
      * ctor with point and vector params

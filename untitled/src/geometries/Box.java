@@ -6,47 +6,32 @@ import primitives.Ray;
 import primitives.Vector;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 
 public class Box extends Geometry{
 
-    public List<Triangle> triangles = new ArrayList<>();
+    private List<Square> squares = new ArrayList<>();
 
-    /**
-     * ctor with params
-     * @param emmision
-     * @param Shininess
-     * @param Kd
-     * @param Ks
-     * @param Kr
-     * @param Kt
-     * @param p1
-     * @param p2
-     * @param p3
-     * @param p4
-     * @param p5
-     * @param p6
-     * @param p7
-     * @param p8
-     */
-    public Box(Color emmision, int Shininess, double Kd, double Ks,double Kr, double Kt, Point3D p1, Point3D p2, Point3D p3,
-               Point3D p4, Point3D p5, Point3D p6,Point3D p7, Point3D p8) {
-        triangles.add(new Triangle(emmision, Shininess, Kd, Ks,Kr, Kt,p1,p2,p3));
-        triangles.add(new Triangle(emmision, Shininess, Kd, Ks,Kr, Kt,p2,p3,p4));
-        triangles.add(new Triangle(emmision, Shininess, Kd, Ks,Kr, Kt,p3,p4,p5));
-        triangles.add(new Triangle(emmision, Shininess, Kd, Ks,Kr, Kt,p4,p5,p6));
 
-        triangles.add(new Triangle(emmision, Shininess, Kd, Ks,Kr, Kt,p5,p6,p7));
-        triangles.add(new Triangle(emmision, Shininess, Kd, Ks,Kr, Kt,p6,p7,p8));
-        triangles.add(new Triangle(emmision, Shininess, Kd, Ks,Kr, Kt,p7,p8,p1));
-        triangles.add(new Triangle(emmision, Shininess, Kd, Ks,Kr, Kt,p8,p1,p2));
-
-        triangles.add(new Triangle(emmision, Shininess, Kd, Ks,Kr, Kt,p1,p7,p3));
-        triangles.add(new Triangle(emmision, Shininess, Kd, Ks,Kr, Kt,p2,p8,p4));
-        triangles.add(new Triangle(emmision, Shininess, Kd, Ks,Kr, Kt,p3,p7,p5));
-        triangles.add(new Triangle(emmision, Shininess, Kd, Ks,Kr, Kt,p4,p8,p6));
-
+    public Box(Color emmision, int Shininess, double Kd, double Ks,double Kr, double Kt,
+               Point3D p1, Vector v1, Vector v2, double length){
+        super(emmision,Shininess, Kd, Ks, Kr, Kt);
+        if (v1.dotProduct(v2)!=0)
+            throw new IllegalArgumentException("Vectors must be orthogonal");
+        v1 = v1.normalize();
+        v2 = v2.normalize();
+        Vector v3 = v1.crossProduct(v2);
+        squares.add(new Square(emmision, get_material(), p1, v1,v2, length));
+        squares.add(new Square(emmision, get_material(), p1, v1,v3, length));
+        squares.add(new Square(emmision, get_material(), p1, v2,v3, length));
+        Point3D p2 = p1.add(v1.scale(length));
+        squares.add(new Square(emmision, get_material(), p2, v2,v3, length));
+        p2 = p1.add(v2.scale(length));
+        squares.add(new Square(emmision, get_material(), p2, v1,v3, length));
+        p2 = p1.add(v3.scale(length));
+        squares.add(new Square(emmision, get_material(), p2, v1,v2, length));
 
     }
 
@@ -61,9 +46,11 @@ public class Box extends Geometry{
     @Override
     public List<GeoPoint> findIntersections(Ray myRay) {
         List<GeoPoint> intersectionPoints = new ArrayList<>();
-        for(Triangle t: triangles)
-            if(t.findIntersections(myRay)!=null)
-                intersectionPoints.addAll(t.findIntersections(myRay));
+        for(Square s: squares) {
+            List<GeoPoint> tempList = s.findIntersections(myRay);
+            if (tempList != null)
+                intersectionPoints.addAll(tempList);
+        }
         return intersectionPoints.isEmpty()? null:intersectionPoints;
     }
 }
