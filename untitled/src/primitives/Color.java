@@ -196,4 +196,13 @@ public class Color {
     public void set_b(double _b) {
         this._b = Double.min(Double.max(_b,0),255);
     }
+
+	@Override
+	public String toString() {
+		return "Color{" +
+				"r=" + _r +
+				", g=" + _g +
+				", b=" + _b +
+				'}';
+	}
 }

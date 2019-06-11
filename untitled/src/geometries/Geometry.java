@@ -4,6 +4,11 @@ package geometries;
 import primitives.*;
 
 public abstract class Geometry implements Intersectable {
+    public Geometry(Color color,Material _material) {
+        this._material = _material;
+        this.emission = color;
+    }
+
     /**
      * returns the emission
      * @return emission
