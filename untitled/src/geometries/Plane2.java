@@ -22,14 +22,15 @@ public class Plane2 extends Plane {
         for (GeoPoint g: superList) {
             Point3D gp =g.point;
             Point3D point = gp.add(new Vector(10,0,0));
-            if (Math.abs(g.point.getZ().get() - (int) g.point.getZ().get()) < 0.5) {
-                g.geo.setEmission(new Color(60, 0, 0));
-                list.add(g);
+            if (g.point.getZ().get()%10==0||g.point.getX().get()%10==0) {
+                Sphere sphere = new Sphere(new Color(0,0,60),g.geo.getnShininess(),g.geo._material.getKd(),
+                        g.geo._material.getKs(), g.geo._material.getKr(), g.geo._material.getKt(),10, g.point );
+                list.addAll(sphere.findIntersections(ray));
             }
         }
   //      superList.removeIf(gp-> Math.abs(gp.point.getZ().get()- (int)gp.point.getZ().get())<0.5);
 
-      //  superList.addAll(list);
+        superList.addAll(list);
         //superList.removeIf(gp-> Math.abs(gp.point.getZ().get()- (int)gp.point.getZ().get())<0.5);
         return superList;
     }
