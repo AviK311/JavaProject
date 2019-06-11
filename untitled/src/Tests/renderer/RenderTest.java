@@ -759,8 +759,8 @@ public class RenderTest {
                 100, 0.2, 0.3, 0.1, 0.3, 50
                 ,new Vector(-1,1,1),new Point3D(0, 50, -100),80);
 
-        scene.addGeometry(plane,st, st2);
-//       scene.addGeometry(plane,holyball);
+        scene.addGeometry(plane,sphere2, halfSphere, halo , halfSphere2 );
+       scene.addGeometry(plane,holyball);
 
         PointLight pointLight = new PointLight(new Color(800, 600, 0),
                 new Point3D(0, 200, 0),
