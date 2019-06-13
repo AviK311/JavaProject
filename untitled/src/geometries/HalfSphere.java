@@ -7,6 +7,9 @@ import primitives.Vector;
 
 import java.util.List;
 
+/**
+ * Sphere with a hole
+ */
 public class HalfSphere extends Sphere {
 
    protected double distance;

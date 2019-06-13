@@ -7,11 +7,27 @@ import primitives.Vector;
 
 import java.util.List;
 
+/**
+ * Sphere with 6 holes
+ */
 public class HolyBall extends Halo {
     Point3D holePoint3, holePoint4, holePoint5, holePoint6;
     private final static double sqrt2 = Math.sqrt(2);
 
-
+    /**
+     * ctor with params
+     * @param emission
+     * @param Shininess
+     * @param _Kd
+     * @param _Ks
+     * @param _Kr
+     * @param _Kt
+     * @param radius
+     * @param holeDirection1
+     * @param holeDirection2
+     * @param center
+     * @param distance
+     */
     public HolyBall(Color emission, int Shininess, double _Kd, double _Ks, double _Kr, double _Kt, float radius, Vector holeDirection1,Vector holeDirection2, Point3D center, double distance) {
         super(emission, Shininess, _Kd, _Ks, _Kr, _Kt, radius, holeDirection1, center, distance);
         double A = radius/sqrt2;
