@@ -93,4 +93,34 @@ public class Sphere extends RadialGeometry {
             return null;
         return intersectionPoints;
     }
+
+    @Override
+    public double getMaxX() {
+        return center.add(new Vector(1, 0, 0).scale(radius)).getX().get();
+    }
+
+    @Override
+    public double getMinX() {
+        return center.add(new Vector(1, 0, 0).scale(-radius)).getX().get();
+    }
+
+    @Override
+    public double getMaxY() {
+        return center.add(new Vector(0, 1, 0).scale(radius)).getY().get();
+    }
+
+    @Override
+    public double getMinY() {
+        return center.add(new Vector(0, 1, 0).scale(-radius)).getY().get();
+    }
+
+    @Override
+    public double getMaxZ() {
+        return center.add(new Vector(0, 0, 1).scale(radius)).getZ().get();
+    }
+
+    @Override
+    public double getMinZ() {
+        return center.add(new Vector(0, 0, 1).scale(-radius)).getZ().get();
+    }
 }

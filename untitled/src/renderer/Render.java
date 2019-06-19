@@ -19,7 +19,8 @@ import primitives.Vector;
 import static primitives.Util.uscale;
 
 public class Render {
-    int rayCount = 0, rayHits = 0, totalRays = 0;
+    int totalTheoreticalRays = 0, totalActualRays = 0;
+    int totalTheoreticalIntersections = 0, totalActualIntesections = 0;
     private Scene _scene;
     private ImageWriter _imageWriter;
     private final static double EPSILON = 0.001;
@@ -49,27 +50,34 @@ public class Render {
         double height = _imageWriter.getHeight();
         double width = _imageWriter.getWidth();
         double dist = _scene.getScreenDistance();
+        totalTheoreticalRays = nx*ny;
+        totalTheoreticalIntersections = totalTheoreticalRays * _scene.getGeometries(0).getSize();
         for (int i = 0; i < ny; i++) {
             for (int j = 0; j < nx; j++) {
                 Ray ray = _scene.getCamera().constructRayThroughAPixel(nx, ny, j, i, dist, width, height);
-                totalRays++;
                 List<GeoPoint> intersectionPoints = new ArrayList<>();
                 if (_scene.checkBoundaries(ray)) {
-                    intersectionPoints = _scene.getGeometries().findIntersections(ray);
-                    rayCount++;
+                    intersectionPoints = _scene.getGeometries(0).findIntersections(ray);
+                    totalActualRays++;
+                    totalActualIntesections+=_scene.getGeometries(0).getSize();
+                }
+                else if (_scene.getGeometries(1).getSize()>0){
+                    intersectionPoints = _scene.getGeometries(1).findIntersections(ray);
+                    totalActualRays++;
+                    totalActualIntesections+=_scene.getGeometries(1).getSize();
                 }
                 if (intersectionPoints.isEmpty()) {
                     _imageWriter.writePixel(i, j, _scene.getBackground().getColor());
                 } else {
-                    rayHits++;
                     GeoPoint closetPoint = getClosestPoint(intersectionPoints, _scene.getCamera().getP0());
                     _imageWriter.writePixel(i, j, calcColor(closetPoint,ray).getColor());
                 }
             }
         }
-        System.out.println("the total number of rays was: " + rayCount);
-        System.out.println("the number of created rays was: " + rayCount);
-        System.out.println("the number of hits was: " + rayHits);
+        System.out.println("the total number of rays should have been: " + totalTheoreticalRays);
+        System.out.println("the total ray/geo intersection tests should have been: " + totalTheoreticalIntersections);
+        System.out.println("the actual number of rays: " + totalActualRays);
+        System.out.println("the actual ray/geo intersection tests: " + totalActualIntesections);
 
         _imageWriter.writeToimage();
     }
@@ -229,7 +237,7 @@ public class Render {
 //        Vector epsVector = normal.scale(2);
         Point3D lightPoint = gp.point.add(epsVector);
         Ray rayToLight = new Ray(lightDirection, lightPoint);
-        List<GeoPoint> blockers = _scene.getGeometries().findIntersections(rayToLight);
+        List<GeoPoint> blockers = _scene.getGeometries(0).findIntersections(rayToLight);
         blockers.removeIf(geoPoint -> geoPoint.point.distance(gp.point)>maxDistance);
         double ktr = 1;
         for (GeoPoint geoPoint:blockers)
@@ -267,7 +275,7 @@ public class Render {
      * @return geopoint
      */
     private GeoPoint findClosestIntersection(Ray ray){
-        List<GeoPoint> l = _scene.getGeometries().findIntersections(ray);
+        List<GeoPoint> l = _scene.getGeometries(0).findIntersections(ray);
         return getClosestPoint(l, ray.getHead());
 
     }

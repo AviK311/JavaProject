@@ -7,8 +7,7 @@ import java.util.concurrent.TransferQueue;
 
 public class Square extends Plane {
     Point3D  p2, p3, p4;
-    Triangle T1;
-    Triangle T2;
+
 
     public Square(Color emission, int Shininess,
                   double _Kd, double _Ks, double _Kr, double _Kt,
@@ -22,8 +21,7 @@ public class Square extends Plane {
         p2 = p1.add(v1);
         p4 = p1.add(v2);
         p3 = p4.add(v1);
-        T1 = new Triangle(emission,get_material(),p1,p2,p3);
-        T2 = new Triangle(emission,get_material(), p1,p4,p3);
+
 
 
 
@@ -39,23 +37,34 @@ public class Square extends Plane {
         p2 = p1.add(v1);
         p4 = p1.add(v2);
         p3 = p4.add(v1);
-        T1 = new Triangle(emission,get_material(),p1,p2,p3);
-        T2 = new Triangle(emission,get_material(), p1,p4,p3);
     }
 
     @Override
     public List<GeoPoint> findIntersections(Ray ray) {
-        List<GeoPoint> superList = T1.findIntersections(ray);
-        if (superList!=null) {
-            superList.get(0).geo = this;
-            return superList;
-        }
-        superList = T2.findIntersections(ray);
-        if (superList!=null) {
-            superList.get(0).geo = this;
-            return superList;
-        }
-
+        List<GeoPoint> intersectionPoints = super.findIntersections(ray);
+        if (intersectionPoints == null || intersectionPoints.isEmpty())
+            return null;
+        Point3D rayHead = ray.getHead();
+        Vector v0 = intersectionPoints.get(0).point.subtract(rayHead);
+        Vector v1 = p1.subtract(rayHead);
+        Vector v2 = p2.subtract(rayHead);
+        Vector v3 = p3.subtract(rayHead);
+        Vector v4 = p4.subtract(rayHead);
+        if (v1.equals(ray.getDirection()) ||v2.equals(ray.getDirection())||v3.equals(ray.getDirection()))
+            return null;
+        Vector N1 = v2.crossProduct(v1).normalize();
+        Vector N2 = v3.crossProduct(v2).normalize();
+        Vector N3 = v4.crossProduct(v3).normalize();
+        Vector N4 = v1.crossProduct(v4).normalize();
+        boolean sign1 = v0.dotProduct(N1) > 0;
+        boolean sign2 = v0.dotProduct(N2) > 0;
+        boolean sign3 = v0.dotProduct(N3) > 0;
+        boolean sign4 = v0.dotProduct(N4) > 0;
+//        double a= v0.dotProduct(N3);
+//        Point3D p1 = new Point3D(new Coordinate(a),new Coordinate(0),new Coordinate(0));
+//        intersectionPoints.set(0,p1);
+        if (sign1 == sign2 && sign1 == sign3 && sign1 == sign4)
+            return intersectionPoints;
         return null;
     }
 }

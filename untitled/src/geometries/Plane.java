@@ -9,6 +9,13 @@ public class Plane extends Geometry {
     Point3D p1;
     Vector normal;
 
+    /**
+     * ctor with material as a param
+     * @param emission
+     * @param material
+     * @param p1
+     * @param normal
+     */
     public Plane(Color emission, Material material, Point3D p1, Vector normal) {
         super(emission, material);
         this.p1 = p1;
@@ -126,5 +133,35 @@ public class Plane extends Geometry {
         if (intersectionPoints.size()==0)
             return null;
         return intersectionPoints;
+    }
+
+    @Override
+    public double getMaxX() {
+        return 0;
+    }
+
+    @Override
+    public double getMinX() {
+        return 0;
+    }
+
+    @Override
+    public double getMaxY() {
+        return 0;
+    }
+
+    @Override
+    public double getMinY() {
+        return 0;
+    }
+
+    @Override
+    public double getMaxZ() {
+        return 0;
+    }
+
+    @Override
+    public double getMinZ() {
+        return 0;
     }
 }

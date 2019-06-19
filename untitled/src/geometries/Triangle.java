@@ -84,4 +84,34 @@ public class Triangle extends Plane {
             return intersectionPoints;
         return null;
     }
+
+    @Override
+    public double getMaxX() {
+        return Double.max(Double.max(p1.getX().get(), p2.getX().get()), p3.getX().get());
+    }
+
+    @Override
+    public double getMinX() {
+        return Double.min(Double.min(p1.getX().get(), p2.getX().get()), p3.getX().get());
+    }
+
+    @Override
+    public double getMaxY() {
+        return Double.max(Double.max(p1.getY().get(), p2.getY().get()), p3.getY().get());
+    }
+
+    @Override
+    public double getMinY() {
+        return Double.min(Double.min(p1.getY().get(), p2.getY().get()), p3.getY().get());
+    }
+
+    @Override
+    public double getMaxZ() {
+        return Double.max(Double.max(p1.getZ().get(), p2.getZ().get()), p3.getZ().get());
+    }
+
+    @Override
+    public double getMinZ() {
+        return Double.min(Double.min(p1.getZ().get(), p2.getZ().get()), p3.getZ().get());
+    }
 }

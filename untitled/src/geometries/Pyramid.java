@@ -1,9 +1,6 @@
 package geometries;
 
-import primitives.Color;
-import primitives.Point3D;
-import primitives.Ray;
-import primitives.Vector;
+import primitives.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,5 +49,53 @@ public class Pyramid extends Geometry {
             if(t.findIntersections(myRay)!=null)
                 intersectionPoints.addAll(t.findIntersections(myRay));
         return intersectionPoints;
+    }
+
+    @Override
+    public double getMaxX() {
+        double max = triangles.get(0).getMaxX();
+        for (Triangle t: triangles)
+            max = Double.max(max, t.getMaxX());
+        return max;
+    }
+
+    @Override
+    public double getMinX() {
+        double min = triangles.get(0).getMinX();
+        for (Triangle t: triangles)
+            min = Double.max(min, t.getMinX());
+        return min;
+    }
+
+    @Override
+    public double getMaxY() {
+        double max = triangles.get(0).getMaxY();
+        for (Triangle t: triangles)
+            max = Double.max(max, t.getMaxY());
+        return max;
+    }
+
+    @Override
+    public double getMinY() {
+        double min = triangles.get(0).getMinY();
+        for (Triangle t: triangles)
+            min = Double.max(min, t.getMinY());
+        return min;
+    }
+
+    @Override
+    public double getMaxZ() {
+        double max = triangles.get(0).getMaxZ();
+        for (Triangle t: triangles)
+            max = Double.max(max, t.getMaxZ());
+        return max;
+    }
+
+    @Override
+    public double getMinZ() {
+        double min = triangles.get(0).getMinZ();
+        for (Triangle t: triangles)
+            min = Double.max(min, t.getMinZ());
+        return min;
     }
 }

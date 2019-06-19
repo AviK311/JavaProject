@@ -7,9 +7,25 @@ import primitives.Vector;
 
 import java.util.List;
 
+/**
+ * Sphere with 2 holes
+ */
 public class Halo extends HalfSphere {
     Point3D holePoint2;
 
+    /**
+     * ctor with params
+     * @param emission
+     * @param Shininess
+     * @param _Kd
+     * @param _Ks
+     * @param _Kr
+     * @param _Kt
+     * @param radius
+     * @param holeDirection
+     * @param center
+     * @param distance
+     */
     public Halo(Color emission, int Shininess, double _Kd, double _Ks, double _Kr, double _Kt, float radius, Vector holeDirection, Point3D center, double distance) {
         super(emission, Shininess, _Kd, _Ks, _Kr, _Kt, radius, holeDirection, center, distance);
         holePoint2 = center.add(holeDirection.normalize().scale(-radius));

@@ -13,227 +13,135 @@ import java.util.*;
 
 
 public class Scene {
-    private class GeometriesBox {
-        double max_X, min_X, max_Y, min_Y, max_Z, min_Z;
-
-        public GeometriesBox(double max_X,
-                             double min_X,
-                             double max_Y,
-                             double min_Y,
-                             double max_Z,
-                             double min_Z) {
-            this.max_X = max_X;
-            this.min_X = min_X;
-            this.max_Y = max_Y;
-            this.min_Y = min_Y;
-            this.max_Z = max_Z;
-            this.min_Z = min_Z;
-        }
-
-        public void setMax_X(double x) {
-            max_X = Math.max(max_X, x);
-        }
-
-        public void setMin_X(double x) {
-            min_X = Math.min(min_X, x);
-        }
-
-        public void setMax_Y(double y) {
-            max_Y = Math.max(max_Y, y);
-        }
-
-        public void setMin_Y(double y) {
-            min_Y = Math.min(min_Y, y);
-        }
-
-        public void setMax_Z(double z) {
-            max_Z = Math.max(max_Z, z);
-        }
-
-        public void setMin_Z(double z) {
-            min_Z = Math.min(min_Z, z);
-        }
-
-        public boolean checkBoundaries(Ray ray) {
-            //max X plane
-            Plane boundaryPlane = new Plane(new Point3D(max_X, max_Y, max_Z), new Vector(1,0,0));
-            List<Intersectable.GeoPoint> intersectionList = boundaryPlane.findIntersections(ray);
-            if (intersectionList!=null){
-                Point3D intersection = intersectionList.get(0).point;
-                double y = intersection.getY().get(), z = intersection.getZ().get();
-                if (y > min_Y && y < max_Y
-                && z > min_Z && z < max_Z)
-                    return true;
-            }
-            //min X plane
-            boundaryPlane = new Plane(new Point3D(min_X, max_Y, max_Z), new Vector(1,0,0));
-            intersectionList = boundaryPlane.findIntersections(ray);
-            if (intersectionList!=null){
-                Point3D intersection = intersectionList.get(0).point;
-                double y = intersection.getY().get(), z = intersection.getZ().get();
-                if (y > min_Y && y < max_Y
-                        && z > min_Z && z < max_Z)
-                    return true;
-            }
-            //max y plane
-            boundaryPlane = new Plane(new Point3D(max_X, max_Y, max_Z), new Vector(0,1,0));
-            intersectionList = boundaryPlane.findIntersections(ray);
-            if (intersectionList!=null){
-                Point3D intersection = intersectionList.get(0).point;
-                double x = intersection.getX().get(), z = intersection.getZ().get();
-                if (x > min_X && x < max_X
-                        && z > min_Z && z < max_Z)
-                    return true;
-            }
-            //min y plane
-            boundaryPlane = new Plane(new Point3D(max_X, min_Y, max_Z), new Vector(0,1,0));
-            intersectionList = boundaryPlane.findIntersections(ray);
-            if (intersectionList!=null){
-                Point3D intersection = intersectionList.get(0).point;
-                double x = intersection.getX().get(), z = intersection.getZ().get();
-                if (x > min_X && x < max_X
-                        && z > min_Z && z < max_Z)
-                    return true;
-            }
-
-            //max z plane
-            boundaryPlane = new Plane(new Point3D(max_X, max_Y, max_Z), new Vector(0,0,1));
-            intersectionList = boundaryPlane.findIntersections(ray);
-            if (intersectionList!=null){
-                Point3D intersection = intersectionList.get(0).point;
-                double x = intersection.getX().get(), y = intersection.getY().get();
-                if (x > min_X && x < max_X
-                        && y > min_Y && y < max_Y)
-                    return true;
-            }
-            //min z plane
-            boundaryPlane = new Plane(new Point3D(max_X, max_Y, min_Z), new Vector(0,0,1));
-            intersectionList = boundaryPlane.findIntersections(ray);
-            if (intersectionList!=null){
-                Point3D intersection = intersectionList.get(0).point;
-                double x = intersection.getX().get(), y = intersection.getY().get();
-                if (x > min_X && x < max_X
-                        && y > min_Y && y < max_Y)
-                    return true;
-            }
-
-            return false;
-
-        }
-    }
-
     String sceneName;
     Color background;
     public AmbientLight ambientLight;
-    Geometries geometries;
+    Geometries nonPlaneGeometries = new Geometries(true);
+    Geometries planes = new Geometries(false);
     elements.Camera camera;
     double screenDistance;
-    GeometriesBox box = null;
-    boolean checkBox = false;
 
+    /**
+     * get list of lights
+     * @return list
+     */
     public List<LightSource> getLights() {
         return lights;
     }
+
+    /**
+     * checks whether the ray intersects with the scene
+     * @param ray
+     * @return
+     */
     public boolean checkBoundaries(Ray ray){
-        if (checkBox)
-            return true;
-        return box.checkBoundaries(ray);
+        return nonPlaneGeometries.checkBoundaries(ray);
     }
     List<LightSource> lights = new LinkedList<>();
 
+    /**
+     * ctor with name
+     * @param name
+     */
     public Scene(String name) {
         this.sceneName = name;
         this.background = Color.BLACK;
-        this.geometries = new Geometries();
+
     }
 
+    /**
+     * return name
+     * @return
+     */
     public String getSceneName() {
         return sceneName;
     }
 
+    /**
+     * return background color
+     * @return
+     */
     public Color getBackground() {
         return background;
     }
 
-    public void setBackground(Color background) {
-        this.background = background;
-    }
-
+    /**
+     * get ambient light
+     * @return
+     */
     public AmbientLight getAmbientLight() {
         return ambientLight;
     }
 
+    /**
+     * set ambient light
+     * @param ambientLight
+     */
     public void setAmbientLight(AmbientLight ambientLight) {
         this.ambientLight = ambientLight;
     }
 
-    public Geometries getGeometries() {
-        return geometries;
+    /**
+     * functio
+     * @param type if 0, returns the nonPlane list. else, returns the plane list.
+     * @return
+     */
+    public Geometries getGeometries(int type) {
+        if (type == 0)
+            return nonPlaneGeometries;
+        return planes;
     }
 
+    /**
+     * returns the camera
+     * @return
+     */
     public elements.Camera getCamera() {
         return camera;
     }
 
+    /**
+     * sets the camera
+     * @param camera
+     */
     public void setCamera(Camera camera) {
         this.camera = camera;
     }
 
+    /**
+     * gets the distance of the camera from the screen
+     * @return
+     */
     public double getScreenDistance() {
         return screenDistance;
     }
 
+    /**
+     * sets the distance of the camera from the screen
+     * @param screenDistance
+     */
     public void setScreenDistance(double screenDistance) {
         this.screenDistance = screenDistance;
     }
 
+    /**
+     * add geometry or geometries to respective lists
+     * @param geos
+     */
     public void addGeometry(Intersectable... geos) {
         for (Intersectable g:geos){
-            if (!checkBox) {
-                double minX, maxX, minY, maxY, minZ, maxZ;
-                minX = maxX = minY = maxY = minZ = maxZ = 0;
-                if (g instanceof Plane) {
-                    if (camera.getvTo().dotProduct(((Plane) g).getNormal()) != 0)
-                        checkBox = true;
-                }
-                if (g instanceof Triangle) {
-                    Triangle t = (Triangle) g;
-                    Point3D P1 = t.getP1(), P2 = t.getP2(), P3 = t.getP3();
-                    minX = Double.min(Double.min(P1.getX().get(), P2.getX().get()), P3.getX().get());
-                    maxX = Double.max(Double.max(P1.getX().get(), P2.getX().get()), P3.getX().get());
-                    minY = Double.min(Double.min(P1.getY().get(), P2.getY().get()), P3.getY().get());
-                    maxY = Double.max(Double.max(P1.getY().get(), P2.getY().get()), P3.getY().get());
-                    minZ = Double.min(Double.min(P1.getZ().get(), P2.getZ().get()), P3.getZ().get());
-                    maxZ = Double.max(Double.max(P1.getZ().get(), P2.getZ().get()), P3.getZ().get());
-                }
-                if (g instanceof Sphere) {
-                    Sphere s = (Sphere) g;
-                    Point3D center = s.getCenter();
-                    minX = center.add(new Vector(1, 0, 0).scale(-s.getRadius())).getX().get();
-                    maxX = center.add(new Vector(1, 0, 0).scale(s.getRadius())).getX().get();
-                    minY = center.add(new Vector(0, 1, 0).scale(-s.getRadius())).getY().get();
-                    maxY = center.add(new Vector(0, 1, 0).scale(s.getRadius())).getY().get();
-                    minZ = center.add(new Vector(0, 0, 1).scale(-s.getRadius())).getZ().get();
-                    maxZ = center.add(new Vector(0, 0, 1).scale(s.getRadius())).getZ().get();
-                }
-                if (box == null)
-                    box = new GeometriesBox(maxX, minX, maxY, minY, maxZ, minZ);
-                else {
-                    box.setMax_X(maxX);
-                    box.setMax_Y(maxY);
-                    box.setMax_Z(maxZ);
-                    box.setMin_X(minX);
-                    box.setMin_Y(minY);
-                    box.setMin_Z(minZ);
-                }
-            }
-            geometries.add(g);
+                if (g instanceof Plane)
+                    planes.add(g);
+                nonPlaneGeometries.add(g);
             }
 
         }
 
 
-
+    /**
+     * add light or lights to the scene
+     * @param light
+     */
     public void addLight(LightSource... light) {
         for (LightSource l : light)
             lights.add(l);
@@ -245,7 +153,7 @@ public class Scene {
                 "Name='" + sceneName + '\'' +
                 ", background=" + background +
                 ", ambLight=" + ambientLight +
-                ", geoList=" + geometries +
+                ", geoList=" + nonPlaneGeometries +
                 ", camera=" + camera +
                 ", scrnDist=" + screenDistance +
                 '}';
