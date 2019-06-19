@@ -9,6 +9,7 @@ import primitives.Point3D;
 import geometries.Intersectable.GeoPoint;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import primitives.Ray;
@@ -52,26 +53,42 @@ public class Render {
         double dist = _scene.getScreenDistance();
         totalTheoreticalRays = nx*ny;
         totalTheoreticalIntersections = totalTheoreticalRays * _scene.getGeometries(0).getSize();
+        double r=0, g=0, b=0;
         for (int i = 0; i < ny; i++) {
             for (int j = 0; j < nx; j++) {
-                Ray ray = _scene.getCamera().constructRayThroughAPixel(nx, ny, j, i, dist, width, height);
-                List<GeoPoint> intersectionPoints = new ArrayList<>();
-                if (_scene.checkBoundaries(ray)) {
-                    intersectionPoints = _scene.getGeometries(0).findIntersections(ray);
-                    totalActualRays++;
-                    totalActualIntesections+=_scene.getGeometries(0).getSize();
+                ArrayList<Ray> rays = _scene.getCamera().constructRaysThroughAPixel(nx, ny, j, i, dist, width, height);
+                for (Iterator<Ray> iterator = rays.iterator(); iterator.hasNext();) 
+                {
+                    //Ray ray = _scene.getCamera().constructRayThroughAPixel(nx, ny, j, i, dist, width, height);
+                    Ray ray = iterator.next();
+                    List<GeoPoint> intersectionPoints = new ArrayList<>();
+                    if (_scene.checkBoundaries(ray)) {
+                        intersectionPoints = _scene.getGeometries(0).findIntersections(ray);
+                        totalActualRays++;
+                        totalActualIntesections += _scene.getGeometries(0).getSize();
+                    } else if (_scene.getGeometries(1).getSize() > 0) {
+                        intersectionPoints = _scene.getGeometries(1).findIntersections(ray);
+                        totalActualRays++;
+                        totalActualIntesections += _scene.getGeometries(1).getSize();
+                    }
+//
+                    if (intersectionPoints.isEmpty()) {
+                        //_imageWriter.writePixel(i, j, _scene.getBackground().getColor());
+                        r+=_scene.getBackground().getColor().getRed();
+                        g+=_scene.getBackground().getColor().getGreen();
+                        b+=_scene.getBackground().getColor().getBlue();
+                    } else {
+                        GeoPoint closetPoint = getClosestPoint(intersectionPoints, _scene.getCamera().getP0());
+                        //_imageWriter.writePixel(i, j, calcColor(closetPoint, ray).getColor());
+                        r+=calcColor(closetPoint, ray).getColor().getRed();
+                        g+=calcColor(closetPoint, ray).getColor().getGreen();
+                        b+=calcColor(closetPoint, ray).getColor().getBlue();
+
+                    }
+                    intersectionPoints.clear();
                 }
-                else if (_scene.getGeometries(1).getSize()>0){
-                    intersectionPoints = _scene.getGeometries(1).findIntersections(ray);
-                    totalActualRays++;
-                    totalActualIntesections+=_scene.getGeometries(1).getSize();
-                }
-                if (intersectionPoints.isEmpty()) {
-                    _imageWriter.writePixel(i, j, _scene.getBackground().getColor());
-                } else {
-                    GeoPoint closetPoint = getClosestPoint(intersectionPoints, _scene.getCamera().getP0());
-                    _imageWriter.writePixel(i, j, calcColor(closetPoint,ray).getColor());
-                }
+                Color color = new Color(r/5,g/5,b/5);
+                _imageWriter.writePixel(i, j, color.getColor());
             }
         }
         System.out.println("the total number of rays should have been: " + totalTheoreticalRays);
