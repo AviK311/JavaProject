@@ -19,15 +19,18 @@ public class Plane2 extends Plane {
         if (superList==null)
             return null;
         List<GeoPoint> list = new ArrayList<>();
+        List<GeoPoint> list2 = new ArrayList<>();
         for (GeoPoint g: superList) {
             Point3D gp =g.point;
             Point3D point = gp.add(new Vector(10,0,0));
-            if (g.point.getZ().get()%10==0||g.point.getX().get()%10==0) {
-                Sphere sphere = new Sphere(new Color(0,0,60),g.geo.getnShininess(),g.geo._material.getKd(),
-                        g.geo._material.getKs(), g.geo._material.getKr(), g.geo._material.getKt(),10, g.point );
+            if (g.point.getZ().get()%1==0||g.point.getY().get()%1==0) {
+                Circle sphere = new Circle(new Color(0,0,60),g.geo.getnShininess(),g.geo._material.getKd(),
+                        g.geo._material.getKs(), g.geo._material.getKr(), g.geo._material.getKt(), g.point.add(new Vector(0,0,1)) ,g.geo.getNormal(g.point),3);
                 list.addAll(sphere.findIntersections(ray));
+                //list2.add(g);
             }
         }
+        //superList.removeAll(list2);
   //      superList.removeIf(gp-> Math.abs(gp.point.getZ().get()- (int)gp.point.getZ().get())<0.5);
 
         superList.addAll(list);
