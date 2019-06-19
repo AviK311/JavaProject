@@ -640,7 +640,7 @@ public class RenderTest {
     @Test
     public void myTest2() {
         Scene scene = new Scene("Hello");
-        ImageWriter imageWriter = new ImageWriter("picture6 ", 200, 200, 750, 750);
+        ImageWriter imageWriter = new ImageWriter("picture7_ ", 200, 200, 750, 750);
         Render render = new Render(scene, imageWriter);
         scene.setCamera(c);
         scene.setScreenDistance(1000);
@@ -675,8 +675,8 @@ public class RenderTest {
                 100, 0.2, 0.3, 0.1, 0.3, 50
                 ,new Vector(-1,1,1),new Point3D(0, 50, -100),80);
 
-       scene.addGeometry(plane, halfSphere, halo, sphere2);
-       //scene.addGeometry(plane,holyball);
+       //scene.addGeometry(plane, halfSphere, halo, sphere2);
+       scene.addGeometry(plane,holyball);
 
         PointLight pointLight = new PointLight(new Color(800, 600, 0),
                 new Point3D(0, 200, 0),
@@ -746,7 +746,7 @@ public class RenderTest {
     @Test
     public void myTest4() {
         Scene scene = new Scene("Hello");
-        ImageWriter imageWriter = new ImageWriter("picture9 ", 200, 200, 750, 750);
+        ImageWriter imageWriter = new ImageWriter("picture9 ", 200, 200, 200, 200);
         Render render = new Render(scene, imageWriter);
         scene.setCamera(c);
         scene.setScreenDistance(1000);

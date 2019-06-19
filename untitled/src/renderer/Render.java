@@ -8,17 +8,64 @@ import geometries.*;
 import primitives.Point3D;
 import geometries.Intersectable.GeoPoint;
 
-import java.util.ArrayList;
-import java.util.List;
+
 
 import primitives.Ray;
 //import java.awt.Color;
 import primitives.Color;
 import primitives.Vector;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import static primitives.Util.uscale;
 
 public class Render {
+    private class pixelWriter implements Runnable{
+        int i,j;
+        ArrayList<Ray> rays;
+
+        public pixelWriter(int i, int j, ArrayList<Ray> rays) {
+            this.i = i;
+            this.j = j;
+            this.rays = rays;
+        }
+
+        @Override
+        public void run() {
+            Color color = Color.BLACK;
+            for (Ray ray: rays)
+            {
+
+                //Ray ray = _scene.getCamera().constructRayThroughAPixel(nx, ny, j, i, dist, width, height);
+                List<GeoPoint> intersectionPoints = new ArrayList<>();
+                if (_scene.checkBoundaries(ray)) {
+                    intersectionPoints = _scene.getGeometries(0).findIntersections(ray);
+                    totalActualRays++;
+                    totalActualIntesections += _scene.getGeometries(0).getSize();
+                } else if (_scene.getGeometries(1).getSize() > 0) {
+                    intersectionPoints = _scene.getGeometries(1).findIntersections(ray);
+                    totalActualRays++;
+                    totalActualIntesections += _scene.getGeometries(1).getSize();
+                }
+//
+                if (intersectionPoints.isEmpty()) {
+                    //_imageWriter.writePixel(i, j, _scene.getBackground().getColor());
+                    color.add(_scene.getBackground());
+                } else {
+                    GeoPoint closetPoint = getClosestPoint(intersectionPoints, _scene.getCamera().getP0());
+                    //_imageWriter.writePixel(i, j, calcColor(closetPoint, ray).getColor());
+                    color.add(calcColor(closetPoint, ray));
+
+                }
+                intersectionPoints.clear();
+            }
+            color = color.scale(0.5);
+            _imageWriter.writePixel(i, j, color.getColor());
+
+        }
+    }
     int totalTheoreticalRays = 0, totalActualRays = 0;
     int totalTheoreticalIntersections = 0, totalActualIntesections = 0;
     private Scene _scene;
@@ -52,27 +99,12 @@ public class Render {
         double dist = _scene.getScreenDistance();
         totalTheoreticalRays = nx*ny;
         totalTheoreticalIntersections = totalTheoreticalRays * _scene.getGeometries(0).getSize();
+        double r=0, g=0, b=0;
         for (int i = 0; i < ny; i++) {
             for (int j = 0; j < nx; j++) {
 
-                Ray ray = _scene.getCamera().constructRayThroughAPixel(nx, ny, j, i, dist, width, height);
-                List<GeoPoint> intersectionPoints = new ArrayList<>();
-                if (_scene.checkBoundaries(ray)) {
-                    intersectionPoints = _scene.getGeometries(0).findIntersections(ray);
-                    totalActualRays++;
-                    totalActualIntesections+=_scene.getGeometries(0).getSize();
-                }
-                else if (_scene.getGeometries(1).getSize()>0){
-                    intersectionPoints = _scene.getGeometries(1).findIntersections(ray);
-                    totalActualRays++;
-                    totalActualIntesections+=_scene.getGeometries(1).getSize();
-                }
-                if (intersectionPoints.isEmpty()) {
-                    _imageWriter.writePixel(i, j, _scene.getBackground().getColor());
-                } else {
-                    GeoPoint closetPoint = getClosestPoint(intersectionPoints, _scene.getCamera().getP0());
-                    _imageWriter.writePixel(i, j, calcColor(closetPoint,ray).getColor());
-                }
+                ArrayList<Ray> rays = _scene.getCamera().constructRaysThroughAPixel(nx, ny, j, i, dist, width, height);
+                new Thread(new pixelWriter(i,j,rays)).start();
             }
         }
         System.out.println("the total number of rays should have been: " + totalTheoreticalRays);
