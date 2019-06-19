@@ -54,6 +54,7 @@ public class Render {
         totalTheoreticalIntersections = totalTheoreticalRays * _scene.getGeometries(0).getSize();
         for (int i = 0; i < ny; i++) {
             for (int j = 0; j < nx; j++) {
+
                 Ray ray = _scene.getCamera().constructRayThroughAPixel(nx, ny, j, i, dist, width, height);
                 List<GeoPoint> intersectionPoints = new ArrayList<>();
                 if (_scene.checkBoundaries(ray)) {
