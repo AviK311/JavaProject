@@ -63,7 +63,7 @@ public class Pyramid extends Geometry {
     public double getMinX() {
         double min = triangles.get(0).getMinX();
         for (Triangle t: triangles)
-            min = Double.max(min, t.getMinX());
+            min = Double.min(min, t.getMinX());
         return min;
     }
 
@@ -79,7 +79,7 @@ public class Pyramid extends Geometry {
     public double getMinY() {
         double min = triangles.get(0).getMinY();
         for (Triangle t: triangles)
-            min = Double.max(min, t.getMinY());
+            min = Double.min(min, t.getMinY());
         return min;
     }
 
@@ -95,7 +95,7 @@ public class Pyramid extends Geometry {
     public double getMinZ() {
         double min = triangles.get(0).getMinZ();
         for (Triangle t: triangles)
-            min = Double.max(min, t.getMinZ());
+            min = Double.min(min, t.getMinZ());
         return min;
     }
 }

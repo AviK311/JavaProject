@@ -82,9 +82,9 @@ public class RenderTest {
 
     @Test
 
-    public void testPart3_01() {
+    public void HolyBallandTriangles() {
         Scene scene = new Scene("Hello");
-        ImageWriter imageWriter = new ImageWriter("testPart3_01", 500, 500, 500, 500);
+        ImageWriter imageWriter = new ImageWriter("HolyBall and 3 triangles", 500, 500, 500, 500);
 
         Render render = new Render(scene, imageWriter);
         Camera c1 = new Camera(new Point3D(0, 0, 0),
@@ -147,9 +147,9 @@ public class RenderTest {
 
 
     @Test
-    public void myTest() {
+    public void Ball() {
         Scene scene = new Scene("Hello");
-        ImageWriter imageWriter = new ImageWriter("picture2 ", 200, 200, 500, 500);
+        ImageWriter imageWriter = new ImageWriter("Ball ", 200, 200, 500, 500);
         Render render = new Render(scene, imageWriter);
         scene.setCamera(c);
         scene.setScreenDistance(1000);
@@ -184,7 +184,7 @@ public class RenderTest {
     }
 
     @Test
-    public void myBallTest() {
+    public void ThreeBallsOnACircle() {
         Scene scene = new Scene("Hello");
         ImageWriter imageWriter = new ImageWriter("three balls on a circle ", 200, 200, 500, 500);
         Render render = new Render(scene, imageWriter);
@@ -240,9 +240,9 @@ public class RenderTest {
     }
 
     @Test
-    public void myBallTest2() {
+    public void TrafficLight() {
         Scene scene = new Scene("Hello");
-        ImageWriter imageWriter = new ImageWriter("pictureBalls ", 200, 200, 500, 500);
+        ImageWriter imageWriter = new ImageWriter("TrafficLight ", 200, 200, 500, 500);
         Render render = new Render(scene, imageWriter);
         scene.setCamera(c);
         scene.setScreenDistance(700);
@@ -331,9 +331,9 @@ public class RenderTest {
     }
 
     @Test
-    public void myBallTest3() {
+    public void NestedBalls() {
         Scene scene = new Scene("Hello");
-        ImageWriter imageWriter = new ImageWriter("picture3Balls3 ", 200, 200, 500, 500);
+        ImageWriter imageWriter = new ImageWriter("3NestedBalls ", 200, 200, 500, 500);
         Render render = new Render(scene, imageWriter);
         scene.setCamera(c);
         scene.setScreenDistance(1000);
@@ -541,7 +541,7 @@ public class RenderTest {
     @Test
     public void word() {
         Scene scene = new Scene("Hello");
-        ImageWriter imageWriter = new ImageWriter("p111 ", 200, 200, 500, 500);
+        ImageWriter imageWriter = new ImageWriter("word ", 200, 200, 500, 500);
         Render render = new Render(scene,imageWriter);
         scene.setCamera(c);
         scene.setScreenDistance(700);
@@ -638,9 +638,9 @@ public class RenderTest {
 
 
     @Test
-    public void myTest2() {
+    public void HolyBallTest() {
         Scene scene = new Scene("Hello");
-        ImageWriter imageWriter = new ImageWriter("picture7_ ", 200, 200, 750, 750);
+        ImageWriter imageWriter = new ImageWriter("Holy Ball ", 200, 200, 750, 750);
         Render render = new Render(scene, imageWriter);
         scene.setCamera(c);
         scene.setScreenDistance(1000);
@@ -744,9 +744,9 @@ public class RenderTest {
     }
 
     @Test
-    public void myTest4() {
+    public void BallInHalfball() {
         Scene scene = new Scene("Hello");
-        ImageWriter imageWriter = new ImageWriter("picture9 ", 200, 200, 500, 500);
+        ImageWriter imageWriter = new ImageWriter("Ball in halfball ", 200, 200, 500, 500);
         Render render = new Render(scene, imageWriter);
         scene.setCamera(c);
         scene.setScreenDistance(1000);
