@@ -746,7 +746,7 @@ public class RenderTest {
     @Test
     public void myTest4() {
         Scene scene = new Scene("Hello");
-        ImageWriter imageWriter = new ImageWriter("picture9 ", 200, 200, 200, 200);
+        ImageWriter imageWriter = new ImageWriter("picture9 ", 200, 200, 500, 500);
         Render render = new Render(scene, imageWriter);
         scene.setCamera(c);
         scene.setScreenDistance(1000);

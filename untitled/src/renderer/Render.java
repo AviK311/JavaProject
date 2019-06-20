@@ -52,16 +52,16 @@ public class Render {
 //
                 if (intersectionPoints.isEmpty()) {
                     //_imageWriter.writePixel(i, j, _scene.getBackground().getColor());
-                    color.add(_scene.getBackground());
+                    color =color.add(_scene.getBackground());
                 } else {
                     GeoPoint closetPoint = getClosestPoint(intersectionPoints, _scene.getCamera().getP0());
                     //_imageWriter.writePixel(i, j, calcColor(closetPoint, ray).getColor());
-                    color.add(calcColor(closetPoint, ray));
+                    color = color.add(calcColor(closetPoint, ray));
 
                 }
                 intersectionPoints.clear();
             }
-            color = color.scale(0.5);
+            color = color.scale((double)1/ rays.size());
             _imageWriter.writePixel(i, j, color.getColor());
 
         }
@@ -97,14 +97,15 @@ public class Render {
         double height = _imageWriter.getHeight();
         double width = _imageWriter.getWidth();
         double dist = _scene.getScreenDistance();
-        totalTheoreticalRays = nx*ny;
+        totalTheoreticalRays = nx*ny*5;
         totalTheoreticalIntersections = totalTheoreticalRays * _scene.getGeometries(0).getSize();
         double r=0, g=0, b=0;
         for (int i = 0; i < ny; i++) {
             for (int j = 0; j < nx; j++) {
 
                 ArrayList<Ray> rays = _scene.getCamera().constructRaysThroughAPixel(nx, ny, j, i, dist, width, height);
-                new Thread(new pixelWriter(i,j,rays)).start();
+//                new Thread(new pixelWriter(i,j,rays)).start();
+                new pixelWriter(i,j,rays).run();
             }
         }
         System.out.println("the total number of rays should have been: " + totalTheoreticalRays);

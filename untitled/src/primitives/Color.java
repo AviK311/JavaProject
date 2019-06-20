@@ -137,7 +137,7 @@ public class Color {
 			g += c._g;
 			b += c._b;
 		}
-		return new Color(r, g, b).scale(1);
+		return new Color(r, g, b);
 	}
 
 	/**

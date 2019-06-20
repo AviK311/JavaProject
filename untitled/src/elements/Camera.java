@@ -13,7 +13,6 @@ public class Camera {
     private Vector vUp;
     private Vector vRight;
     private Vector vTo;
-
     /**
      * params ctor. cRight is calculated by vUp and vtoward
      *
@@ -104,6 +103,8 @@ public class Camera {
 
     public ArrayList<Ray> constructRaysThroughAPixel(int Nx, int Ny, double i, double j, double screenDist, double screenWidth, double screenHeight) {
         ArrayList<Ray> rays=new ArrayList<Ray>();
+
+
         Ray r1 = returnOneRay(Nx, Ny, i, j, screenDist, screenWidth,screenHeight,0.5,0.5);
         rays.add(r1);
         Ray r2 = returnOneRay(Nx, Ny, i, j, screenDist, screenWidth,screenHeight,0.25,0.25);
