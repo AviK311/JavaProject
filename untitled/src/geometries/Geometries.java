@@ -12,9 +12,18 @@ public class Geometries implements Intersectable {
     private GeometriesBox box;
     private boolean checksBoundary = true;
 
+    /**
+     * ctor that defines whether the list has 3D boundaties
+     * @param checksBoundary
+     */
     public Geometries(boolean checksBoundary) {
         this.checksBoundary = checksBoundary;
     }
+
+    /**
+     * get size of list
+     * @return
+     */
     public int getSize(){
         return geometriesList.size();
     }
@@ -178,9 +187,8 @@ public class Geometries implements Intersectable {
                 geometriesList.add(g);
         else
             for (Intersectable g : geos) {
-
                 geometriesList.add(g);
-                if (!(g instanceof Plane)) {
+                if (!(g.getClass().equals(Plane.class))) {
                     if (box == null)
                         box = new GeometriesBox(g.getMaxX(), g.getMinX(),
                                 g.getMaxY(), g.getMinY(),

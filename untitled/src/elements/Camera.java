@@ -101,6 +101,17 @@ public class Camera {
         return new Ray(p.subtract(p0), p0);
     }
 
+    /**
+     * construct multiple rays through one pixel
+     * @param Nx number of x pixels
+     * @param Ny number of y pixels
+     * @param i index
+     * @param j index
+     * @param screenDist distance from camera to screen
+     * @param screenWidth
+     * @param screenHeight
+     * @return
+     */
     public ArrayList<Ray> constructRaysThroughAPixel(int Nx, int Ny, double i, double j, double screenDist, double screenWidth, double screenHeight) {
         ArrayList<Ray> rays=new ArrayList<Ray>();
 
@@ -118,6 +129,19 @@ public class Camera {
         return rays;
     }
 
+    /**
+     * construct a ray through a pixel with an added x and y
+     * @param Nx
+     * @param Ny
+     * @param i
+     * @param j
+     * @param screenDist
+     * @param screenWidth
+     * @param screenHeight
+     * @param addX
+     * @param addY
+     * @return
+     */
     private Ray returnOneRay(int Nx, int Ny, double i, double j, double screenDist, double screenWidth, double screenHeight, double addX, double addY)
     {
         Point3D pc = p0.add(vTo.scale(screenDist));

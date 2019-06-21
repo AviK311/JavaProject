@@ -3,12 +3,23 @@ package geometries;
 import primitives.*;
 
 import java.util.List;
-import java.util.concurrent.TransferQueue;
 
 public class Square extends Plane {
     Point3D  p2, p3, p4;
 
-
+    /**
+     * ctor with material fields as params
+     * @param emission
+     * @param Shininess
+     * @param _Kd
+     * @param _Ks
+     * @param _Kr
+     * @param _Kt
+     * @param P1
+     * @param v1
+     * @param v2
+     * @param length
+     */
     public Square(Color emission, int Shininess,
                   double _Kd, double _Ks, double _Kr, double _Kt,
                   Point3D P1, Vector v1,
@@ -26,6 +37,16 @@ public class Square extends Plane {
 
 
     }
+
+    /**
+     * ctor with material as a param
+     * @param emission
+     * @param material
+     * @param P1
+     * @param v1
+     * @param v2
+     * @param length
+     */
     public Square(Color emission, Material material,
                   Point3D P1, Vector v1,
                   Vector v2, double length) {
@@ -37,6 +58,29 @@ public class Square extends Plane {
         p2 = p1.add(v1);
         p4 = p1.add(v2);
         p3 = p4.add(v1);
+    }
+
+    /**
+     * ctor made for enclosing the circle
+     * @param P1
+     * @param v1
+     * @param v2
+     * @param length
+     */
+    public Square(Point3D P1, Vector v1,
+                  Vector v2, double length) {
+        super(P1, v1.crossProduct(v2));
+        if (v1.dotProduct(v2)!=0)
+            throw new IllegalArgumentException("the vectors are not orthogonal");
+        v1 = v1.normalize().scale(length);
+        v2 = v2.normalize().scale(length);
+        p2 = p1.add(v1);
+        p4 = p1.add(v2);
+        p3 = p4.add(v1);
+
+
+
+
     }
 
     @Override
@@ -66,5 +110,35 @@ public class Square extends Plane {
         if (sign1 == sign2 && sign1 == sign3 && sign1 == sign4)
             return intersectionPoints;
         return null;
+    }
+
+    @Override
+    public double getMaxX() {
+        return Double.max(Double.max(p1.getX().get(), p2.getX().get()), Double.max(p3.getX().get(), p4.getX().get()));
+    }
+
+    @Override
+    public double getMinX() {
+        return Double.min(Double.min(p1.getX().get(), p2.getX().get()), Double.min(p3.getX().get(), p4.getX().get()));
+    }
+
+    @Override
+    public double getMaxY() {
+        return Double.max(Double.max(p1.getY().get(), p2.getY().get()), Double.max(p3.getY().get(), p4.getY().get()));
+    }
+
+    @Override
+    public double getMinY() {
+        return Double.min(Double.min(p1.getY().get(), p2.getY().get()), Double.min(p3.getY().get(), p4.getY().get()));
+    }
+
+    @Override
+    public double getMaxZ() {
+        return Double.max(Double.max(p1.getZ().get(), p2.getZ().get()), Double.max(p3.getZ().get(), p4.getZ().get()));
+    }
+
+    @Override
+    public double getMinZ() {
+        return Double.min(Double.min(p1.getZ().get(), p2.getZ().get()), Double.min(p3.getZ().get(), p4.getZ().get()));
     }
 }

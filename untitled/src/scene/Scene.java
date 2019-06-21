@@ -130,7 +130,7 @@ public class Scene {
      */
     public void addGeometry(Intersectable... geos) {
         for (Intersectable g:geos){
-                if (g instanceof Plane)
+                if ((g.getClass().equals(Plane.class)))
                     planes.add(g);
                 nonPlaneGeometries.add(g);
             }
