@@ -40,6 +40,8 @@ public class Triangle extends Plane {
         this.p3 = p3;
     }
 
+
+
     /**
      * @return p2
      */

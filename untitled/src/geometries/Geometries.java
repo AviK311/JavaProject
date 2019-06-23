@@ -10,10 +10,13 @@ import java.util.List;
 public class Geometries implements Intersectable {
     private List<Intersectable> geometriesList = new ArrayList<>();
     private GeometriesBox box;
+    private Geometries subGeometries = null;
     private boolean checksBoundary = true;
+    private final static double BOX_GROWTH_LIMIT = 1000;
 
     /**
      * ctor that defines whether the list has 3D boundaties
+     *
      * @param checksBoundary
      */
     public Geometries(boolean checksBoundary) {
@@ -22,9 +25,10 @@ public class Geometries implements Intersectable {
 
     /**
      * get size of list
+     *
      * @return
      */
-    public int getSize(){
+    public int getSize() {
         return geometriesList.size();
     }
 
@@ -177,33 +181,31 @@ public class Geometries implements Intersectable {
     }
 
     /**
-     * adds geos to the list, while handling the boundaries of the box containing the geometries
+     * adds g to the list, while handling the boundaries of the box containing the geometries
      *
-     * @param geos
+     * @param g
      */
-    public void add(Intersectable... geos) {
+    public void add(Intersectable g) {
         if (!checksBoundary)
-            for (Intersectable g : geos)
-                geometriesList.add(g);
-        else
-            for (Intersectable g : geos) {
-                geometriesList.add(g);
-                if (!(g.getClass().equals(Plane.class))) {
-                    if (box == null)
-                        box = new GeometriesBox(g.getMaxX(), g.getMinX(),
-                                g.getMaxY(), g.getMinY(),
-                                g.getMaxZ(), g.getMinZ());
-                    else {
-                        box.setMax_X(g.getMaxX());
-                        box.setMax_Y(g.getMaxY());
-                        box.setMax_Z(g.getMaxZ());
-                        box.setMin_X(g.getMinX());
-                        box.setMin_Y(g.getMinY());
-                        box.setMin_Z(g.getMinZ());
-                    }
+            geometriesList.add(g);
+        else {
+            geometriesList.add(g);
+            if (!(g.getClass().equals(Plane.class))) {
+                if (box == null)
+                    box = new GeometriesBox(g.getMaxX(), g.getMinX(),
+                            g.getMaxY(), g.getMinY(),
+                            g.getMaxZ(), g.getMinZ());
+                else {
+                    box.setMax_X(g.getMaxX());
+                    box.setMax_Y(g.getMaxY());
+                    box.setMax_Z(g.getMaxZ());
+                    box.setMin_X(g.getMinX());
+                    box.setMin_Y(g.getMinY());
+                    box.setMin_Z(g.getMinZ());
                 }
-
             }
+
+        }
     }
 
     @Override
@@ -250,14 +252,31 @@ public class Geometries implements Intersectable {
 
     /**
      * check if the ray intersects the group of geometries
+     *
      * @param ray
      * @return
      */
     public boolean checkBoundaries(Ray ray) {
-        if (geometriesList.size()==0)
+        if (geometriesList.size() == 0)
             return false;
         if (box == null)
             return true;
         return box.checkBoundaries(ray);
+    }
+
+    private double getBoxSizeDifference(Intersectable intersectable) {
+        double maxX = getMaxX(), maxY = getMaxY(), maxZ = getMaxZ(),
+                minX = getMinX(), minY = getMinY(), minZ = getMinZ();
+        double boxSize = (maxX - minX) * (maxY - minY) * (maxZ - minZ);
+        maxX = Double.max(maxX, intersectable.getMaxX());
+        maxY = Double.max(maxY, intersectable.getMaxY());
+        maxZ = Double.max(maxZ, intersectable.getMaxZ());
+
+        minX = Double.min(minX, intersectable.getMinX());
+        minY = Double.min(minY, intersectable.getMinY());
+        minZ = Double.min(minZ, intersectable.getMinZ());
+
+        double newBoxSize = (maxX - minX) * (maxY - minY) * (maxZ - minZ);
+        return newBoxSize - boxSize;
     }
 }

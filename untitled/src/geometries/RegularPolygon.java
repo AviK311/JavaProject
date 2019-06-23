@@ -8,6 +8,7 @@ import java.util.List;
 
 public class RegularPolygon extends Plane {
     private Point3D[] points;
+    private Triangle[] triangles;
     private double cos, sin;
     private double maxX, minX, maxY, minY, maxZ, minZ;
 
@@ -17,6 +18,7 @@ public class RegularPolygon extends Plane {
         if (numOfPoints <=2)
             throw new IllegalArgumentException("The polygon must have at least 3 edges!");
         points = new Point3D[numOfPoints];
+        triangles = new Triangle[numOfPoints-1];
         Point3D normHead = normal.getHead();
         double x, y, z;
         if (p1.getZ().get() != 0) {
@@ -46,6 +48,7 @@ public class RegularPolygon extends Plane {
                 maxZ = minZ = points[0].getZ().get();
             }
             else {
+//                triangles[i] = new Triangle(getEmission(),get_material(),p1, points[i], points[i-1]);
                 maxX = Double.max(maxX, points[i].getX().get());
                 minX = Double.min(minX, points[i].getX().get());
 
@@ -57,34 +60,71 @@ public class RegularPolygon extends Plane {
             }
             vecToEdge =  rodriguesRotate(normal, vecToEdge, cos, sin).rescale(radius);
         }
+        for (int i = 0; i<triangles.length; i++)
+            triangles[i] = new Triangle(getEmission(),get_material(),p1, points[i+1], points[i]);
 
     }
+    public List<GeoPoint> ll(Ray ray) {
+        ArrayList<GeoPoint> list = new ArrayList<>();
+        Sphere[] spheres = new Sphere[points.length];
+        for(int i = 0; i<points.length; i++){
+            spheres[i] = new Sphere(new Color(40,40,40),
+                    0,0,0,0,0,
+                    5, points[i]);
+        }
+        for(Sphere s: spheres){
+            List<GeoPoint> l = s.findIntersections(ray);
+            if (l!=null)
+                list.addAll(l);
+        }
+        return list.isEmpty()?null:list;
 
+
+    }
     @Override
     public List<GeoPoint> findIntersections(Ray ray) {
-        List<GeoPoint> intersectionPoints = super.findIntersections(ray);
-        if (intersectionPoints == null || intersectionPoints.isEmpty())
-            return null;
-        Vector[] vectors = new Vector[points.length], crossVectors = new Vector[points.length];
-        Boolean[] signs = new Boolean[points.length];
-        Point3D rayHead = ray.getHead();
-        Vector v0 = intersectionPoints.get(0).point.subtract(rayHead);
-        for (int i = 0; i < points.length; i++) {
-            vectors[i] = points[i].subtract(rayHead);
-            if (vectors[i].equals(ray.getDirection()))
-                return null;
+        List<GeoPoint> intersectionPoints;
+        for (Triangle t:triangles){
+            if (t==null)continue;
+            intersectionPoints = t.findIntersections(ray);
+            if (intersectionPoints!=null)
+                return intersectionPoints;
         }
-        for (int i = 0; i < points.length; i++) {
-            crossVectors[i] = vectors[(i + 1) % points.length].crossProduct(vectors[i]).normalize();
-            signs[i] = v0.dotProduct(crossVectors[i]) > 0;
-        }
-        boolean sign = signs[0];
-        if (Arrays.stream(signs).allMatch(val -> val == sign))
-            return intersectionPoints;
         return null;
 
 
     }
+
+//    @Override
+//    public List<GeoPoint> findIntersections(Ray ray) {
+//        List<GeoPoint> intersectionPoints = super.findIntersections(ray);
+//        if (intersectionPoints == null || intersectionPoints.isEmpty())
+//            return null;
+//        Vector[] vectors = new Vector[points.length], crossVectors = new Vector[points.length];
+//        Boolean[] signs = new Boolean[points.length];
+//        Point3D rayHead = ray.getHead();
+//        Vector v0 = intersectionPoints.get(0).point.subtract(rayHead);
+//        for (int i = 0; i < points.length; i++) {
+//            vectors[i] = points[i].subtract(rayHead);
+//            if (vectors[i].equals(ray.getDirection()))
+//                return null;
+//        }
+//        for (int i = 0; i < points.length; i++) {
+//            crossVectors[i] = vectors[(i + 1) % points.length].crossProduct(vectors[i]).normalize();
+//            signs[i] = v0.dotProduct(crossVectors[i]) > 0;
+//        }
+//        boolean sign = signs[0];
+//        if (Arrays.stream(signs).allMatch(val -> val == sign)){
+//            List<GeoPoint> l = ll(ray);
+//            if (l!=null)
+//                intersectionPoints.addAll(l);
+//            return intersectionPoints;
+//
+//        }
+//        return null;
+//
+//
+//    }
 
     @Override
     public double getMaxX() {

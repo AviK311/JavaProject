@@ -63,11 +63,11 @@ public class RenderTest {
                 50,new Point3D(0,0,-50));
         Plane poly = new RegularPolygon(new Color(40,40,40),
                 100,0,0,0,0,
-                 new Point3D(0,0,-25),
-                new Vector(0,0,1),
-                250,13);
-        scene.addGeometry(triangle,triangle2,triangle3,triangle4, sphere);
-
+                 new Point3D(0,0,-1000),
+                new Vector(2,0,1),
+                500,10);
+//        scene.addGeometry(triangle,triangle2,triangle3,triangle4, sphere);
+        scene.addGeometry(poly);
         ImageWriter imageWriter = new ImageWriter("4 triangles and sphere", 500, 500, 500, 500);
 
         Render render = new Render(scene, imageWriter);
@@ -240,6 +240,7 @@ public class RenderTest {
         imageWriter.writeToimage();
     }
 
+
     @Test
     public void ThreeBallsOnACircle() {
         Scene scene = new Scene("Hello");
@@ -289,7 +290,55 @@ public class RenderTest {
         render.renderImage();
         imageWriter.writeToimage();
     }
+    @Test
+    public void ThreeBallsOnAPolygon() {
+        Scene scene = new Scene("Hello");
+        ImageWriter imageWriter = new ImageWriter("three balls on a polygon", 200, 200, 500, 500);
+        Render render = new Render(scene, imageWriter);
+        scene.setCamera(c);
+        scene.setScreenDistance(1000);
+        scene.setAmbientLight(new AmbientLight(new Color(100, 100, 100), 0.1));
+        Plane plane = new RegularPolygon(new Color(40, 40, 40),
+                100, 0.4, 0.1, 0.9, 0,
+                new Point3D(0,0, -600), new Vector(1, 0, 1).scale(-1),
+                150, 15);
 
+        Sphere sphere = new Sphere(new Color(100, 0, 0),
+                100, 0.2, 0.3, 0.5, 0.5, 50,
+                new Point3D(0, 100, -500));
+        Sphere sphere1 = new Sphere(new Color(0, 0, 100),
+                100, 0.2, 0.3, 0.5, 0.5, 50,
+                new Point3D(0, 0, -500));
+        Sphere sphere2 = new Sphere(new Color(0, 100, 0),
+                100, 0.2, 0.3, 0.5, 0.5, 50,
+                new Point3D(0, -100, -500));
+        Sphere sphere3 = new Sphere(new Color(0, 0, 100),
+                100, 0.2, 0.3, 0.5, 0, 25,
+                new Point3D(0, 100, -500));
+        Sphere sphere4 = new Sphere(new Color(0, 100, 0),
+                100, 0.2, 0.3, 0.5, 0, 25,
+                new Point3D(0, 0, -500));
+        Sphere sphere5 = new Sphere(new Color(100, 0, 0),
+                100, 0.2, 0.3, 0.5, 0, 25,
+                new Point3D(0, -100, -500));
+
+        scene.addGeometry(plane);
+//        scene.addGeometry(sphere, sphere1, sphere2);
+        scene.addGeometry(sphere3, sphere4, sphere5);
+//        scene.addGeometry(sphere1);
+
+        PointLight pointLight = new PointLight(new Color(800, 600, 0),
+                new Point3D(200, 200, 0),
+                0.0001, 0.000005);
+        PointLight pointLight2 = new PointLight(new Color(800, 600, 0),
+                new Point3D(-200, 200, 0),
+                0.0001, 0.000005);
+
+        scene.addLight(pointLight, pointLight2);
+
+        render.renderImage();
+        imageWriter.writeToimage();
+    }
     @Test
     public void TrafficLight() {
         Scene scene = new Scene("Hello");
