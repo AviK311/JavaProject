@@ -106,6 +106,29 @@ public class Geometries implements Intersectable {
             min_Z = Math.min(min_Z, z);
         }
 
+
+        private boolean checkPlane(Ray ray,double x_, double y_, double z_, Vector vector){
+            Plane boundaryPlane = new Plane(new Point3D(x_, y_, z_), vector);
+            List<Intersectable.GeoPoint> intersectionList = boundaryPlane.findIntersections(ray);
+            if (intersectionList != null) {
+                Point3D intersection = intersectionList.get(0).point;
+                double x=intersection.getX().get(), y = intersection.getY().get(), z = intersection.getZ().get();
+                if (vector.getHead().getX().get()==1)
+                    if (y > min_Y && y < max_Y
+                            && z > min_Z && z < max_Z)
+                        return true;
+                else if (vector.getHead().getY().get()==1)
+                    if (x > min_X && x < max_X
+                            && z > min_Z && z < max_Z)
+                        return true;
+                else
+                    if (x > min_X && x < max_X
+                            && y > min_Y && y < max_Y)
+                return true;
+            }
+            return false;
+        }
+
         /**
          * checks whether ray intersects with the box
          *
@@ -113,69 +136,75 @@ public class Geometries implements Intersectable {
          * @return
          */
         public boolean checkBoundaries(Ray ray) {
-            //max X plane
-            Plane boundaryPlane = new Plane(new Point3D(max_X, max_Y, max_Z), new Vector(1, 0, 0));
-            List<Intersectable.GeoPoint> intersectionList = boundaryPlane.findIntersections(ray);
-            if (intersectionList != null) {
-                Point3D intersection = intersectionList.get(0).point;
-                double y = intersection.getY().get(), z = intersection.getZ().get();
-                if (y > min_Y && y < max_Y
-                        && z > min_Z && z < max_Z)
-                    return true;
-            }
-            //min X plane
-            boundaryPlane = new Plane(new Point3D(min_X, max_Y, max_Z), new Vector(1, 0, 0));
-            intersectionList = boundaryPlane.findIntersections(ray);
-            if (intersectionList != null) {
-                Point3D intersection = intersectionList.get(0).point;
-                double y = intersection.getY().get(), z = intersection.getZ().get();
-                if (y > min_Y && y < max_Y
-                        && z > min_Z && z < max_Z)
-                    return true;
-            }
-            //max y plane
-            boundaryPlane = new Plane(new Point3D(max_X, max_Y, max_Z), new Vector(0, 1, 0));
-            intersectionList = boundaryPlane.findIntersections(ray);
-            if (intersectionList != null) {
-                Point3D intersection = intersectionList.get(0).point;
-                double x = intersection.getX().get(), z = intersection.getZ().get();
-                if (x > min_X && x < max_X
-                        && z > min_Z && z < max_Z)
-                    return true;
-            }
-            //min y plane
-            boundaryPlane = new Plane(new Point3D(max_X, min_Y, max_Z), new Vector(0, 1, 0));
-            intersectionList = boundaryPlane.findIntersections(ray);
-            if (intersectionList != null) {
-                Point3D intersection = intersectionList.get(0).point;
-                double x = intersection.getX().get(), z = intersection.getZ().get();
-                if (x > min_X && x < max_X
-                        && z > min_Z && z < max_Z)
-                    return true;
-            }
-
-            //max z plane
-            boundaryPlane = new Plane(new Point3D(max_X, max_Y, max_Z), new Vector(0, 0, 1));
-            intersectionList = boundaryPlane.findIntersections(ray);
-            if (intersectionList != null) {
-                Point3D intersection = intersectionList.get(0).point;
-                double x = intersection.getX().get(), y = intersection.getY().get();
-                if (x > min_X && x < max_X
-                        && y > min_Y && y < max_Y)
-                    return true;
-            }
-            //min z plane
-            boundaryPlane = new Plane(new Point3D(max_X, max_Y, min_Z), new Vector(0, 0, 1));
-            intersectionList = boundaryPlane.findIntersections(ray);
-            if (intersectionList != null) {
-                Point3D intersection = intersectionList.get(0).point;
-                double x = intersection.getX().get(), y = intersection.getY().get();
-                if (x > min_X && x < max_X
-                        && y > min_Y && y < max_Y)
-                    return true;
-            }
-
-            return false;
+            return (checkPlane(ray,max_X,max_Y,max_Z,new Vector(1,0,0))||   //max X plane
+                    checkPlane(ray,min_X,max_Y,max_Z,new Vector(1,0,0))||   //min X plane
+                    checkPlane(ray,max_X,max_Y,max_Z,new Vector(0,1,0))||   //max Y plane
+                    checkPlane(ray,max_X,min_Y,max_Z,new Vector(0,1,0))||   //min Y plane
+                    checkPlane(ray,max_X,max_Y,max_Z,new Vector(0,0,1))||   //max Z plane
+                    checkPlane(ray,max_X,max_Y,min_Z,new Vector(0,0,1)));   //min Z plane
+//            //max X plane
+//            Plane boundaryPlane = new Plane(new Point3D(max_X, max_Y, max_Z), new Vector(1, 0, 0));
+//            List<Intersectable.GeoPoint> intersectionList = boundaryPlane.findIntersections(ray);
+//            if (intersectionList != null) {
+//                Point3D intersection = intersectionList.get(0).point;
+//                double y = intersection.getY().get(), z = intersection.getZ().get();
+//                if (y > min_Y && y < max_Y
+//                        && z > min_Z && z < max_Z)
+//                    return true;
+//            }
+//            //min X plane
+//            boundaryPlane = new Plane(new Point3D(min_X, max_Y, max_Z), new Vector(1, 0, 0));
+//            intersectionList = boundaryPlane.findIntersections(ray);
+//            if (intersectionList != null) {
+//                Point3D intersection = intersectionList.get(0).point;
+//                double y = intersection.getY().get(), z = intersection.getZ().get();
+//                if (y > min_Y && y < max_Y
+//                        && z > min_Z && z < max_Z)
+//                    return true;
+//            }
+//            //max y plane
+//            boundaryPlane = new Plane(new Point3D(max_X, max_Y, max_Z), new Vector(0, 1, 0));
+//            intersectionList = boundaryPlane.findIntersections(ray);
+//            if (intersectionList != null) {
+//                Point3D intersection = intersectionList.get(0).point;
+//                double x = intersection.getX().get(), z = intersection.getZ().get();
+//                if (x > min_X && x < max_X
+//                        && z > min_Z && z < max_Z)
+//                    return true;
+//            }
+//            //min y plane
+//            boundaryPlane = new Plane(new Point3D(max_X, min_Y, max_Z), new Vector(0, 1, 0));
+//            intersectionList = boundaryPlane.findIntersections(ray);
+//            if (intersectionList != null) {
+//                Point3D intersection = intersectionList.get(0).point;
+//                double x = intersection.getX().get(), z = intersection.getZ().get();
+//                if (x > min_X && x < max_X
+//                        && z > min_Z && z < max_Z)
+//                    return true;
+//            }
+//
+//            //max z plane
+//            boundaryPlane = new Plane(new Point3D(max_X, max_Y, max_Z), new Vector(0, 0, 1));
+//            intersectionList = boundaryPlane.findIntersections(ray);
+//            if (intersectionList != null) {
+//                Point3D intersection = intersectionList.get(0).point;
+//                double x = intersection.getX().get(), y = intersection.getY().get();
+//                if (x > min_X && x < max_X
+//                        && y > min_Y && y < max_Y)
+//                    return true;
+//            }
+//            //min z plane
+//            boundaryPlane = new Plane(new Point3D(max_X, max_Y, min_Z), new Vector(0, 0, 1));
+//            intersectionList = boundaryPlane.findIntersections(ray);
+//            if (intersectionList != null) {
+//                Point3D intersection = intersectionList.get(0).point;
+//                double x = intersection.getX().get(), y = intersection.getY().get();
+//                if (x > min_X && x < max_X
+//                        && y > min_Y && y < max_Y)
+//                    return true;
+//            }
+//
+//            return false;
 
         }
     }
