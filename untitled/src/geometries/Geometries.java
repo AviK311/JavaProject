@@ -180,33 +180,52 @@ public class Geometries implements Intersectable {
         }
     }
 
+    public void add(Intersectable g) {
+        if (!checksBoundary) {
+            geometriesList.add(g);
+            return;
+        }
+        if (geometriesList.isEmpty()) {
+            addInternal(g);
+            return;
+        }
+        if (getBoxSizeDifference(g) > BOX_GROWTH_LIMIT)
+            addInternal(g);
+        else {
+            if (subGeometries == null)
+                subGeometries = new Geometries(checksBoundary);
+            subGeometries.add(g);
+
+        }
+
+    }
+
     /**
      * adds g to the list, while handling the boundaries of the box containing the geometries
      *
      * @param g
      */
-    public void add(Intersectable g) {
-        if (!checksBoundary)
-            geometriesList.add(g);
-        else {
-            geometriesList.add(g);
-            if (!(g.getClass().equals(Plane.class))) {
-                if (box == null)
-                    box = new GeometriesBox(g.getMaxX(), g.getMinX(),
-                            g.getMaxY(), g.getMinY(),
-                            g.getMaxZ(), g.getMinZ());
-                else {
-                    box.setMax_X(g.getMaxX());
-                    box.setMax_Y(g.getMaxY());
-                    box.setMax_Z(g.getMaxZ());
-                    box.setMin_X(g.getMinX());
-                    box.setMin_Y(g.getMinY());
-                    box.setMin_Z(g.getMinZ());
-                }
-            }
+    public void addInternal(Intersectable g) {
 
+        geometriesList.add(g);
+        if (!(g.getClass().equals(Plane.class))) {
+            if (box == null)
+                box = new GeometriesBox(g.getMaxX(), g.getMinX(),
+                        g.getMaxY(), g.getMinY(),
+                        g.getMaxZ(), g.getMinZ());
+            else {
+                box.setMax_X(g.getMaxX());
+                box.setMax_Y(g.getMaxY());
+                box.setMax_Z(g.getMaxZ());
+                box.setMin_X(g.getMinX());
+                box.setMin_Y(g.getMinY());
+                box.setMin_Z(g.getMinZ());
+            }
         }
+
     }
+
+
 
     @Override
     public List<GeoPoint> findIntersections(Ray myRay) {
