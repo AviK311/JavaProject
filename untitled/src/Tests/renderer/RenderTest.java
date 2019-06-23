@@ -66,8 +66,7 @@ public class RenderTest {
                  new Point3D(0,0,-25),
                 new Vector(0,0,1),
                 250,13);
-        scene.addGeometry(triangle,triangle2,triangle3,triangle4);
-        scene.addGeometry(poly);
+        scene.addGeometry(triangle,triangle2,triangle3,triangle4, sphere);
 
         ImageWriter imageWriter = new ImageWriter("4 triangles and sphere", 500, 500, 500, 500);
 
