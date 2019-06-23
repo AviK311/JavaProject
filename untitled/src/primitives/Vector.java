@@ -112,6 +112,15 @@ public class Vector {
     }
 
     /**
+     * return a new vector with the requested length
+     * @param scalingFactor
+     * @return
+     */
+    public Vector rescale(double scalingFactor){
+        return new Vector(this).normalize().scale(scalingFactor);
+    }
+
+    /**
      * @return length of vector
      */
     public double length() {

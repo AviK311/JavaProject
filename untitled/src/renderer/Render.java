@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Semaphore;
 
 public class Render {
 
@@ -27,7 +26,7 @@ public class Render {
     private Scene _scene;
     private ImageWriter _imageWriter;
     private ExecutorService threadPool;
-    private int semaphore = 0;
+    private int remainingColumns = 0;
     private long renderStartTime = 0;
     private final static double EPSILON = 0.001;
     private final static double MINIMUM_K = 0.0001;
@@ -80,8 +79,8 @@ public class Render {
                 color = color.scale((double)1/ rays.size());
                 _imageWriter.writePixel(columnNumber, j, color.getColor());
             }
-            semaphore--;
-            if (semaphore==0){
+            remainingColumns--;
+            if (remainingColumns ==0){
                 threadPool.shutdown();
                 _imageWriter.writeToimage();
                 long elapsedTime =  System.currentTimeMillis() - renderStartTime;
@@ -117,11 +116,11 @@ public class Render {
         double height = _imageWriter.getHeight();
         double width = _imageWriter.getWidth();
         double dist = _scene.getScreenDistance();
+        remainingColumns = (int)height;
         double r=0, g=0, b=0;
         for (int i = 0; i < ny; i++) {
-            semaphore++;
-             threadPool.execute(new columnWriter(nx,ny,i,dist,width,height));
-//            new columnWriter(nx,ny,i,dist,width,height).run();
+//             threadPool.execute(new columnWriter(nx,ny,i,dist,width,height));
+            new columnWriter(nx,ny,i,dist,width,height).run();
         }
 //        long elapsedTime =  System.currentTimeMillis() - renderStartTime;
 //        System.out.println(elapsedTime * 0.001 + " Seconds");

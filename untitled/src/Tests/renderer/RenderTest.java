@@ -61,7 +61,13 @@ public class RenderTest {
         Sphere sphere = new Sphere(blue,
                 1,0.5,0.5,0,0,
                 50,new Point3D(0,0,-50));
-        scene.addGeometry(triangle,triangle2,triangle3,triangle4,sphere);
+        Plane poly = new RegularPolygon(new Color(40,40,40),
+                100,0,0,0,0,
+                 new Point3D(0,0,-25),
+                new Vector(0,0,1),
+                250,13);
+        scene.addGeometry(triangle,triangle2,triangle3,triangle4);
+        scene.addGeometry(poly);
 
         ImageWriter imageWriter = new ImageWriter("4 triangles and sphere", 500, 500, 500, 500);
 
@@ -917,6 +923,67 @@ public class RenderTest {
         render.renderImage();
         imageWriter.writeToimage();
     }
+
+//    @Test
+//    public void PolygonTest() {
+//        Scene scene = new Scene("Hello");
+//        ImageWriter imageWriter = new ImageWriter("Square.Circle", 200, 200, 750, 750);
+//        Render render = new Render(scene, imageWriter);
+//        scene.setCamera(c);
+//        scene.setScreenDistance(1000);
+//        scene.setAmbientLight(new AmbientLight(new Color(100, 100, 100), 0.1));
+//
+////        Square plane = new Square(new Color(50, 50, 50),
+////                100, 0, 0, 1, 0,
+////                new Point3D(0, 0, -100),
+////                new Vector(1, 0, 0),
+////                new Vector(0,-1,-1),50);
+//        Plane plane = new Square(new Color(10, 10, 10),
+//                100, 0.3, 0.3, 0.5, 0.3,
+//                new Point3D(0, 0, -150),
+//                new Vector(1, 0, 0),
+//                new Vector(0,-1,1)
+//                ,50);
+//        Square plane4 = new Square(new Color(10, 10, 10),
+//                100, 0, 0, 1, 0,
+//                new Point3D(0, 0, -100).add(new Vector(50,0,0)),
+//                new Vector(0,1,1),
+//                new Vector(0,1,-1),50);
+//        Plane plane3 = new Plane(new Color(10, 10, 10),
+//                100, 0.3, 0.3, 0.7, 0,
+//                new Point3D(0, 0, -150),
+//                new Vector(1, 0, 0).crossProduct(
+//                        new Vector(0,-1,-1)).scale(-1));
+//        HolyBall holyball = new HolyBall(new Color(50, 0, 100),
+//                100, 0.2, 0.3, 0.5, 0.2, 30,
+//                new Vector(1,1,0.75),
+//                new Vector(0.5,-2,2),new Point3D(-10, 0, -100), 15);
+//        Plane plane2 = new Plane(new Color(40, 40, 40),
+//                100, 0.4, 0.1, 0.4, 0,
+//                new Point3D(-5, 0, 0), new Vector(1, 0, 0.1));
+//
+//
+//
+//        scene.addGeometry(plane,plane2, plane3, holyball, plane4);
+////       scene.addGeometry(plane,holyball);
+//
+//        PointLight pointLight = new PointLight(new Color(800, 600, 0),
+//                new Point3D(0, 0, 0),
+//                0.0001, 0.00002);
+//
+//        scene.addLight(pointLight);
+//        DirectionalLight light1 = new DirectionalLight(new Color(50, 100, 50), new Vector(-1, 3, -1));
+//        scene.addLight(light1);
+//
+//        PointLight pointLight2 = new PointLight(new Color(800, 600, 0),
+//                new Point3D(10, 230, 0),
+//                0.0001, 0.00002);
+//        scene.addLight(pointLight2);
+//
+//
+//        render.renderImage();
+//        imageWriter.writeToimage();
+//    }
 
 
 

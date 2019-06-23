@@ -118,14 +118,14 @@ public class Camera {
 
         Ray r1 = returnOneRay(Nx, Ny, i, j, screenDist, screenWidth,screenHeight,0.5,0.5);
         rays.add(r1);
-        Ray r2 = returnOneRay(Nx, Ny, i, j, screenDist, screenWidth,screenHeight,0.25,0.25);
-        rays.add(r2);
-        Ray r3 = returnOneRay(Nx, Ny, i, j, screenDist, screenWidth,screenHeight,0.75,0.75);
-        rays.add(r3);
-        Ray r4 = returnOneRay(Nx, Ny, i, j, screenDist, screenWidth,screenHeight,0.25,0.75);
-        rays.add(r4);
-        Ray r5 = returnOneRay(Nx, Ny, i, j, screenDist, screenWidth,screenHeight,0.75,0.25);
-        rays.add(r5);
+//        Ray r2 = returnOneRay(Nx, Ny, i, j, screenDist, screenWidth,screenHeight,0.25,0.25);
+//        rays.add(r2);
+//        Ray r3 = returnOneRay(Nx, Ny, i, j, screenDist, screenWidth,screenHeight,0.75,0.75);
+//        rays.add(r3);
+//        Ray r4 = returnOneRay(Nx, Ny, i, j, screenDist, screenWidth,screenHeight,0.25,0.75);
+//        rays.add(r4);
+//        Ray r5 = returnOneRay(Nx, Ny, i, j, screenDist, screenWidth,screenHeight,0.75,0.25);
+//        rays.add(r5);
         return rays;
     }
 
