@@ -14,6 +14,8 @@ public class RegularPolygon extends Plane {
 
     public RegularPolygon(Color emission, int Shininess, double _Kd, double _Ks, double _Kr, double _Kt, Point3D p1, Vector normal, double radius, int numOfPoints) {
         super(emission, Shininess, _Kd, _Ks, _Kr, _Kt, p1, normal);
+        if (numOfPoints <=2)
+            throw new IllegalArgumentException("The polygon must have at least 3 edges!");
         points = new Point3D[numOfPoints];
         Point3D normHead = normal.getHead();
         double x, y, z;
