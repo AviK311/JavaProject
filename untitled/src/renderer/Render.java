@@ -65,7 +65,7 @@ public class Render {
                         intersectionPoints = _scene.getGeometries(1).findIntersections(ray);
                     }
 //
-                    if (intersectionPoints.isEmpty()) {
+                    if (intersectionPoints==null|| intersectionPoints.isEmpty()) {
                         //_imageWriter.writePixel(i, j, _scene.getBackground().getColor());
                         color =color.add(_scene.getBackground());
                     } else {
@@ -74,7 +74,8 @@ public class Render {
                         color = color.add(calcColor(closetPoint, ray));
 
                     }
-                    intersectionPoints.clear();
+                    if (intersectionPoints!=null)
+                        intersectionPoints.clear();
                 }
                 color = color.scale((double)1/ rays.size());
                 _imageWriter.writePixel(columnNumber, j, color.getColor());
