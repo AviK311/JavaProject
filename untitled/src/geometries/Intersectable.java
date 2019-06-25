@@ -10,6 +10,11 @@ public interface Intersectable {
         public Geometry geo;
         public Point3D point;
 
+        /**
+         * ctor with params
+         * @param geo
+         * @param point
+         */
         public GeoPoint(Geometry geo, Point3D point) {
             this.geo = geo;
             this.point = point;

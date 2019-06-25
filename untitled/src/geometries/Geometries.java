@@ -12,7 +12,7 @@ public class Geometries implements Intersectable {
     private GeometriesBox box;
     private Geometries subGeometries = null;
     private boolean checksBoundary = true;
-    private final static double BOX_GROWTH_LIMIT = 1000;
+    private final static double BOX_GROWTH_LIMIT = 100000000;
 
     /**
      * ctor that defines whether the list has 3D boundaties
@@ -208,6 +208,15 @@ public class Geometries implements Intersectable {
         }
     }
 
+    /**
+     * adding an intersectable to the geometries:
+     * if adding it to the son list will expand the son list box too much, it is added to the parent list.
+     * if adding it to the son list makes the son box only slightly smaller than the father box,
+     * the son list and the parent list are merged into one.
+     * if the parent list is empty, g is automatically added to the parent list
+     *
+     * @param g
+     */
     public void add(Intersectable g) {
         if ((g.getClass().equals(Plane.class))) {
             geometriesList.add(g);
@@ -224,25 +233,22 @@ public class Geometries implements Intersectable {
         } else if (subGeometries == null) {//if son is uninitialized, add to son
             subGeometries = new Geometries(checksBoundary);
             subGeometries.add(g);
-            if (subGeometries.getBoxSizeDifference(this)<1000){
-                for (Intersectable i: subGeometries.geometriesList)
-                    geometriesList.add(i);
-                subGeometries = subGeometries.subGeometries;
-
-            }
-
-            return;
-        }else if (subGeometries.getBoxSizeDifference(g) > BOX_GROWTH_LIMIT)
+        } else if (subGeometries.getBoxSizeDifference(g) > BOX_GROWTH_LIMIT)
             //if the son is initialized, but the box growth is too big
             geometriesList.add(g);
         else {
             subGeometries.add(g);
         }
+        if (subGeometries.getBoxSizeDifference(this) < BOX_GROWTH_LIMIT) {
+            for (Intersectable i : subGeometries.geometriesList)
+                geometriesList.add(i);
+            subGeometries = subGeometries.subGeometries;
+        }
 
     }
 
     /**
-     * adds g to the list, while handling the boundaries of the box containing the geometries
+     * expands the current box size according to the size of a geometry
      *
      * @param g
      */
@@ -271,7 +277,7 @@ public class Geometries implements Intersectable {
             if (i != null)
                 allIntersections.addAll(i);
         }
-        if (subGeometries!=null && subGeometries.checkBoundaries(myRay))
+        if (subGeometries != null && subGeometries.checkBoundaries(myRay))
             allIntersections.addAll(subGeometries.findIntersections(myRay));
 
         return allIntersections;
@@ -321,6 +327,12 @@ public class Geometries implements Intersectable {
         return box.checkBoundaries(ray);
     }
 
+    /**
+     * checks what the size difference would be if the intersectable is added
+     *
+     * @param intersectable
+     * @return size difference - double
+     */
     private double getBoxSizeDifference(Intersectable intersectable) {
         double maxX = getMaxX(), maxY = getMaxY(), maxZ = getMaxZ(),
                 minX = getMinX(), minY = getMinY(), minZ = getMinZ();
@@ -335,5 +347,16 @@ public class Geometries implements Intersectable {
 
         double newBoxSize = (maxX - minX) * (maxY - minY) * (maxZ - minZ);
         return newBoxSize - boxSize;
+    }
+
+    /**
+     * returns the depth of the tree
+     *
+     * @return
+     */
+    public int getDepth() {
+        if (subGeometries == null)
+            return 1;
+        return 1 + subGeometries.getDepth();
     }
 }

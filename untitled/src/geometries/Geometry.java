@@ -54,10 +54,17 @@ public abstract class Geometry implements Intersectable {
 
     Material _material;
 
-
+    /**
+     * ctor for black
+     */
     public Geometry() {
         this.emission = new Color();
     }
+
+    /**
+     * ctor with color
+     * @param emission
+     */
     public Geometry(Color emission) {
         this.emission = emission;
     }

@@ -8,7 +8,7 @@ import primitives.Vector;
 import java.util.ArrayList;
 
 public abstract class RadialGeometry extends Geometry {
-    float radius;
+    double radius;
 
     /**
      * radius ctor
@@ -36,7 +36,7 @@ public abstract class RadialGeometry extends Geometry {
      * @param _Ks
      * @param radius
      */
-    public RadialGeometry(Color emission, int Shininess, double _Kd, double _Ks,double _Kr, double _Kt, float radius) {
+    public RadialGeometry(Color emission, int Shininess, double _Kd, double _Ks,double _Kr, double _Kt, double radius) {
         super(emission, Shininess, _Kd, _Ks, _Kr, _Kt);
         this.radius = radius;
     }
@@ -44,7 +44,7 @@ public abstract class RadialGeometry extends Geometry {
     /**
      * @return radius
      */
-    public  float getRadius() {
+    public  double getRadius() {
         return radius;
     }
 }

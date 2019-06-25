@@ -27,8 +27,8 @@ public class Square extends Plane {
         super(emission, Shininess, _Kd, _Ks, _Kr, _Kt, P1, v1.crossProduct(v2));
         if (v1.dotProduct(v2)!=0)
             throw new IllegalArgumentException("the vectors are not orthogonal");
-        v1 = v1.normalize().scale(length);
-        v2 = v2.normalize().scale(length);
+        v1 = v1.rescale(length);
+        v2 = v2.rescale(length);
         p2 = p1.add(v1);
         p4 = p1.add(v2);
         p3 = p4.add(v1);
@@ -53,8 +53,8 @@ public class Square extends Plane {
         super(emission,material, P1, v1.crossProduct(v2));
         if (v1.dotProduct(v2)!=0)
             throw new IllegalArgumentException("the vectors are not orthogonal");
-        v1 = v1.normalize().scale(length);
-        v2 = v2.normalize().scale(length);
+        v1 = v1.rescale(length);
+        v2 = v2.rescale(length);
         p2 = p1.add(v1);
         p4 = p1.add(v2);
         p3 = p4.add(v1);
@@ -72,8 +72,8 @@ public class Square extends Plane {
         super(P1, v1.crossProduct(v2));
         if (v1.dotProduct(v2)!=0)
             throw new IllegalArgumentException("the vectors are not orthogonal");
-        v1 = v1.normalize().scale(length);
-        v2 = v2.normalize().scale(length);
+        v1 = v1.rescale(length);
+        v2 = v2.rescale(length);
         p2 = p1.add(v1);
         p4 = p1.add(v2);
         p3 = p4.add(v1);

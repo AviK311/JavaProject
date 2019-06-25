@@ -28,7 +28,7 @@ public class HolyBall extends Halo {
      * @param center
      * @param distance
      */
-    public HolyBall(Color emission, int Shininess, double _Kd, double _Ks, double _Kr, double _Kt, float radius, Vector holeDirection1,Vector holeDirection2, Point3D center, double distance) {
+    public HolyBall(Color emission, int Shininess, double _Kd, double _Ks, double _Kr, double _Kt, double radius, Vector holeDirection1,Vector holeDirection2, Point3D center, double distance) {
         super(emission, Shininess, _Kd, _Ks, _Kr, _Kt, radius, holeDirection1, center, distance);
         double A = radius/sqrt2;
         double B = radius - A;
@@ -36,11 +36,11 @@ public class HolyBall extends Halo {
             throw new IllegalArgumentException("The holes in the sphere are too big!");
         if (holeDirection1.dotProduct(holeDirection2) != 0)
             throw new IllegalArgumentException("The vectors are not orthogonal!");
-        holePoint3 = center.add(holeDirection2.normalize().scale(radius));
-        holePoint4 = center.add(holeDirection2.normalize().scale(-radius));
+        holePoint3 = center.add(holeDirection2.rescale(radius));
+        holePoint4 = center.add(holeDirection2.rescale(-radius));
         Vector holeDirection3 = holeDirection1.crossProduct(holeDirection2);
-        holePoint5 = center.add(holeDirection3.normalize().scale(radius));
-        holePoint6 = center.add(holeDirection3.normalize().scale(-radius));
+        holePoint5 = center.add(holeDirection3.rescale(radius));
+        holePoint6 = center.add(holeDirection3.rescale(-radius));
 
     }
 

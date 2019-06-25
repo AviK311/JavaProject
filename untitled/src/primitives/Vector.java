@@ -117,7 +117,7 @@ public class Vector {
      * @return
      */
     public Vector rescale(double scalingFactor){
-        return new Vector(this).normalize().scale(scalingFactor);
+        return new Vector(this).rescale(scalingFactor);
     }
 
     /**

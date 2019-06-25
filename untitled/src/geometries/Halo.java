@@ -26,9 +26,9 @@ public class Halo extends HalfSphere {
      * @param center
      * @param distance
      */
-    public Halo(Color emission, int Shininess, double _Kd, double _Ks, double _Kr, double _Kt, float radius, Vector holeDirection, Point3D center, double distance) {
+    public Halo(Color emission, int Shininess, double _Kd, double _Ks, double _Kr, double _Kt, double radius, Vector holeDirection, Point3D center, double distance) {
         super(emission, Shininess, _Kd, _Ks, _Kr, _Kt, radius, holeDirection, center, distance);
-        holePoint2 = center.add(holeDirection.normalize().scale(-radius));
+        holePoint2 = center.add(holeDirection.rescale(-radius));
         if (distance*distance >= 2*radius*radius)
             throw new IllegalArgumentException("No invisible Spheres!");
     }

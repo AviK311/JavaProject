@@ -8,6 +8,19 @@ import java.util.List;
 public class Pyramid extends Geometry {
     public List<Triangle> triangles = new ArrayList<>();
 
+    /**
+     * ctor with params
+     * @param emission
+     * @param Shininess
+     * @param Kd
+     * @param Ks
+     * @param Kr
+     * @param Kt
+     * @param p1
+     * @param p2
+     * @param p3
+     * @param p4
+     */
     public Pyramid(Color emission, int Shininess, double Kd, double Ks,double Kr, double Kt, Point3D p1, Point3D p2, Point3D p3,
                Point3D p4) {
         Triangle triangle1=new Triangle(emission, Shininess, Kd, Ks,Kr, Kt,p1,p2,p3);
@@ -18,6 +31,20 @@ public class Pyramid extends Geometry {
         addGeometry(triangle1,triangle2,triangle3,triangle4);
     }
 
+    /**
+     * ctor with params
+     * @param emission
+     * @param Shininess
+     * @param Kd
+     * @param Ks
+     * @param Kr
+     * @param Kt
+     * @param p1
+     * @param p2
+     * @param p3
+     * @param p4
+     * @param p5
+     */
     public Pyramid(Color emission, int Shininess, double Kd, double Ks,double Kr, double Kt, Point3D p1, Point3D p2, Point3D p3,
                    Point3D p4,Point3D p5) {
         Triangle triangle1=new Triangle(emission, Shininess, Kd, Ks,Kr, Kt,p1,p2,p3);
@@ -30,7 +57,11 @@ public class Pyramid extends Geometry {
         addGeometry(triangle1,triangle2,triangle3,triangle4,triangle5,triangle6);
     }
 
-    public void addGeometry(Triangle... tr) {
+    /**
+     * only for use in ctor
+     * @param tr
+     */
+    private void addGeometry(Triangle... tr) {
         for(Triangle t: tr)
             triangles.add(t);
     }

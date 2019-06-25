@@ -18,7 +18,7 @@ public class RegularPolygon extends Plane {
         if (numOfPoints <=2)
             throw new IllegalArgumentException("The polygon must have at least 3 edges!");
         points = new Point3D[numOfPoints];
-        triangles = new Triangle[numOfPoints-1];
+        triangles = new Triangle[numOfPoints];
         Point3D normHead = normal.getHead();
         double x, y, z;
         if (p1.getZ().get() != 0) {
@@ -36,11 +36,12 @@ public class RegularPolygon extends Plane {
         }
 
 
-        Vector vecToEdge = new Point3D(x, y, z).subtract(p1).rescale(radius);
+        Vector vecToEdge = new Point3D(x, y, z).subtract(p1).normalize().scale(radius);
         double angle = Math.toRadians(360/numOfPoints);
         cos = Math.cos(angle);
         sin = Math.sin(angle);
         for (int i = 0; i < points.length; i++) {
+            System.out.println(vecToEdge.dotProduct(normal));
             points[i] = p1.add(vecToEdge);
             if (i == 0) {
                 maxX = minX = points[0].getX().get();
@@ -58,10 +59,11 @@ public class RegularPolygon extends Plane {
                 maxZ = Double.max(maxZ, points[i].getZ().get());
                 minZ = Double.min(minZ, points[i].getZ().get());
             }
-            vecToEdge =  rodriguesRotate(normal, vecToEdge, cos, sin).rescale(radius);
+            vecToEdge =  rodriguesRotate(normal, vecToEdge, angle).normalize().scale(radius);
         }
         for (int i = 0; i<triangles.length; i++)
-            triangles[i] = new Triangle(getEmission(),get_material(),p1, points[i+1], points[i]);
+            triangles[i] = new Triangle(getEmission(),get_material(),p1, points[(i+1)%points.length], points[i]);
+
 
     }
     public List<GeoPoint> ll(Ray ray) {
@@ -156,8 +158,15 @@ public class RegularPolygon extends Plane {
         return minZ;
     }
 
-    private static Vector rodriguesRotate(Vector normal, Vector v, double cos, double sin) {
-        return v.scale(cos).add(normal.crossProduct(v).scale(sin)).add(normal.scale(normal.dotProduct(v) * (1 - cos)));
+    /**
+     * returns a rotated vector
+     * @param normal
+     * @param v
+     * @param angle
+     * @return
+     */
+    private static Vector rodriguesRotate(Vector normal, Vector v, double angle) {
+        return v.scale(Math.cos(angle)).add(normal.crossProduct(v).scale(Math.sin(angle))).add(normal.scale(normal.dotProduct(v) * (1 - Math.cos(angle))));
     }
 
 
