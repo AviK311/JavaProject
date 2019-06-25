@@ -163,8 +163,8 @@ public class Render {
         remainingColumns = nx;
         double r = 0, g = 0, b = 0;
         for (int i = 0; i < ny; i++) {
-            threadPool.execute(new columnWriter(nx, ny, i, dist, width, height));
-//            new columnWriter(nx,ny,i,dist,width,height).run();
+  //          threadPool.execute(new columnWriter(nx, ny, i, dist, width, height));
+            new columnWriter(nx,ny,i,dist,width,height).run();
         }
 //        long elapsedTime =  System.currentTimeMillis() - renderStartTime;
 //        System.out.println(elapsedTime * 0.001 + " Seconds");

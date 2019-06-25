@@ -1113,5 +1113,103 @@ public class RenderTest {
         imageWriter.writeToimage();
     }
 
+    @Test
+    public void test_parabulas_with_quadrangles_wall() {
+        Scene scene = new Scene("Hello");
+        ImageWriter imageWriter = new ImageWriter("wall", 200, 200, 750, 750);
+        Render render = new Render(scene, imageWriter);
+        scene.setCamera(c);
+        scene.setScreenDistance(400);
+        scene.setAmbientLight(new AmbientLight(new Color(100, 100, 100), 0.1));
+
+        int dis = 0;
+        int magnify = 0;
+        Color color;
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                if ((j + i) % 2 == 0) {
+                    magnify = 0;
+                    dis = 0;
+                    color = new Color(100,30,70);
+                } else {
+                    magnify = 5;
+                    dis = 100;
+                    color = new Color(70,30,100);
+                }
+                Point3D p1=new Point3D(-200 + j * 400 + magnify, -520 + i * 400 + magnify, -5200 - dis);
+                Vector v1=p1.subtract(new Point3D(200 + j * 400 + magnify, -520 + i * 400 + magnify, -5200 - dis));
+                Vector v2=p1.subtract(new Point3D(-200 + j * 400 + magnify, -120 + i * 400 + magnify, -5200 - dis));
+                double length=v2.length();
+
+                Plane quadrangle = new Square(new Color(10+i*15,20+j*15,30),20,0.5,0.5,0.5,0.5,p1,v1,v2,length);
+                        //new Point3D(-1430 + j * 400 + magnify, -460 + i * 400 + magnify, -5200 - dis), new Point3D(-1030 + j * 400 + magnify, -460 + i * 400 + magnify, -5200 - dis), new Point3D(-1030 + j * 400 + magnify, -60 + i * 400 + magnify, -5200 - dis), new Point3D(-1430 + j * 400 + magnify, -60 + i * 400 + magnify, -5200 - dis));
+                scene.addGeometry(quadrangle);
+            }
+        }
+
+
+//        for (int i = 0; i < 5; i++) {
+//            for (int j = 0; j < 7; j++) {
+//                if ((j + i) % 2 == 0) {
+//                    magnify = 0;
+//                    dis = 0;
+//                   // color = new Color(100,30,70);
+//                } else {
+//                    magnify = 5;
+//                    dis = 100;
+//                   // color = new Color(70,30,100);
+//                }
+//
+//                Triangle triangle = new Triangle(new Color(10+i*15,20+j*15,30),20,0.5,0.5,0.5,0.5,new Point3D(-1430 + j * 400 + magnify, -460 + i * 400 + magnify, -5200 - dis), new Point3D(-1030 + j * 400 + magnify, -460 + i * 400 + magnify, -5200 - dis), new Point3D(-1030 + j * 400 + magnify, -60 + i * 400 + magnify, -5200 - dis));
+//                //Triangle triangle2 = new Triangle(new Color(10+j*15,20+i*15,30),20,0.5,0.5,0.5,0.5,new Point3D(-1430 + j * 400 + magnify, -60 + i * 400 + magnify, -5200 - dis), new Point3D(-1430 + j * 400 + magnify, -460 + i * 400 + magnify, -5200 - dis), new Point3D(-1030 + j * 400 + magnify, -60 + i * 400 + magnify, -5200 - dis));
+//                //new Point3D(-1430 + j * 400 + magnify, -460 + i * 400 + magnify, -5200 - dis), new Point3D(-1030 + j * 400 + magnify, -460 + i * 400 + magnify, -5200 - dis), new Point3D(-1030 + j * 400 + magnify, -60 + i * 400 + magnify, -5200 - dis), new Point3D(-1430 + j * 400 + magnify, -60 + i * 400 + magnify, -5200 - dis));
+//                scene.addGeometry(triangle);
+//            }
+//        }
+
+
+
+
+
+        int distance=-2000;
+        int height=120;
+        for(int i=-24; i<24; i=i+2)
+        {
+            distance-=500;
+            height-=75;
+            if (Math.abs(i) > 12)
+            {
+                for (int j = i; j < -1 * (i + 1); j++)
+                {
+                    Sphere sphere = new Sphere(new Color(15, 20, 50),20,0.5,0.5,0.5,0.5,65, new Point3D( height - (Math.pow(j, 2))+200,-34 + 25 * j, distance));
+                    scene.addGeometry(sphere);
+                }
+            }
+        }
+
+//
+//
+//        scene.addLight(new SpotLight(new Color(222, 222, 222), new Point3D(0, 1600, -2600), new Vector(-2, -2, -3), 0, 0.000001, 0.0000005));
+//
+//
+//
+//
+        Plane plane = new Plane(new Color(31, 31, 31),15,0.5,0,0.65,0.5, new Point3D(-270, -270, 0), new Vector(1, 0, 0));
+        scene.addGeometry(plane);
+//
+//
+//        scene.addLight(new SpotLight(new Color(222, 222, 222), new Point3D(0, 1600, -2600), new Vector(-2, -2, -3), 0, 0.000001, 0.0000005));
+
+
+        PointLight pointLight2 = new PointLight(new Color(800, 600, 0),
+                new Point3D(10, 230, 0),
+                0.0001, 0.00002);
+        scene.addLight(pointLight2);
+
+
+        render.renderImage();
+        imageWriter.writeToimage();
+    }
+
 
 }

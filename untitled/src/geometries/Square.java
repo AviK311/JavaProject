@@ -38,6 +38,20 @@ public class Square extends Plane {
 
     }
 
+    public Square(Color emission, int Shininess,
+                  double _Kd, double _Ks, double _Kr, double _Kt,
+                  Point3D P1, Point3D P2,Point3D P3, Point3D P4) {
+        super(emission, Shininess, _Kd, _Ks, _Kr, _Kt, P1, P1.subtract(P2).crossProduct(P1.subtract(P4)));
+        p2 = P2;
+        p4 = P3;
+        p3 = P4;
+
+
+
+
+    }
+
+
     /**
      * ctor with material as a param
      * @param emission
