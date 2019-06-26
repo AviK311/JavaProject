@@ -61,6 +61,10 @@ public abstract class Util {
         return getExp(number) < ACCURACY;
     }
 
+    public static boolean equals(double num1, double num2) {
+        return isZero(usubtract(num1, num2));
+    }
+
     public static boolean isOne(double number) {
         return getExp(number - 1) < ACCURACY;
     }

@@ -21,7 +21,7 @@ public class Main {
         scene.setAmbientLight(new AmbientLight(new Color(100, 100, 100), 0.1));
         Plane plane = new RegularPolygon(new Color(40, 40, 40),
                 100, 0.4, 0.1, 0.9, 0,
-                new Point3D(0, 0, -600), new Vector(1, 0, 1).scale(-1),
+                new Point3D(0, 0, -600), new Vector(2, 0, 1).scale(-1),
                 150, 8);
 
         Sphere sphere = new Sphere(new Color(100, 0, 0),
