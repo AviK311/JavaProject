@@ -1,13 +1,15 @@
 package elements;
 
-
-import primitives.*;
+import primitives.Color;
+import primitives.Point3D;
+import primitives.Vector;
 
 public class DirectionalLight extends Light implements LightSource {
     Vector _Direction;
 
     /**
      * params ctor
+     *
      * @param _color
      * @param _Direction
      */
@@ -26,9 +28,9 @@ public class DirectionalLight extends Light implements LightSource {
         return _Direction;
     }
 
-
-
-
-
+    @Override
+    public double getDistance(Point3D point) {
+        return Double.MAX_VALUE;
+    }
 }
 

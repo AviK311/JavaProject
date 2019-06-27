@@ -3,6 +3,7 @@ package primitives;
 public class Material {
     /**
      * gets kd
+     *
      * @return
      */
     public double getKd() {
@@ -11,6 +12,7 @@ public class Material {
 
     /**
      * gets ks
+     *
      * @return
      */
     public double getKs() {
@@ -19,6 +21,7 @@ public class Material {
 
     /**
      * gets kr
+     *
      * @return
      */
     public double getKr() {
@@ -27,6 +30,7 @@ public class Material {
 
     /**
      * gets kt
+     *
      * @return
      */
     public double getKt() {
@@ -35,12 +39,12 @@ public class Material {
 
     /**
      * gets shininess
+     *
      * @return
      */
     public int getnShininess() {
         return nShininess;
     }
-
 //    public void setnShininess(int nShininess) {
 //        this.nShininess = nShininess;
 //    }
@@ -53,6 +57,7 @@ public class Material {
 
     /**
      * ctor for material with params
+     *
      * @param _Kd
      * @param _Ks
      * @param _Kr
@@ -66,5 +71,4 @@ public class Material {
         this._Kt = _Kt;
         this.nShininess = nShininess;
     }
-
 }

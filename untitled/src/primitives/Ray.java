@@ -6,16 +6,18 @@ public class Ray {
 
     /**
      * ctor with params
+     *
      * @param direction
      * @param head
      */
     public Ray(Vector direction, Point3D head) {
-        this.direction =direction.normalize();
+        this.direction = direction.normalize();
         this.head = new Point3D(head);
     }
 
     /**
      * copy ctor
+     *
      * @param other
      */
     public Ray(Ray other) {
@@ -24,13 +26,11 @@ public class Ray {
     }
 
     /**
-     *
      * @return direction vector
      */
     public Vector getDirection() {
         return direction;
     }
-
 //    public void setDirection(Vector direction) {
 //        this.direction = direction;
 //    }
@@ -41,13 +41,13 @@ public class Ray {
     public Point3D getHead() {
         return head;
     }
-
 //    public void setHead(Point3D head) {
 //        this.head = head;
 //    }
 
     /**
      * equals
+     *
      * @param o
      * @return
      */

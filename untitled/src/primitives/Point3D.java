@@ -46,7 +46,6 @@ public class Point3D extends Point2D {
     public Coordinate getZ() {
         return z;
     }
-
 //    public void setZ(Coordinate z) {
 //        this.z = z;
 //    }
@@ -102,6 +101,7 @@ public class Point3D extends Point2D {
         double _z = z.subtract(other.z).get();
         return _x * _x + _y * _y + _z * _z;
     }
+
     /**
      * equals override
      *

@@ -12,11 +12,12 @@ import java.util.List;
  */
 public class HalfSphere extends Sphere {
 
-   protected double distance;
-   protected Point3D holePoint;
+    protected double distance;
+    protected Point3D holePoint;
 
     /**
      * ctor with params
+     *
      * @param emission
      * @param Shininess
      * @param _Kd
@@ -30,7 +31,7 @@ public class HalfSphere extends Sphere {
      */
     public HalfSphere(Color emission, int Shininess, double _Kd, double _Ks, double _Kr, double _Kt, double radius, Vector holeDirection, Point3D center, double distance) {
         super(emission, Shininess, _Kd, _Ks, _Kr, _Kt, radius, center);
-        if (distance>=2*radius)
+        if (distance >= 2 * radius)
             throw new IllegalArgumentException("No invisible Spheres!");
         this.distance = distance;
         holePoint = center.add(holeDirection.rescale(radius));
@@ -41,7 +42,7 @@ public class HalfSphere extends Sphere {
         List<GeoPoint> superList = super.findIntersections(myRay);
         if (superList == null)
             return null;
-        superList.removeIf(gp->gp.point.distance(holePoint)<distance);
+        superList.removeIf(gp -> gp.point.distance(holePoint) < distance);
         if (superList.isEmpty())
             return null;
         return superList;

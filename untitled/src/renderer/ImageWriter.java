@@ -1,12 +1,13 @@
 package renderer;
 
-import java.awt.Color;
+import javax.imageio.IIOImage;
+import javax.imageio.ImageIO;
+import javax.imageio.ImageWriteParam;
+import javax.imageio.stream.FileImageOutputStream;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
-import javax.imageio.*;
-import javax.imageio.stream.*;
 
 public class ImageWriter {
 
@@ -26,30 +27,42 @@ public class ImageWriter {
         _imageHeight = height;
         _nX = nX;
         _nY = nY;
-
         _image = new BufferedImage(_nX, _nY, BufferedImage.TYPE_INT_RGB);
     }
 
-    public ImageWriter (ImageWriter imageWriter) {
-        this(	imageWriter._imageName,
+    public ImageWriter(ImageWriter imageWriter) {
+        this(imageWriter._imageName,
                 imageWriter._imageWidth, imageWriter._imageHeight,
                 imageWriter._nX, imageWriter._nY);
     }
-
     // ***************** Getters/Setters ********************** //
 
-    public double getWidth()  { return _imageWidth;  }
-    public double getHeight() { return _imageHeight; }
+    public double getWidth() {
+        return _imageWidth;
+    }
 
-    public int getNy() { return _nY; }
-    public int getNx() { return _nX; }
+    public double getHeight() {
+        return _imageHeight;
+    }
 
-    public void setNy(int _Ny) { this._nY = _Ny; }
-    public void setNx(int _Nx) { this._nX = _Nx; }
+    public int getNy() {
+        return _nY;
+    }
 
+    public int getNx() {
+        return _nX;
+    }
+
+    public void setNy(int _Ny) {
+        this._nY = _Ny;
+    }
+
+    public void setNx(int _Nx) {
+        this._nX = _Nx;
+    }
     // ***************** Operations ******************** //
 
-    public void writeToimage(){
+    public void writeToimage() {
         File ouFile = new File(PROJECT_PATH + "/" + _imageName + ".jpg");
         try {
             javax.imageio.ImageWriter jpgWriter = ImageIO.getImageWritersByFormatName("jpg").next();
@@ -57,15 +70,14 @@ public class ImageWriter {
             jpgWriteParam.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
             jpgWriteParam.setCompressionQuality(1f);
             jpgWriter.setOutput(new FileImageOutputStream(ouFile));
-            jpgWriter.write(null,new IIOImage(_image, null, null), jpgWriteParam);
+            jpgWriter.write(null, new IIOImage(_image, null, null), jpgWriteParam);
             //ImageIO.write(_image, "jpg", ouFile);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void writePixel(int xIndex, int yIndex, Color color){
+    public void writePixel(int xIndex, int yIndex, Color color) {
         _image.setRGB(xIndex, yIndex, color.getRGB());
     }
-
 }

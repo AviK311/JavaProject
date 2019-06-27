@@ -6,13 +6,14 @@ import primitives.Util;
 import primitives.Vector;
 
 import java.util.ArrayList;
-import java.util.Objects;
+import java.util.List;
 
 public class Camera {
     private Point3D p0;
     private Vector vUp;
     private Vector vRight;
     private Vector vTo;
+
     /**
      * params ctor. cRight is calculated by vUp and vtoward
      *
@@ -103,34 +104,34 @@ public class Camera {
 
     /**
      * construct multiple rays through one pixel
-     * @param Nx number of x pixels
-     * @param Ny number of y pixels
-     * @param i index
-     * @param j index
-     * @param screenDist distance from camera to screen
+     *
+     * @param Nx           number of x pixels
+     * @param Ny           number of y pixels
+     * @param i            index
+     * @param j            index
+     * @param screenDist   distance from camera to screen
      * @param screenWidth
      * @param screenHeight
      * @return
      */
-    public ArrayList<Ray> constructRaysThroughAPixel(int Nx, int Ny, double i, double j, double screenDist, double screenWidth, double screenHeight) {
-        ArrayList<Ray> rays=new ArrayList<Ray>();
-
-
-        Ray r1 = returnOneRay(Nx, Ny, i, j, screenDist, screenWidth,screenHeight,0.5,0.5);
+    public List<Ray> constructRaysThroughAPixel(int Nx, int Ny, double i, double j, double screenDist, double screenWidth, double screenHeight) {
+        List<Ray> rays = new ArrayList<>();
+        Ray r1 = returnOneRay(Nx, Ny, i, j, screenDist, screenWidth, screenHeight, 0.5, 0.5);
         rays.add(r1);
-//        Ray r2 = returnOneRay(Nx, Ny, i, j, screenDist, screenWidth,screenHeight,0.25,0.25);
-//        rays.add(r2);
-//        Ray r3 = returnOneRay(Nx, Ny, i, j, screenDist, screenWidth,screenHeight,0.75,0.75);
-//        rays.add(r3);
-//        Ray r4 = returnOneRay(Nx, Ny, i, j, screenDist, screenWidth,screenHeight,0.25,0.75);
-//        rays.add(r4);
-//        Ray r5 = returnOneRay(Nx, Ny, i, j, screenDist, screenWidth,screenHeight,0.75,0.25);
-//        rays.add(r5);
+        Ray r2 = returnOneRay(Nx, Ny, i, j, screenDist, screenWidth,screenHeight,0.25,0.25);
+        rays.add(r2);
+        Ray r3 = returnOneRay(Nx, Ny, i, j, screenDist, screenWidth,screenHeight,0.75,0.75);
+        rays.add(r3);
+        Ray r4 = returnOneRay(Nx, Ny, i, j, screenDist, screenWidth,screenHeight,0.25,0.75);
+        rays.add(r4);
+        Ray r5 = returnOneRay(Nx, Ny, i, j, screenDist, screenWidth,screenHeight,0.75,0.25);
+        rays.add(r5);
         return rays;
     }
 
     /**
      * construct a ray through a pixel with an added x and y
+     *
      * @param Nx
      * @param Ny
      * @param i
@@ -142,13 +143,12 @@ public class Camera {
      * @param addY
      * @return
      */
-    private Ray returnOneRay(int Nx, int Ny, double i, double j, double screenDist, double screenWidth, double screenHeight, double addX, double addY)
-    {
+    private Ray returnOneRay(int Nx, int Ny, double i, double j, double screenDist, double screenWidth, double screenHeight, double addX, double addY) {
         Point3D pc = p0.add(vTo.scale(screenDist));
         double Rx = screenWidth / Nx;
         double Ry = screenHeight / Ny;
-        double Pi = (i - (double) Nx / 2) * Rx + Rx*addX;
-        double Pj = (j - (double) Ny / 2) * Ry + Ry*addY;
+        double Pi = (i - (double) Nx / 2) * Rx + Rx * addX;
+        double Pj = (j - (double) Ny / 2) * Ry + Ry * addY;
         Point3D p = pc;
         if (Pi != 0)
             p = p.add(vRight.scale(Pi));
@@ -156,5 +156,4 @@ public class Camera {
             p = p.add(vUp.scale(-Pj));
         return new Ray(p.subtract(p0), p0);
     }
-
 }

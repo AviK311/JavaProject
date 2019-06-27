@@ -12,6 +12,7 @@ public interface Intersectable {
 
         /**
          * ctor with params
+         *
          * @param geo
          * @param point
          */
@@ -21,9 +22,9 @@ public interface Intersectable {
         }
     }
 
-
     /**
      * returns all the points of the object that intersect with myRay
+     *
      * @param myRay
      * @return list of points
      */
@@ -31,36 +32,42 @@ public interface Intersectable {
 
     /**
      * max x point of the shape
+     *
      * @return
      */
     double getMaxX();
 
     /**
      * mix x point of the shape
+     *
      * @return
      */
     double getMinX();
 
     /**
      * max y point of the shape
+     *
      * @return
      */
     double getMaxY();
 
     /**
      * mix y point of the shape
+     *
      * @return
      */
     double getMinY();
 
     /**
      * max z point of the shape
+     *
      * @return
      */
     double getMaxZ();
 
     /**
      * miz z point of the shape
+     *
      * @return
      */
     double getMinZ();

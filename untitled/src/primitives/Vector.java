@@ -1,7 +1,5 @@
 package primitives;
 
-import java.util.Objects;
-
 public class Vector {
     private Point3D head;
 
@@ -11,8 +9,8 @@ public class Vector {
      * @param head direction of the vector
      */
     public Vector(Point3D head) {
-       if (head.equals(Point3D.ORIGIN_POINT))
-           throw new IllegalArgumentException("Zero vector is not allowed");
+        if (head.equals(Point3D.ORIGIN_POINT))
+            throw new IllegalArgumentException("Zero vector is not allowed");
         this.head = new Point3D(head);
     }
 
@@ -44,7 +42,6 @@ public class Vector {
     public Point3D getHead() {
         return head;
     }
-
 //    public void setHead(Point3D head) {
 //        this.head = head;
 //    }
@@ -67,8 +64,6 @@ public class Vector {
         Vector vector = (Vector) o;
         return head.equals(vector.head);
     }
-
-
 
     @Override
     public String toString() {
@@ -113,15 +108,16 @@ public class Vector {
 
     /**
      * return a new vector with the requested length
+     *
      * @param scalingFactor
      * @return
      */
-    public Vector rescale(double scalingFactor){
+    public Vector rescale(double scalingFactor) {
         return new Vector(this).normalize().scale(scalingFactor);
     }
 
-    public double getAngle(Vector other){
-        return Math.acos(this.dotProduct(other)/(this.length()*other.length()));
+    public double getAngle(Vector other) {
+        return Math.acos(this.dotProduct(other) / (this.length() * other.length()));
     }
 
     /**
@@ -152,6 +148,7 @@ public class Vector {
         double k = head.x.get() * vector.head.y.get() - head.y.get() * vector.head.x.get();
         return new Vector(i, j, k);
     }
+
     /**
      * dot product between two vectors
      *
@@ -164,6 +161,4 @@ public class Vector {
         double _z = head.z.get() * vector.head.z.get();
         return _x + _y + _z;
     }
-
-
 }

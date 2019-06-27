@@ -2,7 +2,6 @@ package geometries;
 
 import primitives.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Triangle extends Plane {
@@ -28,8 +27,8 @@ public class Triangle extends Plane {
         this.p3 = new Point3D(p3);
     }
 
-    public Triangle(Color emission, int Shininess, double Kd, double Ks,double Kr, double Kt, Point3D p1, Point3D p2, Point3D p3) {
-        super(emission, Shininess, Kd, Ks,Kr, Kt, p1, p1.subtract(p2).crossProduct(p1.subtract(p3)));
+    public Triangle(Color emission, int Shininess, double Kd, double Ks, double Kr, double Kt, Point3D p1, Point3D p2, Point3D p3) {
+        super(emission, Shininess, Kd, Ks, Kr, Kt, p1, p1.subtract(p2).crossProduct(p1.subtract(p3)));
         this.p2 = p2;
         this.p3 = p3;
     }
@@ -39,8 +38,6 @@ public class Triangle extends Plane {
         this.p2 = p2;
         this.p3 = p3;
     }
-
-
 
     /**
      * @return p2
@@ -71,7 +68,7 @@ public class Triangle extends Plane {
         Vector v1 = p1.subtract(rayHead); // T1 - P0
         Vector v2 = p2.subtract(rayHead); // T2 - P0
         Vector v3 = p3.subtract(rayHead); // T3 - P0
-        if (v1.equals(ray.getDirection()) ||v2.equals(ray.getDirection())||v3.equals(ray.getDirection()))
+        if (v1.equals(ray.getDirection()) || v2.equals(ray.getDirection()) || v3.equals(ray.getDirection()))
             return null;
         Vector N1 = v2.crossProduct(v1).normalize(); // v2 x v1 / |v2 x v1|
         Vector N2 = v1.crossProduct(v3).normalize(); // v1 x v3 / |v1 x v3|

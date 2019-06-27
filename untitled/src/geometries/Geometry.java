@@ -1,21 +1,25 @@
 package geometries;
 
-
-import primitives.*;
+import primitives.Color;
+import primitives.Material;
+import primitives.Point3D;
+import primitives.Vector;
 
 public abstract class Geometry implements Intersectable {
     /**
      * ctor with material as a param
+     *
      * @param color
      * @param _material
      */
-    public Geometry(Color color,Material _material) {
+    public Geometry(Color color, Material _material) {
         this._material = _material;
         this.emission = color;
     }
 
     /**
      * returns the emission
+     *
      * @return emission
      */
     public Color getEmission() {
@@ -30,6 +34,7 @@ public abstract class Geometry implements Intersectable {
 
     /**
      * returns the normal vector from a specific point on the geometry
+     *
      * @param p
      * @return normal vector
      */
@@ -37,15 +42,16 @@ public abstract class Geometry implements Intersectable {
 
     /**
      * return the shininess of the geometry
+     *
      * @return shininess
      */
     public int getnShininess() {
         return _material.getnShininess();
     }
 
-
     /**
      * return the material of the geometry
+     *
      * @return material
      */
     public Material get_material() {
@@ -63,6 +69,7 @@ public abstract class Geometry implements Intersectable {
 
     /**
      * ctor with color
+     *
      * @param emission
      */
     public Geometry(Color emission) {
@@ -71,6 +78,7 @@ public abstract class Geometry implements Intersectable {
 
     /**
      * params ctor
+     *
      * @param emission
      * @param Shininess
      * @param _Kd

@@ -5,10 +5,11 @@ import primitives.*;
 import java.util.List;
 
 public class Square extends Plane {
-    Point3D  p2, p3, p4;
+    Point3D p2, p3, p4;
 
     /**
      * ctor with material fields as params
+     *
      * @param emission
      * @param Shininess
      * @param _Kd
@@ -25,21 +26,27 @@ public class Square extends Plane {
                   Point3D P1, Vector v1,
                   Vector v2, double length) {
         super(emission, Shininess, _Kd, _Ks, _Kr, _Kt, P1, v1.crossProduct(v2));
-        if (v1.dotProduct(v2)!=0)
+        if (v1.dotProduct(v2) != 0)
             throw new IllegalArgumentException("the vectors are not orthogonal");
         v1 = v1.rescale(length);
         v2 = v2.rescale(length);
         p2 = p1.add(v1);
         p4 = p1.add(v2);
         p3 = p4.add(v1);
+    }
 
-
-
-
+    public Square(Color emission, int Shininess,
+                  double _Kd, double _Ks, double _Kr, double _Kt,
+                  Point3D P1, Point3D P2, Point3D P3, Point3D P4) {
+        super(emission, Shininess, _Kd, _Ks, _Kr, _Kt, P1, P1.subtract(P2).crossProduct(P1.subtract(P4)));
+        p2 = P2;
+        p4 = P3;
+        p3 = P4;
     }
 
     /**
      * ctor with material as a param
+     *
      * @param emission
      * @param material
      * @param P1
@@ -50,8 +57,8 @@ public class Square extends Plane {
     public Square(Color emission, Material material,
                   Point3D P1, Vector v1,
                   Vector v2, double length) {
-        super(emission,material, P1, v1.crossProduct(v2));
-        if (v1.dotProduct(v2)!=0)
+        super(emission, material, P1, v1.crossProduct(v2));
+        if (v1.dotProduct(v2) != 0)
             throw new IllegalArgumentException("the vectors are not orthogonal");
         v1 = v1.rescale(length);
         v2 = v2.rescale(length);
@@ -62,6 +69,7 @@ public class Square extends Plane {
 
     /**
      * ctor made for enclosing the circle
+     *
      * @param P1
      * @param v1
      * @param v2
@@ -70,17 +78,13 @@ public class Square extends Plane {
     public Square(Point3D P1, Vector v1,
                   Vector v2, double length) {
         super(P1, v1.crossProduct(v2));
-        if (v1.dotProduct(v2)!=0)
+        if (v1.dotProduct(v2) != 0)
             throw new IllegalArgumentException("the vectors are not orthogonal");
         v1 = v1.rescale(length);
         v2 = v2.rescale(length);
         p2 = p1.add(v1);
         p4 = p1.add(v2);
         p3 = p4.add(v1);
-
-
-
-
     }
 
     @Override
@@ -94,7 +98,7 @@ public class Square extends Plane {
         Vector v2 = p2.subtract(rayHead);
         Vector v3 = p3.subtract(rayHead);
         Vector v4 = p4.subtract(rayHead);
-        if (v1.equals(ray.getDirection()) ||v2.equals(ray.getDirection())||v3.equals(ray.getDirection()))
+        if (v1.equals(ray.getDirection()) || v2.equals(ray.getDirection()) || v3.equals(ray.getDirection()))
             return null;
         Vector N1 = v2.crossProduct(v1).normalize();
         Vector N2 = v3.crossProduct(v2).normalize();

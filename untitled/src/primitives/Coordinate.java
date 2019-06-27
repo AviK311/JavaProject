@@ -1,4 +1,5 @@
 package primitives;
+
 import static primitives.Util.*;
 
 public final class Coordinate {
@@ -6,10 +7,10 @@ public final class Coordinate {
     protected double _coord;
 
     public static Coordinate ZERO = new Coordinate(0.0);
-
     /********** Constructors ***********/
     /**
      * ctor with double
+     *
      * @param coord
      */
     public Coordinate(double coord) {
@@ -19,15 +20,14 @@ public final class Coordinate {
 
     /**
      * copy ctor
+     *
      * @param other
      */
     public Coordinate(Coordinate other) {
         _coord = other._coord;
     }
-
     /************** Getters/Setters *******/
     /**
-     *
      * @return coordinate
      */
     public double get() {
@@ -40,17 +40,17 @@ public final class Coordinate {
         if (this == obj) return true;
         if (obj == null) return false;
         if (!(obj instanceof Coordinate)) return false;
-        return usubtract(_coord, ((Coordinate)obj)._coord) == 0.0;
+        return usubtract(_coord, ((Coordinate) obj)._coord) == 0.0;
     }
 
     @Override
     public String toString() {
         return "" + _coord;
     }
-
     /************** Operations ***************/
     /**
      * subtract other coordinate from this
+     *
      * @param other
      * @return return new coordinate
      */
@@ -60,6 +60,7 @@ public final class Coordinate {
 
     /**
      * add two coordinates
+     *
      * @param other to add to this
      * @return new coordinate
      */
@@ -69,6 +70,7 @@ public final class Coordinate {
 
     /**
      * scales a coordinate
+     *
      * @param num value to scale by
      * @return scaled coordinate
      */
@@ -79,5 +81,4 @@ public final class Coordinate {
     public Coordinate multiply(Coordinate other) {
         return new Coordinate(uscale(_coord, other._coord));
     }
-
 }

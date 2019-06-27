@@ -11,6 +11,7 @@ public class Plane extends Geometry {
 
     /**
      * ctor with material as a param
+     *
      * @param emission
      * @param material
      * @param p1
@@ -35,6 +36,7 @@ public class Plane extends Geometry {
 
     /**
      * ctor with emission
+     *
      * @param emission
      * @param p1
      * @param normal
@@ -47,6 +49,7 @@ public class Plane extends Geometry {
 
     /**
      * ctor with material params
+     *
      * @param emission
      * @param Shininess
      * @param _Kd
@@ -54,7 +57,7 @@ public class Plane extends Geometry {
      * @param p1
      * @param normal
      */
-    public Plane(Color emission, int Shininess, double _Kd, double _Ks,double _Kr, double _Kt, Point3D p1, Vector normal) {
+    public Plane(Color emission, int Shininess, double _Kd, double _Ks, double _Kr, double _Kt, Point3D p1, Vector normal) {
         super(emission, Shininess, _Kd, _Ks, _Kr, _Kt);
         this.p1 = p1;
         this.normal = normal.normalize();
@@ -62,6 +65,7 @@ public class Plane extends Geometry {
 
     /**
      * ctor with material params
+     *
      * @param emission
      * @param Shininess
      * @param _Kd
@@ -70,7 +74,7 @@ public class Plane extends Geometry {
      * @param p2
      * @param p3
      */
-    public Plane(Color emission, int Shininess, double _Kd, double _Ks,double _Kr, double _Kt, Point3D p1, Point3D p2, Point3D p3) {
+    public Plane(Color emission, int Shininess, double _Kd, double _Ks, double _Kr, double _Kt, Point3D p1, Point3D p2, Point3D p3) {
         super(emission, Shininess, _Kd, _Ks, _Kr, _Kt);
         Vector v1 = p1.subtract(p2);//if p1==p2, a zero vector constructor attempt exception will be thrown
         Vector v2 = p1.subtract(p3);//if p1==p3, a zero vector constructor attempt exception will be thrown
@@ -78,7 +82,6 @@ public class Plane extends Geometry {
         this.normal = v1.crossProduct(v2).normalize();//if the 3 dots are on the same line,
         // the crossproduct function will throw a zero vector constructor attempt exception
     }
-
 
     /**
      * ctor with point params
@@ -114,7 +117,6 @@ public class Plane extends Geometry {
         return normal;
     }
 
-
     @Override
     public List<GeoPoint> findIntersections(Ray ray) {
         List<GeoPoint> intersectionPoints = new ArrayList<>();
@@ -127,10 +129,9 @@ public class Plane extends Geometry {
             if (t > 0) {
                 Point3D p = ray.getHead().add(ray.getDirection().scale(t));
                 intersectionPoints.add(new GeoPoint(this, p));
-
             }
         }
-        if (intersectionPoints.size()==0)
+        if (intersectionPoints.size() == 0)
             return null;
         return intersectionPoints;
     }

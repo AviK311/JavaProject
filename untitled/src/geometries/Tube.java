@@ -11,6 +11,7 @@ public class Tube extends RadialGeometry {
 
     /**
      * ctor with params
+     *
      * @param radius
      * @param axisDirection
      */
@@ -20,7 +21,6 @@ public class Tube extends RadialGeometry {
     }
 
     /**
-     *
      * @return axisDirection
      */
     public Vector getAxisDirection() {

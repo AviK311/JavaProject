@@ -106,7 +106,6 @@ public class Geometries implements Intersectable {
             min_Z = Math.min(min_Z, z);
         }
 
-
         private boolean checkPlane(Ray ray, double x_, double y_, double z_, Vector vector) {
             Plane boundaryPlane = new Plane(new Point3D(x_, y_, z_), vector);
             List<Intersectable.GeoPoint> intersectionList = boundaryPlane.findIntersections(ray);
@@ -181,7 +180,6 @@ public class Geometries implements Intersectable {
                         && z > min_Z && z < max_Z)
                     return true;
             }
-
             //max z plane
             boundaryPlane = new Plane(new Point3D(max_X, max_Y, max_Z), new Vector(0, 0, 1));
             intersectionList = boundaryPlane.findIntersections(ray);
@@ -202,9 +200,7 @@ public class Geometries implements Intersectable {
                         && y > min_Y && y < max_Y)
                     return true;
             }
-
             return false;
-
         }
     }
 
@@ -244,7 +240,6 @@ public class Geometries implements Intersectable {
                 geometriesList.add(i);
             subGeometries = subGeometries.subGeometries;
         }
-
     }
 
     /**
@@ -267,7 +262,6 @@ public class Geometries implements Intersectable {
         }
     }
 
-
     @Override
     public List<GeoPoint> findIntersections(Ray myRay) {
         if (geometriesList == null) return null;
@@ -279,7 +273,6 @@ public class Geometries implements Intersectable {
         }
         if (subGeometries != null && subGeometries.checkBoundaries(myRay))
             allIntersections.addAll(subGeometries.findIntersections(myRay));
-
         return allIntersections;
     }
 
@@ -340,11 +333,9 @@ public class Geometries implements Intersectable {
         maxX = Double.max(maxX, intersectable.getMaxX());
         maxY = Double.max(maxY, intersectable.getMaxY());
         maxZ = Double.max(maxZ, intersectable.getMaxZ());
-
         minX = Double.min(minX, intersectable.getMinX());
         minY = Double.min(minY, intersectable.getMinY());
         minZ = Double.min(minZ, intersectable.getMinZ());
-
         double newBoxSize = (maxX - minX) * (maxY - minY) * (maxZ - minZ);
         return newBoxSize - boxSize;
     }

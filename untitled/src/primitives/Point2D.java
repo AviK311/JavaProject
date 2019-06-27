@@ -8,6 +8,7 @@ public class Point2D {
 
     /**
      * ctor with coordinate params
+     *
      * @param x
      * @param y
      */
@@ -18,6 +19,7 @@ public class Point2D {
 
     /**
      * ctor with double params
+     *
      * @param x
      * @param y
      */
@@ -28,6 +30,7 @@ public class Point2D {
 
     /**
      * copy ctor
+     *
      * @param other
      */
     public Point2D(Point2D other) {
@@ -36,30 +39,24 @@ public class Point2D {
     }
 
     /**
-     *
      * @return coordinate x
      */
     public Coordinate getX() {
         return x;
     }
-
 //    public void setX(Coordinate x) {
 //        this.x = x;
 //    }
 
     /**
-     *
      * @return coordinate y
      */
     public Coordinate getY() {
         return y;
     }
-
 //    public void setY(Coordinate y) {
 //        this.y = y;
 //    }
-
-
 
     @Override
     public int hashCode() {

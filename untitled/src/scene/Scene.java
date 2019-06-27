@@ -3,14 +3,14 @@ package scene;
 import elements.AmbientLight;
 import elements.Camera;
 import elements.LightSource;
-import geometries.*;
+import geometries.Geometries;
+import geometries.Intersectable;
+import geometries.Plane;
 import primitives.Color;
-import primitives.Point3D;
 import primitives.Ray;
-import primitives.Vector;
 
-import java.util.*;
-
+import java.util.LinkedList;
+import java.util.List;
 
 public class Scene {
     String sceneName;
@@ -23,6 +23,7 @@ public class Scene {
 
     /**
      * get list of lights
+     *
      * @return list
      */
     public List<LightSource> getLights() {
@@ -31,26 +32,29 @@ public class Scene {
 
     /**
      * checks whether the ray intersects with the scene
+     *
      * @param ray
      * @return
      */
-    public boolean checkBoundaries(Ray ray){
+    public boolean checkBoundaries(Ray ray) {
         return nonPlaneGeometries.checkBoundaries(ray);
     }
+
     List<LightSource> lights = new LinkedList<>();
 
     /**
      * ctor with name
+     *
      * @param name
      */
     public Scene(String name) {
         this.sceneName = name;
         this.background = Color.BLACK;
-
     }
 
     /**
      * return name
+     *
      * @return
      */
     public String getSceneName() {
@@ -59,6 +63,7 @@ public class Scene {
 
     /**
      * return background color
+     *
      * @return
      */
     public Color getBackground() {
@@ -67,6 +72,7 @@ public class Scene {
 
     /**
      * get ambient light
+     *
      * @return
      */
     public AmbientLight getAmbientLight() {
@@ -75,6 +81,7 @@ public class Scene {
 
     /**
      * set ambient light
+     *
      * @param ambientLight
      */
     public void setAmbientLight(AmbientLight ambientLight) {
@@ -83,6 +90,7 @@ public class Scene {
 
     /**
      * functio
+     *
      * @param type if 0, returns the nonPlane list. else, returns the plane list.
      * @return
      */
@@ -94,6 +102,7 @@ public class Scene {
 
     /**
      * returns the camera
+     *
      * @return
      */
     public elements.Camera getCamera() {
@@ -102,6 +111,7 @@ public class Scene {
 
     /**
      * sets the camera
+     *
      * @param camera
      */
     public void setCamera(Camera camera) {
@@ -110,6 +120,7 @@ public class Scene {
 
     /**
      * gets the distance of the camera from the screen
+     *
      * @return
      */
     public double getScreenDistance() {
@@ -118,6 +129,7 @@ public class Scene {
 
     /**
      * sets the distance of the camera from the screen
+     *
      * @param screenDistance
      */
     public void setScreenDistance(double screenDistance) {
@@ -126,20 +138,20 @@ public class Scene {
 
     /**
      * add geometry or geometries to respective lists
+     *
      * @param geos
      */
     public void addGeometry(Intersectable... geos) {
-        for (Intersectable g:geos){
-                if ((g.getClass().equals(Plane.class)))
-                    planes.add(g);
-                nonPlaneGeometries.add(g);
-            }
-
+        for (Intersectable g : geos) {
+            if ((g.getClass().equals(Plane.class)))
+                planes.add(g);
+            nonPlaneGeometries.add(g);
         }
-
+    }
 
     /**
      * add light or lights to the scene
+     *
      * @param light
      */
     public void addLight(LightSource... light) {
@@ -158,6 +170,4 @@ public class Scene {
                 ", scrnDist=" + screenDistance +
                 '}';
     }
-
-
 }

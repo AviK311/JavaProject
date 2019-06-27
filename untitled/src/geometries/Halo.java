@@ -15,6 +15,7 @@ public class Halo extends HalfSphere {
 
     /**
      * ctor with params
+     *
      * @param emission
      * @param Shininess
      * @param _Kd
@@ -29,7 +30,7 @@ public class Halo extends HalfSphere {
     public Halo(Color emission, int Shininess, double _Kd, double _Ks, double _Kr, double _Kt, double radius, Vector holeDirection, Point3D center, double distance) {
         super(emission, Shininess, _Kd, _Ks, _Kr, _Kt, radius, holeDirection, center, distance);
         holePoint2 = center.add(holeDirection.rescale(-radius));
-        if (distance*distance >= 2*radius*radius)
+        if (distance * distance >= 2 * radius * radius)
             throw new IllegalArgumentException("No invisible Spheres!");
     }
 
@@ -37,7 +38,7 @@ public class Halo extends HalfSphere {
     public List<GeoPoint> findIntersections(Ray myRay) {
         List<GeoPoint> superList = super.findIntersections(myRay);
         if (superList == null) return null;
-        superList.removeIf(gp->gp.point.distance(holePoint2)<distance);
+        superList.removeIf(gp -> gp.point.distance(holePoint2) < distance);
         if (superList.isEmpty()) return null;
         return superList;
     }
